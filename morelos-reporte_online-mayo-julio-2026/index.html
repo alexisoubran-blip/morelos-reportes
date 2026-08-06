@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Performance Marketing & Social Media de Supermercados Morelos, mayo a julio de 2026." />
+  <title>Performance Marketing & Social Media - Mayo a Julio 2026</title>
+  <link rel="icon" href="assets/morelos-logo.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Supermercados Morelos">
+      <img src="assets/morelos-logo.png" alt="Morelos Supermercados" />
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#performance">Performance</a>
+      <a href="#agency">Agencias</a>
+      <a href="#social-media">Social Media</a>
+      <a href="#campaigns">Campañas</a>
+    </nav>
+    <button class="ghost-button" id="downloadCsv">Exportar Performance</button>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <span class="eyebrow">Supermercados Morelos · Reporte ejecutivo</span>
+        <h1>Performance Marketing &amp; Social Media - Mayo a Julio 2026</h1>
+        <p>Lectura integrada de inversión, alcance, tráfico, eficiencia, publicaciones, views y engagement por agencia, canal, objetivo, campaña, plataforma y formato.</p>
+        <div class="hero-tags">
+          <span>WDM + Sensis</span><span>Meta Ads + Google Ads</span><span>Facebook + Instagram + TikTok</span><span>USD</span>
+        </div>
+      </div>
+      <div class="hero-kpis" id="heroKpis" aria-label="KPIs principales de Performance"></div>
+    </section>
+
+    <section class="filters shell" aria-label="Filtros de Performance Marketing">
+      <div class="filter-heading">
+        <div>
+          <span class="section-kicker">Performance Marketing</span>
+          <h2>Filtros de inversión y medios</h2>
+        </div>
+        <button class="text-button" id="resetFilters">Restablecer</button>
+      </div>
+      <div class="filter-grid">
+        <label>Mes<select id="filterMonth"></select></label>
+        <label>Agencia<select id="filterAgency"></select></label>
+        <label>Canal<select id="filterPlatform"></select></label>
+        <label>Objetivo<select id="filterObjective"></select></label>
+        <label>Campaña / categoría<select id="filterCategory"></select></label>
+      </div>
+      <div class="filter-status" id="filterStatus"></div>
+    </section>
+
+    <section class="shell report-section" id="performance">
+      <div class="section-heading">
+        <div><span class="section-kicker">Resultado económico y presión de campaña</span><h2>Performance Marketing</h2></div>
+        <span class="section-note">Los results mezclan acciones distintas; conversiones y ventas deben validarse con su definición y fuente comercial.</span>
+      </div>
+      <div class="kpi-grid" id="kpiGrid"></div>
+      <div class="insight-strip" id="insightStrip"></div>
+      <div class="chart-grid two-thirds">
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Tendencia semanal</span><h3>Inversión vs impresiones vs clicks</h3></div><small>Mayo–Julio</small></div>
+          <div class="chart weekly-chart" id="weeklyChart"></div>
+        </article>
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Capital allocation</span><h3>Mix de inversión por campaña</h3></div><small>Share</small></div>
+          <div class="chart" id="categoryChart"></div>
+        </article>
+      </div>
+      <div class="chart-grid halves">
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Canales</span><h3>Inversión, tráfico y eficiencia</h3></div><small>Meta vs Google</small></div>
+          <div id="channelComparison"></div>
+        </article>
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Distribución</span><h3>Spend vs CTR por campaña</h3></div><small>Tamaño = conversiones</small></div>
+          <div class="chart" id="scatterChart"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell report-section tinted" id="agency">
+      <div class="section-heading">
+        <div><span class="section-kicker">Responsabilidad y eficiencia</span><h2>Contribución por agencia</h2></div>
+        <span class="section-note">La comparación mantiene outcomes de intención, cobertura y tráfico dentro de su objetivo.</span>
+      </div>
+      <div class="agency-grid" id="agencyCards"></div>
+      <div class="chart-grid halves">
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Mix de agencia</span><h3>Inversión por categoría</h3></div><small>USD</small></div>
+          <div class="chart" id="agencyCategoryChart"></div>
+        </article>
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Comparativo equivalente</span><h3>Eficiencia en Meta Ads</h3></div><small>WDM vs Sensis</small></div>
+          <div id="agencyOutcome"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell report-section" id="objectives">
+      <div class="section-heading">
+        <div><span class="section-kicker">Objetivos de campaña</span><h2>Presión, intención y calidad de señal</h2></div>
+        <span class="section-note">CPM, CTR y CPC se comparan dentro de objetivos equivalentes.</span>
+      </div>
+      <div class="objective-grid" id="objectiveCards"></div>
+      <article class="card table-card">
+        <div class="card-title"><div><span>Lectura por objetivo</span><h3>Spend, delivery y response rate</h3></div></div>
+        <div class="table-wrap"><table id="objectiveTable"></table></div>
+      </article>
+    </section>
+
+    <section class="shell report-section tinted" id="paid-social">
+      <div class="section-heading">
+        <div><span class="section-kicker">Paid creative performance</span><h2>Creativos y productos pautados</h2></div>
+        <span class="section-note">Este bloque corresponde a Meta Ads y conserva la taxonomía de Performance Marketing.</span>
+      </div>
+      <div class="chart-grid two-thirds reverse">
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Creative ranking</span><h3>Top anuncios por inversión</h3></div><small>Meta Ads</small></div>
+          <div class="creative-list" id="creativeList"></div>
+        </article>
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Contenido</span><h3>Mix paid social por categoría</h3></div><small>Spend</small></div>
+          <div class="chart" id="socialCategoryChart"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell report-section social-section" id="social-media">
+      <div class="section-heading">
+        <div><span class="section-kicker">Facebook · Instagram · TikTok</span><h2>Social Media</h2></div>
+        <span class="section-note">ER recalculado como interacciones / views. Facebook “Multi media” se normaliza como Carousel.</span>
+      </div>
+
+      <div class="social-filter-panel">
+        <div class="social-filter-grid">
+          <label>Mes<select id="socialFilterMonth"></select></label>
+          <label>Plataforma<select id="socialFilterPlatform"></select></label>
+          <label>Formato<select id="socialFilterFormat"></select></label>
+          <label>Buscar post<input id="socialSearch" type="search" placeholder="Helado, Mundial, Marinados…" /></label>
+        </div>
+        <div class="social-filter-actions">
+          <span id="socialFilterStatus"></span>
+          <button class="text-button" id="socialResetFilters">Restablecer</button>
+          <button class="ghost-button compact-button" id="downloadSocialCsv">Exportar Social</button>
+        </div>
+      </div>
+
+      <div class="social-kpi-grid" id="socialKpis"></div>
+
+      <div class="section-subheading">
+        <div><span>Rendimiento por plataforma</span><h3>Volumen, views y engagement rate</h3></div>
+      </div>
+      <div class="platform-performance-grid" id="socialPlatformCards"></div>
+
+      <div class="chart-grid social-timeline-grid">
+        <article class="card chart-card social-timeline-card">
+          <div class="card-title"><div><span>Timeline semanal</span><h3>Cantidad de posts vs views vs ER</h3></div><small>Mayo–Julio</small></div>
+          <div class="chart social-timeline" id="socialTimelineChart"></div>
+        </article>
+        <article class="card chart-card">
+          <div class="card-title"><div><span>Format performance</span><h3>Mejor formato</h3></div><small>ER ponderado</small></div>
+          <div id="bestFormatSummary"></div>
+          <div class="chart" id="formatPerformanceChart"></div>
+        </article>
+      </div>
+
+      <div class="social-ranking-grid">
+        <article class="card ranking-card">
+          <div class="card-title"><div><span>Top content</span><h3>Mejores posteos por views</h3></div><small>Ranking</small></div>
+          <div class="social-post-list" id="topPostsViews"></div>
+        </article>
+        <article class="card ranking-card">
+          <div class="card-title"><div><span>Response quality</span><h3>Mejores posteos por engagement rate</h3></div><small>Mínimo 250 views</small></div>
+          <div class="social-post-list" id="topPostsEr"></div>
+        </article>
+      </div>
+
+      <article class="card table-card social-table-card">
+        <div class="card-title"><div><span>Detalle de contenido</span><h3>Posts del periodo seleccionado</h3></div><small id="socialPostCount"></small></div>
+        <div class="table-wrap"><table id="socialPostTable"></table></div>
+      </article>
+
+      <div class="measurement-note">
+        <b>Nota de medición:</b> las publicaciones exportadas conjuntamente para Facebook e Instagram permanecen como “Facebook + Instagram” para evitar duplicar resultados. Los componentes “from ads” se conservan en el dataset y el ER se calcula con el total reportado de views.
+      </div>
+    </section>
+
+    <section class="shell report-section" id="campaigns">
+      <div class="section-heading">
+        <div><span class="section-kicker">Detalle auditable</span><h2>Campañas activas</h2></div>
+        <span class="section-note">Ordena, busca y exporta el corte filtrado.</span>
+      </div>
+      <article class="card table-card">
+        <div class="table-controls">
+          <label class="search-field">Buscar campaña<input id="campaignSearch" type="search" placeholder="Ofertón, Mundial, AON…" /></label>
+          <span id="campaignCount"></span>
+        </div>
+        <div class="table-wrap"><table id="campaignTable"></table></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <div class="brand footer-brand"><img src="assets/morelos-logo.png" alt="Morelos Supermercados" /></div>
+    <p>Performance Marketing &amp; Social Media - Mayo a Julio 2026</p>
+  </footer>
+
+  <script src="data/report-data.js"></script>
+  <script src="data/social-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
