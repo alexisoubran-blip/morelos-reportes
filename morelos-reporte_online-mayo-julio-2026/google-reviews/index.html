@@ -5,3 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Google Reviews Listening de Supermercados Morelos: ratings, muestra codificada, temas, alertas, benchmark y acciones." />
   <title>Google Reviews Listening | Supermercados Morelos</title>
+  <link rel="icon" href="../assets/morelos-logo.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../"><img src="../assets/morelos-logo.png" alt="Morelos Supermercados" /></a>
+    <nav>
+      <a href="#overview">Overview</a><a href="#stores">Sucursales</a><a href="#topics">Temas</a><a href="#alerts">Alertas</a><a href="#benchmark">Benchmark</a><a href="#actions">Acciones</a>
+    </nav>
+    <a class="ghost-button" href="#methodology">Metodología</a>
+  </header>
+
+  <main>
+    <section class="hero shell" id="overview">
+      <div class="hero-copy">
+        <span class="eyebrow">Supermercados Morelos · Google Reviews</span>
+        <h1>Reputación local y experiencia de tienda</h1>
+        <p>Lectura consolidada de las 11 fichas oficiales, con ratings de Google, una muestra codificada de 55 reseñas, temas recurrentes, alertas operativas y benchmark competitivo.</p>
+        <div class="hero-tags"><span>Google Maps</span><span>11 sucursales</span><span>8,018 calificaciones</span><span>Corte 11 ago 2026</span></div>
+      </div>
+      <div class="hero-kpis" id="heroKpis"></div>
+    </section>
+
+    <section class="shell data-note">
+      <b>Lectura correcta:</b> el rating y volumen corresponden al total visible en Google por ficha. El sentiment cualitativo y los temas provienen de <b>55 reseñas codificadas, 5 por sucursal</b>; son direccionales y no representan el universo completo de textos.
+    </section>
+
+    <section class="shell report-section">
+      <div class="section-heading"><div><span class="section-kicker">Cadena</span><h2>Resumen ejecutivo</h2></div><span class="section-note">Datos observados, sin extrapolar la muestra textual al total de calificaciones.</span></div>
+      <div class="kpi-grid" id="summaryKpis"></div>
+      <div class="market-grid" id="marketGrid"></div>
+    </section>
+
+    <section class="shell report-section tinted" id="stores">
+      <div class="section-heading"><div><span class="section-kicker">11 fichas oficiales</span><h2>Comparativo por sucursal</h2></div><span class="section-note">Ordenado por rating; el Net Sentiment se calcula solo sobre 5 reseñas codificadas por tienda.</span></div>
+      <div class="controls"><label>Buscar<input id="storeSearch" type="search" placeholder="Harvard, Moore, 59th…" /></label><label>Mercado<select id="marketFilter"><option value="all">Todos</option><option>OKC Metro</option><option>Tulsa Metro</option></select></label></div>
+      <article class="card table-card"><div class="table-wrap"><table id="storeTable"></table></div></article>
+    </section>
+
+    <section class="shell report-section" id="topics">
+      <div class="section-heading"><div><span class="section-kicker">150 menciones temáticas</span><h2>Temas y sentimiento</h2></div><span class="section-note">Cada reseña puede contener hasta tres temas; por eso las menciones superan las 55 reseñas.</span></div>
+      <div class="topic-grid" id="topicGrid"></div>
+    </section>
+
+    <section class="shell report-section tinted" id="alerts">
+      <div class="section-heading"><div><span class="section-kicker">Riesgo observado</span><h2>Alertas críticas y patrones</h2></div><span class="section-note">Se distingue entre patrón de cadena e incidente localizado.</span></div>
+      <div class="alert-grid" id="alertGrid"></div>
+    </section>
+
+    <section class="shell report-section" id="benchmark">
+      <div class="section-heading"><div><span class="section-kicker">Competencia hispana local</span><h2>Benchmark de Google</h2></div><span class="section-note">Competidores directos de OKC Metro y Tulsa Metro, corte 11 de agosto de 2026.</span></div>
+      <article class="card table-card"><div class="table-wrap"><table id="benchmarkTable"></table></div></article>
+      <div class="benchmark-findings" id="benchmarkFindings"></div>
+    </section>
+
+    <section class="shell report-section tinted" id="actions">
+      <div class="section-heading"><div><span class="section-kicker">Recomendaciones</span><h2>Plan de acción priorizado</h2></div><span class="section-note">Impacto y esfuerzo son estimaciones para discusión; no son datos observados.</span></div>
+      <div class="action-filters"><button class="filter-chip active" data-horizon="all">Todas</button><button class="filter-chip" data-horizon="0-30 días">0–30 días</button><button class="filter-chip" data-horizon="30-60 días">30–60 días</button><button class="filter-chip" data-horizon="60-90 días">60–90 días</button><button class="filter-chip" data-horizon="90+ días">90+ días</button></div>
+      <div class="action-grid" id="actionGrid"></div>
+    </section>
+
+    <section class="shell report-section" id="methodology">
+      <div class="section-heading"><div><span class="section-kicker">Data integrity</span><h2>Metodología</h2></div></div>
+      <div class="method-grid">
+        <article><b>Ratings</b><p>Rating y número de calificaciones tomados de las fichas públicas de Google Business Profile al 11 de agosto de 2026.</p></article>
+        <article><b>Muestra textual</b><p>55 reseñas públicas parafraseadas y codificadas: 5 por cada una de las 11 sucursales.</p></article>
+        <article><b>Net Sentiment</b><p>(positivas − negativas) / reseñas codificadas. Es un indicador direccional de la muestra, no un score censal.</p></article>
+        <article><b>Temas</b><p>Cada review puede recibir hasta tres etiquetas temáticas. Los porcentajes negativos se calculan sobre menciones del tema.</p></article>
+        <article><b>Benchmark</b><p>Comparativo de fichas públicas de competidores locales; el promedio de competencia mostrado es simple, no ponderado.</p></article>
+        <article class="caution"><b>Limitación</b><p>No se infiere causalidad ni se extrapola la muestra de 55 textos al total de 8,018 calificaciones.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell"><img src="../assets/morelos-logo.png" alt="Morelos Supermercados" /><span>Google Reviews Listening · 11 agosto 2026</span><a href="../">Volver al reporte principal</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>
