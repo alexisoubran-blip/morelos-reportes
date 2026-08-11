@@ -1,134 +1,82 @@
-(async () => {
+(() => {
   const fmt = new Intl.NumberFormat('es-MX');
-  const pct = v => v == null ? '—' : `${(v * 100).toFixed(1)}%`;
-  const num = v => v == null || v === '' ? '—' : fmt.format(v);
-  const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  const sentimentEs = s => ({Positive:'Positivo',Negative:'Negativo',Mixed:'Mixto'}[s] || s);
-  const badgeSentiment = s => `<span class="badge ${s === 'Negative' ? 'negative' : s === 'Mixed' ? 'mixed' : ''}">${sentimentEs(s)}</span>`;
-  const severityBadge = s => `<span class="badge sev ${Number(s) >= 4 ? 'high' : ''}">Severidad ${esc(s)}/5</span>`;
+  const pct = v => `${(v * 100).toFixed(1)}%`;
+  const esc = v => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 
-  function parseCsv(text){
-    const rows=[]; let row=[], field='', quoted=false;
-    for(let i=0;i<text.length;i++){
-      const c=text[i], n=text[i+1];
-      if(c==='"' && quoted && n==='"'){field+='"';i++;continue}
-      if(c==='"'){quoted=!quoted;continue}
-      if(c===',' && !quoted){row.push(field);field='';continue}
-      if((c==='\n'||c==='\r') && !quoted){if(c==='\r'&&n==='\n')i++;row.push(field);field='';if(row.some(v=>v!==''))rows.push(row);row=[];continue}
-      field+=c;
-    }
-    if(field!==''||row.length){row.push(field);rows.push(row)}
-    const headers=rows.shift().map(h=>h.replace(/^\uFEFF/,''));
-    return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??''])));
-  }
-  const n = v => v === '' || v == null ? null : Number(v);
-
-  const topicMap = {
-    'Carnicería / Value':'Carnicería / valor','Prepared Food Quality':'Calidad de comida preparada','Cleanliness / Assortment / Value':'Limpieza / surtido / valor',
-    'Food Safety / Tortillas':'Inocuidad / tortillas','Assortment / Value / Fresh Prepared':'Surtido / valor / frescura preparada','Prepared Food / Authenticity':'Comida preparada / autenticidad',
-    'Training / Juice Bar Service':'Capacitación / servicio en jugos','Carnicería Service':'Servicio de carnicería','Meat Freshness / Refund Policy':'Frescura de carne / política de reembolso',
-    'Meat / Produce / Assortment':'Carnes / frutas y verduras / surtido','Service / Price / Meat Quality':'Servicio / precio / calidad de carne','Odor / Assortment':'Olor / surtido',
-    'Service / Overall Quality':'Servicio / calidad general','Tortilla Quality / Service Recovery':'Calidad de tortillas / recuperación de servicio','Prepared Food / Value':'Comida preparada / valor',
-    'Prepared Food / Bakery / Service':'Comida preparada / panadería / servicio','Assortment / Service':'Surtido / servicio','Prepared Food Quality / Availability':'Calidad / disponibilidad de comida preparada',
-    'Staffing / Service Speed / Management':'Dotación / velocidad de servicio / gestión','Cleanliness / Service / Assortment / Prepared Food':'Limpieza / servicio / surtido / comida preparada',
-    'Value / Service':'Valor / servicio','Price / Value':'Precio / valor','Produce / Meat':'Frutas y verduras / carnes','International Assortment':'Surtido internacional',
-    'Crowding / Shopper Experience':'Saturación / experiencia de compra','Prepared Food / Bakery / Experience':'Comida preparada / panadería / experiencia','Meat / Produce Consistency':'Carne / consistencia de frutas y verduras',
-    'Prepared Food':'Comida preparada','Assortment / Pantry':'Surtido / despensa'
-  };
-  const summariesEs = [
-    'Destaca una carnicería sólida y verduras que suelen tener precios más bajos.',
-    'Reporta que el chicharrón se enfrió, quedó aguado y perdió sabor pocos minutos después de la compra.',
-    'Describe la tienda como limpia, variada y accesible; señala que el restaurante dentro de la tienda agrega valor.',
-    'Reporta que tortillas compradas ese mismo día tenían moho visible y mal olor; lo plantea como una preocupación de salud.',
-    'La considera una tienda de referencia para productos latinos; menciona buenos precios, personal atento, guacamole fresco y salsa hecha a mano.',
-    'Destaca la autenticidad de la experiencia de comida mexicana dentro del supermercado.',
-    'Señala que la persona del área de jugos no sabía preparar los productos solicitados y lo atribuye a falta de capacitación.',
-    'Reporta trato descortés en carnicería después de interrumpir una conversación entre empleados.',
-    'Reporta que la carne olía vieja o en mal estado y que gerencia no realizó el reembolso sin ticket pese a evidencia del mismo día.',
-    'Destaca ingredientes mexicanos, cortes y marinados, además de frutas y verduras generalmente maduras y listas para usar.',
-    'Percibe precios altos, critica el servicio y el incumplimiento de solicitudes en deli; considera que un competidor ofrece mejor calidad.',
-    'Valora el surtido, pero señala un olor desagradable dentro de la tienda.',
-    'Califica positivamente la tienda y el servicio desde la entrada hasta cajas.',
-    'Critica la calidad de las tortillas y reporta que gerencia indicó que no podía hacer nada ante la queja.',
-    'Señala que un burrito tenía poco relleno para el precio y que no había salsas disponibles; indica que no regresaría.',
-    'Muy favorable hacia el área de comida, variedad, precios y panadería; también señala trato consistentemente amable.',
-    'Valora el amplio surtido y describe al personal como amable.',
-    'Señala que las carnitas ya no saben como antes y que un tipo de chicharrón no está disponible entre semana.',
-    'Reporta varias personas del equipo sin atender mientras una sola persona servía comida lentamente; atribuye el problema a la gestión de la sucursal y afirma que no regresará.',
-    'Describe el mercado como limpio y ordenado, con personal cordial, amplio surtido latino y buena comida preparada.',
-    'Destaca buenos precios y servicio.',
-    'Percibe los precios como altos frente a Walmart para productos comparables.',
-    'Destaca la frescura y variedad de frutas, verduras y carnes.',
-    'Valora poder encontrar productos de distintos países.',
-    'Señala que la sucursal suele estar saturada y describe una experiencia incómoda con otros compradores.',
-    'Describe la tienda como una experiencia de destino y destaca pan dulce, tamales y paletas.',
-    'Destaca la carne fresca, pero señala inconsistencia en la calidad de las verduras.',
-    'Destaca buenas opciones de comida durante el día.',
-    'Muestra histórica de Google: la describe como un buen lugar para comprar alimentos y abastecer la despensa.'
+  const stores = [
+    {name:'Supermercados Morelos Broken Arrow',city:'Broken Arrow',market:'Tulsa Metro',rating:4.6,reviews:611,coded:5,pos:4,neg:1,mix:0,net:.60,status:'Sano'},
+    {name:'Supermercados Morelos Moore',city:'Moore',market:'OKC Metro',rating:4.4,reviews:1282,coded:5,pos:3,neg:0,mix:2,net:.60,status:'Sano'},
+    {name:'Supermercados Morelos 129th',city:'Tulsa',market:'Tulsa Metro',rating:4.4,reviews:673,coded:5,pos:4,neg:1,mix:0,net:.60,status:'Sano'},
+    {name:'Supermercados Morelos Peoria',city:'Tulsa',market:'Tulsa Metro',rating:4.4,reviews:657,coded:5,pos:4,neg:1,mix:0,net:.60,status:'Sano'},
+    {name:'Supermercados Morelos 59th',city:'Oklahoma City',market:'OKC Metro',rating:4.3,reviews:1145,coded:5,pos:3,neg:1,mix:1,net:.40,status:'Estable'},
+    {name:'Supermercados Morelos 50th',city:'Oklahoma City',market:'OKC Metro',rating:4.3,reviews:880,coded:5,pos:5,neg:0,mix:0,net:1.00,status:'Estable'},
+    {name:'Supermercados Morelos MacArthur',city:'Oklahoma City',market:'OKC Metro',rating:4.3,reviews:219,coded:5,pos:3,neg:2,mix:0,net:.20,status:'Atención'},
+    {name:'Supermercados Morelos Garnett',city:'Tulsa',market:'Tulsa Metro',rating:4.3,reviews:921,coded:5,pos:5,neg:0,mix:0,net:1.00,status:'Estable'},
+    {name:'Supermercados Morelos (NW 23rd)',city:'Oklahoma City',market:'OKC Metro',rating:4.2,reviews:611,coded:5,pos:1,neg:2,mix:2,net:-.20,status:'Atención'},
+    {name:'Supermercados Morelos Harvard',city:'Tulsa',market:'Tulsa Metro',rating:4.2,reviews:996,coded:5,pos:1,neg:3,mix:1,net:-.40,status:'Atención'},
+    {name:'Supermercado Morelos (Admiral)',city:'Tulsa',market:'Tulsa Metro',rating:4.0,reviews:23,coded:5,pos:4,neg:1,mix:0,net:.60,status:'Atención'}
+  ];
+  const topics = [
+    ['Personal y trato',12,9,1,22,.409,.147,'P2 - Vigilar'],['Food service',12,5,2,19,.263,.127,'P3 - Amplificar'],['Carnicería',12,3,0,15,.20,.10,'P3 - Amplificar'],['Surtido y variedad',11,0,3,14,0,.093,'P3 - Amplificar'],['Precio y valor',11,1,1,13,.077,.087,'P3 - Amplificar'],['Frutas y verduras',11,0,1,12,0,.08,'P3 - Amplificar'],['Limpieza y orden',10,1,1,12,.083,.08,'P3 - Amplificar'],['Panadería',7,0,1,8,0,.053,'P3 - Amplificar'],['Idioma y señalización',5,1,2,8,.125,.053,'P3 - Amplificar'],['Políticas de tienda',0,7,0,7,1,.047,'P1 - Crítica'],['Autenticidad y nostalgia',5,0,1,6,0,.04,'P4 - Mantener'],['Checkout y filas',2,2,0,4,.50,.027,'P2 - Vigilar'],['Amenidades y servicios',2,2,0,4,.50,.027,'P2 - Vigilar'],['Frescura y caducidad',0,2,0,2,1,.013,'P1 - Crítica'],['Layout y espacio',1,0,1,2,0,.013,'P4 - Mantener'],['Disponibilidad en anaquel',2,0,0,2,0,.013,'P4 - Mantener']
+  ];
+  const alerts = [
+    ['Trato desigual percibido','Patrón de cadena','NW 23rd, MacArthur, Admiral','Tres reseñas independientes describen haber sido ignorados o atendidos después que otra persona llegada posteriormente.','Crítica'],
+    ['Frescura y caducidad','Operación / Calidad','129th, Harvard','Dos reseñas reportan productos en mal estado; ambas incluyen intención de no regresar.','Crítica'],
+    ['Cajas de Harvard','Operación / Front-end','Harvard','Tres de cinco reseñas codificadas de Harvard son negativas y apuntan a cajas, promociones o manejo de quejas.','Crítica'],
+    ['Manejo de animal de servicio','Riesgo legal','MacArthur','Una reseña describe cuestionamiento y seguimiento por parte de seguridad ante un animal de servicio.','Crítica'],
+    ['Barrera de idioma y señalización','Patrón de cadena','59th, Moore, Harvard, Broken Arrow','Cuatro reseñas mencionan fricción por idioma o señalización; Peoria muestra el contraste con atención bilingüe valorada.','Alta'],
+    ['Consistencia de receta en food service','Producto','59th, Moore, Peoria','Aparecen quejas sobre sabor, gramajes y discrepancia entre foto de menú y producto servido.','Alta'],
+    ['Mal olor reportado','Operación / Calidad','NW 23rd','Una reseña menciona mal olor y otra cuestiona limpieza percibida de equipo de cocción.','Alta'],
+    ['Awareness local bajo','Marketing','Peoria','Una reseña identifica la sucursal como un hallazgo poco conocido pese a su rating de 4.4.','Media'],
+    ['Ficha duplicada en corredor Admiral','GBP / Local SEO','Admiral','Se observan dos fichas activas cercanas con nombres y ratings distintos.','Alta'],
+    ['Nomenclatura inconsistente','GBP / Local SEO','Cadena','Conviven nombres en singular/plural y descriptores distintos entre fichas.','Media'],
+    ['Comisión por tarjeta en food service','Política comercial','Peoria','Una reseña negativa menciona la comisión como parte de la fricción de valor.','Media'],
+    ['Escalamiento de decisiones','Operación / Servicio','Broken Arrow, Harvard','Dos situaciones potencialmente recuperables terminaron en reseñas negativas por falta de solución o escalamiento.','Media']
+  ];
+  const benchmark = [
+    ['Feria Latina Supermarket','Oklahoma City',4.3,2385,-.03],['Feria Latina Supermarket','Oklahoma City',4.2,602,-.13],['Feria Latina Supermarket','Tulsa',4.5,172,.17],['Las Americas','Tulsa',4.0,1224,-.33],['Supermercados Las Americas International','Tulsa',4.1,323,-.23],['Supermercado La Cosecha & Restaurant Wholesale','Tulsa',4.5,30,.17],['Feria Latina Supermarket','Oklahoma City',4.7,14,.37],['Plaza del Caribe','Oklahoma City',4.9,23,.57],['Tienda Latina','Tulsa',3.5,15,-.83]
+  ];
+  const actions = [
+    ['Protocolo de primer contacto en mostradores atendidos','0-30 días','Operaciones / RRHH','Las 11',5,2,2.50],['Intervención integral en Harvard: cajas, POS y coaching','0-30 días','Operaciones / Sistemas','Harvard',5,3,1.67],['Auditoría de frescura y cadena de frío','0-30 días','Calidad / Operaciones','Harvard, 129th, NW 23rd',5,3,1.67],['Capacitación ADA a seguridad tercerizada','0-30 días','Legal / Operaciones','Las 11',4,1,4.00],['Fusionar ficha duplicada del corredor Admiral','0-30 días','Marketing / Local SEO','Admiral',4,1,4.00],['Estandarizar nomenclatura, categorías, fotos y atributos de GBP','30-60 días','Marketing / Local SEO','Las 11',4,2,2.00],['Programa de solicitud de reseñas en punto de venta','30-60 días','Marketing','Las 11; piloto MacArthur y Peoria',5,2,2.50],['Señalización bilingüe con foto en carne y comida preparada','30-60 días','Operaciones / Marketing','Las 11',4,2,2.00],['Fichas técnicas y fotos de referencia por platillo','30-60 días','Food Service','Las 11',4,3,1.33],['Política de recuperación de servicio','30-60 días','Operaciones / RRHH','Las 11',4,2,2.00],['Responder 100% de reviews negativas en menos de 48h','30-60 días','Marketing','Las 11',4,2,2.00],['Campaña geolocalizada de notoriedad','60-90 días','Marketing / Medios','Peoria, MacArthur',3,2,1.50],['Piloto de ampliación de horario','60-90 días','Operaciones / Finanzas','Moore, Garnett',4,4,1.00],['Amplificar activos validados: panadería, carnes marinadas, surtido','60-90 días','Marketing / Contenido','Las 11',3,2,1.50],['Evaluar comisión por tarjeta en food service','60-90 días','Finanzas / Food Service','Las 11',2,1,2.00],['Explorar surtido caribeño y centroamericano','90+ días','Compras / Categoría','59th, Broken Arrow',3,4,.75],['Evaluar apertura en Jenks','90+ días','Expansión','Nueva unidad',4,5,.80]
   ];
 
-  try{
-    const [storeText, reviewText] = await Promise.all([
-      fetch('data/store-level-google-data.csv').then(r => {if(!r.ok) throw new Error('store data'); return r.text()}),
-      fetch('data/review-samples-google-only.csv').then(r => {if(!r.ok) throw new Error('review data'); return r.text()})
-    ]);
-    const stores = parseCsv(storeText).map(r => ({
-      id:n(r.ID), store:r.Store, address:r.Address, phone:r.Phone, maps:r['Official Google Maps'], rating:n(r['Google Rating']), reviewCount:n(r['Google Review Count']), snapshot:r.Snapshot,
-      stars:{'5':n(r['5★']),'4':n(r['4★']),'3':n(r['3★']),'2':n(r['2★']),'1':n(r['1★'])}, positive:n(r['Positive % (4–5★)']), neutral:n(r['Neutral % (3★)']), negative:n(r['Negative % (1–2★)']),
-      coverage:r['Sentiment Coverage'], verification:r['Google-only Verification'], source:r['Source URL'], notes:r.Notes
-    }));
-    const reviews = parseCsv(reviewText).map((r,i) => ({
-      store:r.Store, reviewer:r.Reviewer, date:r['Review Date / Recency'], stars:n(r.Stars), sentiment:r.Sentiment, topic:topicMap[r.Topic] || r.Topic,
-      severity:n(r['Severity (1–5)']), relevance:n(r['Relevance (1–5)']), summary:summariesEs[i] || r['Analyst Summary (paraphrased)'], source:r['Google-only Source URL']
-    }));
-    const verified = stores.filter(s => s.verification === 'Verified Google aggregate');
-    const full = stores.filter(s => s.positive != null);
-    const verifiedReviewFootprint = verified.reduce((a,s)=>a+(s.reviewCount||0),0);
-    const fullHistogramReviews = full.reduce((a,s)=>a+Object.values(s.stars).reduce((x,v)=>x+(v||0),0),0);
-    const pos = full.reduce((a,s)=>a+(s.stars['5']||0)+(s.stars['4']||0),0);
-    const neu = full.reduce((a,s)=>a+(s.stars['3']||0),0);
-    const neg = full.reduce((a,s)=>a+(s.stars['2']||0)+(s.stars['1']||0),0);
-    const summary = {officialStores:stores.length,verifiedAggregates:verified.length,verifiedReviewFootprint,fullHistogramStores:full.length,fullHistogramReviews,positive:pos/fullHistogramReviews,neutral:neu/fullHistogramReviews,negative:neg/fullHistogramReviews,sampleCount:reviews.length,highSeverity:reviews.filter(r=>r.severity>=4).length};
+  const weighted = stores.reduce((a,s)=>a+s.rating*s.reviews,0)/stores.reduce((a,s)=>a+s.reviews,0);
+  const totalReviews = stores.reduce((a,s)=>a+s.reviews,0);
+  const totalPos = stores.reduce((a,s)=>a+s.pos,0), totalNeg=stores.reduce((a,s)=>a+s.neg,0), totalMix=stores.reduce((a,s)=>a+s.mix,0);
+  const net = (totalPos-totalNeg)/55;
 
-    document.getElementById('heroKpis').innerHTML=[
-      ['Sucursales oficiales',summary.officialStores,'Universo del reporte'],['Aggregates verificados',summary.verifiedAggregates,'Google-only'],['Reviews observadas',fmt.format(summary.verifiedReviewFootprint),'Footprint · snapshots distintos'],['Muestra listening',summary.sampleCount,'Reviews visibles']
-    ].map(([label,value,small])=>`<div class="hero-kpi"><span>${label}</span><b>${value}</b><small>${small}</small></div>`).join('');
+  document.getElementById('heroKpis').innerHTML = [
+    ['Rating ponderado',weighted.toFixed(2),'Cadena'],['Calificaciones',fmt.format(totalReviews),'11 fichas'],['Reviews codificadas','55','5 por sucursal'],['Net Sentiment',pct(net),'Muestra textual']
+  ].map(([l,v,s])=>`<div class="hero-kpi"><span>${l}</span><b>${v}</b><small>${s}</small></div>`).join('');
 
-    document.getElementById('sentimentOverview').innerHTML=`<article class="card sentiment-total"><h3>Distribución combinada con histograma disponible</h3><p>Base: ${fmt.format(summary.fullHistogramReviews)} reviews · ${summary.fullHistogramStores} sucursales. No representa las 11 tiendas.</p><div class="stacked"><i class="seg positive" style="width:${summary.positive*100}%"></i><i class="seg neutral" style="width:${summary.neutral*100}%"></i><i class="seg negative" style="width:${summary.negative*100}%"></i></div><div class="sentiment-labels"><div class="sentiment-label"><span>Positivo</span><b>${pct(summary.positive)}</b><small>4–5★</small></div><div class="sentiment-label neutral"><span>Neutral</span><b>${pct(summary.neutral)}</b><small>3★</small></div><div class="sentiment-label negative"><span>Negativo</span><b>${pct(summary.negative)}</b><small>1–2★</small></div></div></article><article class="card coverage-card"><div class="coverage-stat"><span>Tiendas con aggregate Google verificado</span><b>${summary.verifiedAggregates}/${summary.officialStores}</b></div><div class="coverage-stat"><span>Tiendas con histograma completo actual</span><b>${summary.fullHistogramStores}/${summary.officialStores}</b></div><div class="coverage-stat"><span>Reviews de listening visibles</span><b>${summary.sampleCount}</b></div><div class="coverage-stat"><span>Menciones de severidad 4–5 en la muestra</span><b>${summary.highSeverity}</b></div></article>`;
+  document.getElementById('summaryKpis').innerHTML = [
+    ['Positivas',totalPos,'67.3% de la muestra','good'],['Negativas',totalNeg,'21.8% de la muestra','bad'],['Mixtas',totalMix,'10.9% de la muestra','neutral'],['Mejor rating','4.6','Broken Arrow','good'],['Mayor volumen',fmt.format(1282),'Moore',''],['Tema más mencionado','22','Personal y trato','']
+  ].map(([l,v,s,c])=>`<div class="kpi-card ${c}"><span>${l}</span><b>${v}</b><small>${s}</small></div>`).join('');
 
-    document.getElementById('sentimentStores').innerHTML=full.map(store=>{
-      const max=Math.max(...Object.values(store.stars).map(Number));
-      const rows=['5','4','3','2','1'].map(star=>`<div class="star-row"><span>${star}★</span><div class="track"><i style="width:${(Number(store.stars[star])/max*100).toFixed(1)}%"></i></div><b>${num(store.stars[star])}</b></div>`).join('');
-      return `<article class="card sentiment-store"><div class="sentiment-store-head"><div><h3>${esc(store.store)}</h3><div class="sentiment-store-meta">${esc(store.snapshot)} · ${num(store.reviewCount)} reviews</div></div><div class="rating">${store.rating.toFixed(1)} <small>★</small></div></div><div class="stacked"><i class="seg positive" style="width:${store.positive*100}%"></i><i class="seg neutral" style="width:${store.neutral*100}%"></i><i class="seg negative" style="width:${store.negative*100}%"></i></div><div class="sentiment-labels"><div class="sentiment-label"><span>Positivo</span><b>${pct(store.positive)}</b></div><div class="sentiment-label neutral"><span>Neutral</span><b>${pct(store.neutral)}</b></div><div class="sentiment-label negative"><span>Negativo</span><b>${pct(store.negative)}</b></div></div><div style="margin-top:14px">${rows}</div></article>`;
-    }).join('');
+  const markets=[['OKC Metro',5,4137,4.32,25,15,5,.40],['Tulsa Metro',6,3881,4.35,30,22,7,.50]];
+  document.getElementById('marketGrid').innerHTML=markets.map(m=>`<article class="market-card"><div><span>${m[0]}</span><b>${m[3].toFixed(2)}</b><small>rating ponderado</small></div><div class="market-stats"><span>${m[1]} sucursales</span><span>${fmt.format(m[2])} calificaciones</span><span>${m[4]} reviews codificadas</span><span>Net ${pct(m[7])}</span></div></article>`).join('');
 
-    function coverageBadge(store){if(store.positive!=null)return '<span class="badge histogram">Histograma completo</span>';if(store.verification==='Verified Google aggregate')return '<span class="badge">Aggregate verificado</span>';return '<span class="badge gap">Brecha de cobertura</span>'}
-    function renderStores(){
-      const q=document.getElementById('storeSearch').value.trim().toLowerCase(), f=document.getElementById('coverageFilter').value;
-      const rows=stores.filter(s=>{const searchOk=!q||`${s.store} ${s.address}`.toLowerCase().includes(q);const filterOk=f==='all'||(f==='verified'&&s.verification==='Verified Google aggregate')||(f==='histogram'&&s.positive!=null)||(f==='gap'&&s.verification!=='Verified Google aggregate');return searchOk&&filterOk});
-      document.getElementById('storeTable').innerHTML=`<thead><tr><th>Sucursal</th><th>Rating</th><th class="num">Reviews</th><th>Sentiment</th><th>Cobertura</th><th>Snapshot</th><th>Fuente</th></tr></thead><tbody>${rows.map(s=>`<tr><td><b>${esc(s.store)}</b><div class="muted">${esc(s.address)}</div></td><td>${s.rating==null?'—':`${s.rating.toFixed(1)} ★`}</td><td class="num">${num(s.reviewCount)}</td><td>${s.positive==null?'<span class="muted">No calculado</span>':`<b>${pct(s.positive)}</b> pos. · ${pct(s.negative)} neg.`}</td><td>${coverageBadge(s)}</td><td>${esc(s.snapshot||'—')}</td><td>${s.source?`<a class="link" target="_blank" rel="noopener" href="${esc(s.source)}">Fuente</a> · `:''}<a class="link" target="_blank" rel="noopener" href="${esc(s.maps)}">Maps</a></td></tr>`).join('')}</tbody>`;
-    }
-
-    function topicFamily(topic){const t=topic.toLowerCase();if(/inocuidad|tortilla/.test(t))return 'Inocuidad y tortillas';if(/servicio|capacitación|dotación|gestión/.test(t))return 'Servicio y operación';if(/comida preparada|panadería|autenticidad/.test(t))return 'Comida preparada';if(/carne|carnicería/.test(t))return 'Carnes y carnicería';if(/precio|valor/.test(t))return 'Precio y valor';if(/frutas|verduras|surtido|despensa/.test(t))return 'Surtido y frescos';if(/limpieza|olor/.test(t))return 'Condición de tienda';if(/saturación|experiencia/.test(t))return 'Experiencia de compra';return 'Otros'}
-    const groups={};reviews.forEach(r=>{const k=topicFamily(r.topic);groups[k]??={count:0,Positive:0,Negative:0,Mixed:0,high:0};groups[k].count++;groups[k][r.sentiment]++;if(r.severity>=4)groups[k].high++});
-    document.getElementById('topicGrid').innerHTML=Object.entries(groups).sort((a,b)=>b[1].count-a[1].count).map(([name,g])=>{const total=g.count||1;return `<article class="topic-card"><span>Muestra visible</span><h3>${esc(name)}</h3><div class="topic-count">${g.count}</div><div class="topic-mix"><i style="width:${g.Positive/total*100}%;background:var(--green-700)"></i><i style="width:${g.Mixed/total*100}%;background:var(--mustard)"></i><i style="width:${g.Negative/total*100}%;background:var(--red)"></i></div><div class="topic-foot"><span>${g.Positive} pos · ${g.Mixed} mixt · ${g.Negative} neg</span><span>${g.high} sev. 4–5</span></div></article>`}).join('');
-
-    function reviewCard(r){return `<div class="review-item"><div class="review-item-head"><b>${esc(r.store)}</b><span>${esc(r.reviewer)} · ${esc(r.date)}</span></div><p>${esc(r.summary)}</p><div class="review-item-foot">${badgeSentiment(r.sentiment)}${severityBadge(r.severity)}<span class="badge">Relevancia ${esc(r.relevance)}/5</span><a target="_blank" rel="noopener" href="${esc(r.source)}">Ver fuente</a></div></div>`}
-    document.getElementById('negativeHighlights').innerHTML=reviews.filter(r=>r.sentiment==='Negative').sort((a,b)=>(b.severity-a.severity)||(b.relevance-a.relevance)).slice(0,6).map(reviewCard).join('');
-    document.getElementById('relevantHighlights').innerHTML=[...reviews].sort((a,b)=>(b.relevance-a.relevance)||(b.severity-a.severity)).slice(0,6).map(reviewCard).join('');
-
-    const reviewStore=document.getElementById('reviewStore');reviewStore.innerHTML='<option value="all">Todas</option>'+[...new Set(reviews.map(r=>r.store))].sort().map(s=>`<option>${esc(s)}</option>`).join('');
-    function renderReviews(){
-      const store=reviewStore.value,sentiment=document.getElementById('reviewSentiment').value,sev=document.getElementById('reviewSeverity').value,q=document.getElementById('reviewSearch').value.trim().toLowerCase();
-      const rows=reviews.filter(r=>(store==='all'||r.store===store)&&(sentiment==='all'||r.sentiment===sentiment)&&(sev==='all'||r.severity>=Number(sev))&&(!q||`${r.store} ${r.topic} ${r.summary} ${r.reviewer}`.toLowerCase().includes(q)));
-      document.getElementById('reviewStatus').textContent=`${rows.length} de ${reviews.length} reseñas visibles`;
-      document.getElementById('reviewTable').innerHTML=`<thead><tr><th>Sucursal</th><th>Fecha</th><th>Sentiment</th><th>Severidad</th><th>Relevancia</th><th>Tema</th><th>Resumen analítico</th><th>Fuente</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.store)}</b><div class="muted">${esc(r.reviewer)}</div></td><td>${esc(r.date)}</td><td>${badgeSentiment(r.sentiment)}</td><td>${severityBadge(r.severity)}</td><td>${esc(r.relevance)}/5</td><td>${esc(r.topic)}</td><td class="summary-cell">${esc(r.summary)}</td><td><a class="link" target="_blank" rel="noopener" href="${esc(r.source)}">Fuente</a></td></tr>`).join('')}</tbody>`;
-    }
-    renderStores();renderReviews();
-    document.getElementById('storeSearch').addEventListener('input',renderStores);document.getElementById('coverageFilter').addEventListener('change',renderStores);
-    ['reviewStore','reviewSentiment','reviewSeverity'].forEach(id=>document.getElementById(id).addEventListener('change',renderReviews));document.getElementById('reviewSearch').addEventListener('input',renderReviews);
-  }catch(error){
-    console.error(error);
-    document.querySelector('main').insertAdjacentHTML('afterbegin','<div class="shell" style="margin-top:16px;padding:12px 14px;background:#f7e5e4;border:1px solid #e4c4c2;border-radius:12px">No fue posible cargar los archivos de datos del reporte.</div>');
+  function storeRows(){
+    const q=document.getElementById('storeSearch').value.toLowerCase(); const market=document.getElementById('marketFilter').value;
+    const rows=stores.filter(s=>(market==='all'||s.market===market)&&(`${s.name} ${s.city}`.toLowerCase().includes(q)));
+    document.getElementById('storeTable').innerHTML=`<thead><tr><th>Sucursal</th><th>Mercado</th><th class="num">Rating</th><th class="num">Calificaciones</th><th class="num">Pos.</th><th class="num">Neg.</th><th class="num">Mixtas</th><th class="num">Net</th><th>Semáforo</th></tr></thead><tbody>${rows.map(s=>`<tr><td><b>${esc(s.name)}</b><small>${esc(s.city)}</small></td><td>${s.market}</td><td class="num"><b>${s.rating.toFixed(1)}</b></td><td class="num">${fmt.format(s.reviews)}</td><td class="num">${s.pos}</td><td class="num">${s.neg}</td><td class="num">${s.mix}</td><td class="num ${s.net<0?'neg':''}">${pct(s.net)}</td><td><span class="status ${s.status==='Sano'?'good':s.status==='Atención'?'warn':''}">${s.status}</span></td></tr>`).join('')}</tbody>`;
   }
+  document.getElementById('storeSearch').addEventListener('input',storeRows);document.getElementById('marketFilter').addEventListener('change',storeRows);storeRows();
+
+  document.getElementById('topicGrid').innerHTML=topics.map(t=>`<article class="topic-card ${t[7].startsWith('P1')?'critical':t[7].startsWith('P2')?'watch':''}"><div class="topic-head"><b>${t[0]}</b><span>${t[7]}</span></div><div class="topic-total">${t[4]} <small>menciones · ${pct(t[6])} share</small></div><div class="sentiment-bar"><i style="width:${t[1]/t[4]*100}%"></i><i class="mix" style="width:${t[3]/t[4]*100}%"></i><i class="neg" style="width:${t[2]/t[4]*100}%"></i></div><div class="topic-foot"><span>${t[1]} positivas</span><span>${t[2]} negativas</span><strong>${pct(t[5])} negativo</strong></div></article>`).join('');
+
+  document.getElementById('alertGrid').innerHTML=alerts.map((a,i)=>`<article class="alert-card ${a[4]==='Crítica'?'critical':''}"><div class="alert-index">${i+1}</div><div><div class="alert-meta"><span>${a[1]}</span><b>${a[4]}</b></div><h3>${a[0]}</h3><p>${a[3]}</p><small>${a[2]}</small></div></article>`).join('');
+
+  document.getElementById('benchmarkTable').innerHTML=`<thead><tr><th>Competidor</th><th>Ciudad</th><th class="num">Rating</th><th class="num">Calificaciones</th><th class="num">Δ vs Morelos</th></tr></thead><tbody>${benchmark.map(b=>`<tr><td><b>${b[0]}</b></td><td>${b[1]}</td><td class="num">${b[2].toFixed(1)}</td><td class="num">${fmt.format(b[3])}</td><td class="num ${b[4]>0?'pos':'neg'}">${b[4]>0?'+':''}${b[4].toFixed(2)}</td></tr>`).join('')}</tbody>`;
+  document.getElementById('benchmarkFindings').innerHTML=[
+    ['NW 23rd','Feria Latina frente a Morelos NW 23rd registra 2,385 calificaciones y rating 4.3, frente a 611 y 4.2 de Morelos.'],
+    ['Ventana horaria','El dataset señala que Feria Latina opera 6:00–22:00 y Morelos 7:00–21:00, una diferencia de tres horas diarias.'],
+    ['Especialización','Morelos mantiene un rating ponderado sólido frente a jugadores de mayor volumen; varios formatos pequeños muestran ratings superiores con menor escala.']
+  ].map(([h,p])=>`<article><b>${h}</b><p>${p}</p></article>`).join('');
+
+  function renderActions(h='all'){
+    const list=actions.filter(a=>h==='all'||a[1]===h).sort((a,b)=>b[6]-a[6]);
+    document.getElementById('actionGrid').innerHTML=list.map((a,i)=>`<article class="action-card"><div class="action-top"><span>${a[1]}</span><b>Prioridad ${a[6].toFixed(2)}</b></div><h3>${a[0]}</h3><p>${a[2]} · ${a[3]}</p><div class="action-score"><span>Impacto <b>${a[4]}/5</b></span><span>Esfuerzo <b>${a[5]}/5</b></span></div></article>`).join('');
+  }
+  document.querySelectorAll('.filter-chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderActions(b.dataset.horizon)}));renderActions();
 })();
