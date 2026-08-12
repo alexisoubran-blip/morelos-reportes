@@ -1,27 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "morelos-reporte_online-mayo-julio-2026",
   "cleanUrls": true,
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/morelos-reporte_online-mayo-julio-2026/index.html"
-    },
-    {
-      "source": "/google-reviews",
-      "destination": "/morelos-reporte_online-mayo-julio-2026/google-reviews/index.html"
-    },
-    {
-      "source": "/google-reviews/:path*",
-      "destination": "/morelos-reporte_online-mayo-julio-2026/google-reviews/:path*"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/morelos-reporte_online-mayo-julio-2026/:path*"
-    }
-  ],
+  "trailingSlash": false,
   "headers": [
     {
-      "source": "/data/:path*",
+      "source": "/data/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -30,7 +14,7 @@
       ]
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "X-Content-Type-Options",
