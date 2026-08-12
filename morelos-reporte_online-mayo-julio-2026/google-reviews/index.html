@@ -3,119 +3,168 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Google Reviews Listening de Supermercados Morelos: reputación, sentiment direccional por sucursal, temas e insights observados." />
-  <title>Google Reviews Listening | Supermercados Morelos</title>
+  <meta name="description" content="Reporte de Sentiment por Tiendas de Supermercados Morelos basado en Google Reviews." />
+  <title>Reporte de Sentiment por Tiendas | Supermercados Morelos</title>
   <link rel="icon" href="../assets/morelos-logo.png" type="image/png" />
-  <link rel="stylesheet" href="styles.css?v=20260811-1823" />
+  <link rel="stylesheet" href="styles.css?v=20260811-3" />
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="../" aria-label="Volver al reporte principal"><img src="../assets/morelos-logo.png" alt="Morelos Supermercados" /></a>
-    <nav aria-label="Secciones">
-      <a href="#stores">Sucursales</a>
-      <a href="#topics">Temas</a>
-      <a href="#insights">Insights</a>
-      <a href="#benchmark">Benchmark</a>
-      <a href="#methodology">Metodología</a>
-    </nav>
+    <a class="brand" href="../"><img src="../assets/morelos-logo.png" alt="Morelos Supermercados" /></a>
+    <nav><a href="#stores">Tiendas</a><a href="#comparison">Comparativo</a><a href="#topics">Temas</a><a href="#insights">Insights</a><a href="#methodology">Metodología</a></nav>
     <a class="ghost-button" href="../">Reporte principal</a>
   </header>
 
-  <main>
-    <section class="hero shell" id="overview">
-      <div class="hero-copy">
-        <span class="eyebrow">Supermercados Morelos · Google Reviews</span>
-        <h1>Reputación local, tienda por tienda</h1>
-        <p>Lectura visual de las 11 fichas oficiales: rating y volumen total de Google, más una muestra codificada de reseñas para observar sentiment, temas y contrastes por sucursal.</p>
-        <div class="hero-tags"><span>11 sucursales</span><span>8,018 calificaciones</span><span>55 reseñas codificadas</span><span>Corte 11 ago 2026</span></div>
-      </div>
-      <div class="hero-kpis" id="heroKpis"></div>
+  <main class="shell">
+    <section class="page-head">
+      <div><span class="eyebrow">Google Reviews · corte 11 ago 2026</span><h1>Reporte de Sentiment por Tiendas</h1><p>Vista comparativa de las 11 sucursales oficiales. El rating y volumen corresponden al total visible en Google; el sentiment proviene de una muestra codificada de 5 reseñas por tienda.</p></div>
     </section>
 
-    <section class="shell data-note">
-      <b>Cómo leer los porcentajes:</b> el rating y el número de calificaciones corresponden al total visible en Google. Los porcentajes positivo / neutro / negativo de cada tienda se calculan únicamente sobre <b>5 reseñas codificadas por sucursal</b>. Son una lectura direccional de la muestra, no del universo completo de reviews.
+    <section class="filters" aria-label="Filtros">
+      <label>Mercado<select id="marketFilter"><option value="all">Todos los mercados</option><option value="OKC">OKC Metro</option><option value="Tulsa">Tulsa Metro</option></select></label>
+      <label>Rating Google<select id="ratingFilter"><option value="all">Todos los ratings</option><option value="high">4.4 o más</option><option value="mid">4.3</option><option value="low">4.2 o menos</option></select></label>
+      <label>Sentiment de muestra<select id="sentimentFilter"><option value="all">Todas las tiendas</option><option value="positive">60%+ positivo</option><option value="negative">40%+ negativo</option><option value="nonegative">Sin negativas</option></select></label>
+      <button id="resetFilters" type="button">Restablecer</button>
     </section>
 
-    <section class="shell report-section" id="stores">
-      <div class="section-heading">
-        <div><span class="section-kicker">11 fichas oficiales</span><h2>Explora cada sucursal</h2></div>
-        <span class="section-note">Usa los filtros o desliza lateralmente. No hace falta buscar por nombre.</span>
-      </div>
-
-      <div class="filter-panel" aria-label="Filtros de sucursales">
-        <label>Mercado
-          <select id="marketFilter">
-            <option value="all" selected>Todos los mercados</option>
-            <option value="OKC Metro">OKC Metro</option>
-            <option value="Tulsa Metro">Tulsa Metro</option>
-          </select>
-        </label>
-        <label>Rating Google
-          <select id="ratingFilter">
-            <option value="all" selected>Todos los ratings</option>
-            <option value="high">4.4 o más</option>
-            <option value="mid">4.3</option>
-            <option value="low">4.2 o menos</option>
-          </select>
-        </label>
-        <label>Muestra de sentiment
-          <select id="sampleFilter">
-            <option value="all" selected>Todas las muestras</option>
-            <option value="negative">Con al menos 1 negativa</option>
-            <option value="nonegative">Sin negativa en la muestra</option>
-          </select>
-        </label>
-        <button id="resetFilters" type="button">Restablecer</button>
-      </div>
-
-      <div class="store-tabs" id="storeTabs" aria-label="Sucursales filtradas"></div>
-
-      <div class="store-carousel">
-        <button class="carousel-arrow" id="prevStore" type="button" aria-label="Sucursal anterior">←</button>
-        <div class="store-stage" id="storeStage" aria-live="polite"></div>
-        <button class="carousel-arrow" id="nextStore" type="button" aria-label="Sucursal siguiente">→</button>
-      </div>
-      <div class="carousel-footer"><span id="storeCounter"></span><div class="carousel-dots" id="carouselDots"></div></div>
+    <section class="kpi-grid">
+      <article class="kpi"><span>Total calificaciones</span><b>8,018</b><small>11 fichas Google</small></article>
+      <article class="kpi"><span>Rating ponderado</span><b>4.33</b><small>Cadena</small></article>
+      <article class="kpi positive"><span>Sentiment positivo</span><b>67.3%</b><small>37 de 55 codificadas</small></article>
+      <article class="kpi negative"><span>Sentiment negativo</span><b>21.8%</b><small>12 de 55 codificadas</small></article>
+      <article class="kpi"><span>Mejor rating</span><b>4.6 ★</b><small>Broken Arrow</small></article>
     </section>
 
-    <section class="shell report-section tinted" id="topics">
-      <div class="section-heading">
-        <div><span class="section-kicker">150 menciones temáticas</span><h2>Qué aparece en las conversaciones</h2></div>
-        <span class="section-note">Una reseña puede contener hasta tres temas; las menciones no equivalen a número de personas.</span>
+    <section id="stores" class="section-block">
+      <div class="section-heading"><div><span class="eyebrow">11 sucursales</span><h2>Sentiment por tienda</h2></div><p>Todos los recuadros son visibles desde el inicio. Los filtros solo reducen la vista.</p></div>
+      <div class="store-grid" id="storeGrid">
+
+        <article class="store-card" data-market="OKC" data-rating="4.3" data-pos="60" data-neg="20">
+          <div class="store-top"><span class="store-num">01</span><div><h3>59th</h3><small>Oklahoma City · OKC Metro</small></div><div class="rating">4.3 ★<small>1,145 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:60;--mix:20"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>60%</b></div><div><i class="m"></i><span>Mixto</span><b>20%</b></div><div><i class="n"></i><span>Negativo</span><b>20%</b></div></div></div>
+          <div class="topic-chip">Surtido · Precio · Food service</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Se reconoce surtido, precio, frutas, verduras, pan dulce y carnicería.</p></div><div class="review negative-review"><b>Negativo</b><p>Una experiencia en food service reporta trato poco amable y diferencia entre foto de menú y producto recibido.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="OKC" data-rating="4.3" data-pos="100" data-neg="0">
+          <div class="store-top"><span class="store-num">02</span><div><h3>50th</h3><small>Oklahoma City · OKC Metro</small></div><div class="rating">4.3 ★<small>880 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:100;--mix:0"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>100%</b></div><div><i class="m"></i><span>Mixto</span><b>0%</b></div><div><i class="n"></i><span>Negativo</span><b>0%</b></div></div></div>
+          <div class="topic-chip">Servicio · Carnes · Panadería</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Las cinco reseñas codificadas son positivas; aparecen amabilidad, carnes marinadas, panadería, limpieza y rapidez en caja.</p></div><div class="review neutral-review"><b>Negativo</b><p>No aparece una reseña negativa dentro de la muestra codificada.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="OKC" data-rating="4.2" data-pos="20" data-neg="40">
+          <div class="store-top"><span class="store-num">03</span><div><h3>NW 23rd</h3><small>Oklahoma City · OKC Metro</small></div><div class="rating">4.2 ★<small>611 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:20;--mix:40"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>20%</b></div><div><i class="m"></i><span>Mixto</span><b>40%</b></div><div><i class="n"></i><span>Negativo</span><b>40%</b></div></div></div>
+          <div class="topic-chip">Surtido · Servicio · Limpieza</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>El surtido de botanas y abarrotes mexicanos recibe una valoración favorable.</p></div><div class="review negative-review"><b>Negativo</b><p>Se reportan fricciones de trato en carnicería y food service, además de una mención de mal olor.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="OKC" data-rating="4.3" data-pos="60" data-neg="40">
+          <div class="store-top"><span class="store-num">04</span><div><h3>MacArthur</h3><small>Oklahoma City · OKC Metro</small></div><div class="rating">4.3 ★<small>219 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:60;--mix:0"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>60%</b></div><div><i class="m"></i><span>Mixto</span><b>0%</b></div><div><i class="n"></i><span>Negativo</span><b>40%</b></div></div></div>
+          <div class="topic-chip">Limpieza · Frescos · Atención</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>La limpieza aparece como atributo distintivo, acompañada de frescos, tacos y buenos precios.</p></div><div class="review negative-review"><b>Negativo</b><p>Dos reseñas describen experiencias negativas de trato, una vinculada con seguridad y otra con food service.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="OKC" data-rating="4.4" data-pos="60" data-neg="0">
+          <div class="store-top"><span class="store-num">05</span><div><h3>Moore</h3><small>Moore · OKC Metro</small></div><div class="rating">4.4 ★<small>1,282 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:60;--mix:40"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>60%</b></div><div><i class="m"></i><span>Mixto</span><b>40%</b></div><div><i class="n"></i><span>Negativo</span><b>0%</b></div></div></div>
+          <div class="topic-chip">Food service · Pan dulce · Valor</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Food service aparece como motivo de visita; también se mencionan pan dulce, nostalgia, limpieza y valor.</p></div><div class="review neutral-review"><b>Mixto</b><p>Las observaciones mixtas se relacionan con consistencia de guarniciones y variedad esperada en frescos.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="Tulsa" data-rating="4.0" data-pos="80" data-neg="20">
+          <div class="store-top"><span class="store-num">06</span><div><h3>Admiral</h3><small>Tulsa · Tulsa Metro</small></div><div class="rating">4.0 ★<small>23 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:80;--mix:0"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>80%</b></div><div><i class="m"></i><span>Mixto</span><b>0%</b></div><div><i class="n"></i><span>Negativo</span><b>20%</b></div></div></div>
+          <div class="topic-chip">Carnicería · Limpieza · Atención</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Carnicería, limpieza, surtido y frescos reciben comentarios favorables.</p></div><div class="review negative-review"><b>Negativo</b><p>Una reseña describe espera sin atención en carnicería mientras otra persona fue atendida primero.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="Tulsa" data-rating="4.3" data-pos="100" data-neg="0">
+          <div class="store-top"><span class="store-num">07</span><div><h3>Garnett</h3><small>Tulsa · Tulsa Metro</small></div><div class="rating">4.3 ★<small>921 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:100;--mix:0"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>100%</b></div><div><i class="m"></i><span>Mixto</span><b>0%</b></div><div><i class="n"></i><span>Negativo</span><b>0%</b></div></div></div>
+          <div class="topic-chip">Frescos · Carnicería · Servicio</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Las cinco reseñas codificadas combinan frescos, carnes, limpieza, precio y servicio.</p></div><div class="review neutral-review"><b>Negativo</b><p>No aparece una reseña negativa dentro de la muestra codificada.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="Tulsa" data-rating="4.2" data-pos="20" data-neg="60">
+          <div class="store-top"><span class="store-num">08</span><div><h3>Harvard</h3><small>Tulsa · Tulsa Metro</small></div><div class="rating">4.2 ★<small>996 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:20;--mix:20"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>20%</b></div><div><i class="m"></i><span>Mixto</span><b>20%</b></div><div><i class="n"></i><span>Negativo</span><b>60%</b></div></div></div>
+          <div class="topic-chip">Cajas · Servicio · Frescura</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Una reseña valora servicio, ambiente, carnes y verduras.</p></div><div class="review negative-review"><b>Negativo</b><p>Tres negativas se concentran en cajas, promociones, manejo de quejas y frescura de un producto lácteo.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="Tulsa" data-rating="4.4" data-pos="80" data-neg="20">
+          <div class="store-top"><span class="store-num">09</span><div><h3>129th</h3><small>Tulsa · Tulsa Metro</small></div><div class="rating">4.4 ★<small>673 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:80;--mix:0"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>80%</b></div><div><i class="m"></i><span>Mixto</span><b>0%</b></div><div><i class="n"></i><span>Negativo</span><b>20%</b></div></div></div>
+          <div class="topic-chip">Food service · Frescos · Panadería</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Food service, frescos, surtido especializado y panadería aparecen como motivos de preferencia.</p></div><div class="review negative-review"><b>Negativo</b><p>Una reseña reporta problemas de frescura en alimentos preparados y carne.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="Tulsa" data-rating="4.4" data-pos="80" data-neg="20">
+          <div class="store-top"><span class="store-num">10</span><div><h3>Peoria</h3><small>Tulsa · Tulsa Metro</small></div><div class="rating">4.4 ★<small>657 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:80;--mix:0"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>80%</b></div><div><i class="m"></i><span>Mixto</span><b>0%</b></div><div><i class="n"></i><span>Negativo</span><b>20%</b></div></div></div>
+          <div class="topic-chip">Bilingüe · Frescos · Carnicería</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Se repiten limpieza, personal bilingüe, asesoría en producto, frescos y carnicería.</p></div><div class="review negative-review"><b>Negativo</b><p>Una reseña cuestiona la relación valor-precio de food service y menciona comisión por pago con tarjeta.</p></div></details>
+        </article>
+
+        <article class="store-card" data-market="Tulsa" data-rating="4.6" data-pos="80" data-neg="20">
+          <div class="store-top"><span class="store-num">11</span><div><h3>Broken Arrow</h3><small>Broken Arrow · Tulsa Metro</small></div><div class="rating">4.6 ★<small>611 calificaciones</small></div></div>
+          <div class="store-mid"><div class="donut" style="--pos:80;--mix:0"><span>5<small>reviews</small></span></div><div class="legend"><div><i class="p"></i><span>Positivo</span><b>80%</b></div><div><i class="m"></i><span>Mixto</span><b>0%</b></div><div><i class="n"></i><span>Negativo</span><b>20%</b></div></div></div>
+          <div class="topic-chip">Surtido · Limpieza · Producto</div>
+          <details><summary>Ver ejemplos de reseñas</summary><div class="review positive-review"><b>Positivo</b><p>Surtido, carnes marinadas, limpieza, variedad multicultural y precio razonable aparecen de forma reiterada.</p></div><div class="review negative-review"><b>Negativo</b><p>Una reseña describe una respuesta poco empática ante una solicitud de acceso a wifi de invitados.</p></div></details>
+        </article>
       </div>
-      <div class="topic-grid" id="topicGrid"></div>
+      <p id="filterStatus" class="filter-status">Mostrando 11 de 11 sucursales</p>
     </section>
 
-    <section class="shell report-section" id="insights">
-      <div class="section-heading">
-        <div><span class="section-kicker">Lectura descriptiva</span><h2>Insights observados</h2></div>
-        <span class="section-note">Se describen patrones de la muestra y del rating público sin inferir causalidad ni recomendar acciones.</span>
+    <section id="comparison" class="section-block comparison-card">
+      <div class="section-heading"><div><span class="eyebrow">Comparativo</span><h2>Sentiment positivo de la muestra por tienda</h2></div><p>Porcentaje sobre 5 reseñas codificadas por sucursal.</p></div>
+      <div class="rank-list">
+        <div><span>50th</span><i><b style="width:100%"></b></i><strong>100%</strong></div>
+        <div><span>Garnett</span><i><b style="width:100%"></b></i><strong>100%</strong></div>
+        <div><span>Admiral</span><i><b style="width:80%"></b></i><strong>80%</strong></div>
+        <div><span>129th</span><i><b style="width:80%"></b></i><strong>80%</strong></div>
+        <div><span>Peoria</span><i><b style="width:80%"></b></i><strong>80%</strong></div>
+        <div><span>Broken Arrow</span><i><b style="width:80%"></b></i><strong>80%</strong></div>
+        <div><span>59th</span><i><b style="width:60%"></b></i><strong>60%</strong></div>
+        <div><span>MacArthur</span><i><b style="width:60%"></b></i><strong>60%</strong></div>
+        <div><span>Moore</span><i><b style="width:60%"></b></i><strong>60%</strong></div>
+        <div><span>NW 23rd</span><i><b style="width:20%"></b></i><strong>20%</strong></div>
+        <div><span>Harvard</span><i><b style="width:20%"></b></i><strong>20%</strong></div>
       </div>
-      <div class="insight-grid" id="insightGrid"></div>
     </section>
 
-    <section class="shell report-section tinted" id="benchmark">
-      <div class="section-heading">
-        <div><span class="section-kicker">Competencia hispana local</span><h2>Contexto competitivo en Google</h2></div>
-        <span class="section-note">Ratings y volúmenes públicos observados en el mismo corte.</span>
+    <section id="topics" class="section-block">
+      <div class="section-heading"><div><span class="eyebrow">150 menciones temáticas</span><h2>Temas con mayor presencia</h2></div><p>Una reseña puede contener hasta tres temas.</p></div>
+      <div class="topic-grid">
+        <article><b>Personal y trato</b><span>22 menciones</span><small>12 positivas · 1 mixta · 9 negativas</small></article>
+        <article><b>Food service</b><span>19 menciones</span><small>12 positivas · 2 mixtas · 5 negativas</small></article>
+        <article><b>Carnicería</b><span>15 menciones</span><small>12 positivas · 0 mixtas · 3 negativas</small></article>
+        <article><b>Surtido y variedad</b><span>14 menciones</span><small>11 positivas · 3 mixtas · 0 negativas</small></article>
+        <article><b>Precio y valor</b><span>13 menciones</span><small>11 positivas · 1 mixta · 1 negativa</small></article>
+        <article><b>Frutas y verduras</b><span>12 menciones</span><small>11 positivas · 1 mixta · 0 negativas</small></article>
       </div>
-      <article class="table-card"><div class="table-wrap"><table id="benchmarkTable"></table></div></article>
     </section>
 
-    <section class="shell report-section" id="methodology">
-      <div class="section-heading"><div><span class="section-kicker">Data integrity</span><h2>Metodología</h2></div></div>
-      <div class="method-grid">
-        <article><b>Rating y volumen</b><p>Rating y número de calificaciones tomados de las fichas públicas de Google Business Profile al 11 de agosto de 2026.</p></article>
-        <article><b>Muestra textual</b><p>55 reseñas públicas parafraseadas y codificadas: 5 por cada una de las 11 sucursales.</p></article>
-        <article><b>Sentiment por tienda</b><p>Los donuts muestran la distribución positivo / mixto / negativo dentro de esas 5 reseñas, no dentro del total de calificaciones.</p></article>
-        <article><b>Temas</b><p>Cada review puede recibir hasta tres etiquetas. Los porcentajes negativos se calculan sobre menciones del tema.</p></article>
-        <article><b>Ejemplos</b><p>Los textos se muestran como paráfrasis analíticas para conservar el sentido sin reproducir extensamente la reseña original.</p></article>
-        <article class="caution"><b>Limitación</b><p>La muestra textual permite observar señales y contrastes, pero no estimar con precisión la distribución real de sentiment de las 8,018 calificaciones.</p></article>
+    <section id="insights" class="section-block insights">
+      <div class="section-heading"><div><span class="eyebrow">Lectura descriptiva</span><h2>Insights observados</h2></div><p>Sin inferir causalidad ni recomendar acciones.</p></div>
+      <div class="insight-grid">
+        <article><span>01</span><h3>El rating de cadena se mantiene en un rango alto</h3><p>La media ponderada observada es 4.33 sobre 8,018 calificaciones. Broken Arrow registra 4.6; Admiral 4.0 con un volumen notablemente menor.</p></article>
+        <article><span>02</span><h3>La muestra textual cambia entre sucursales</h3><p>50th y Garnett no presentan negativas dentro de sus cinco reseñas codificadas. Harvard y NW 23rd muestran una proporción negativa mayor en esa misma muestra.</p></article>
+        <article><span>03</span><h3>Producto y servicio concentran la conversación</h3><p>Personal y trato, food service y carnicería son los temas más mencionados. En ellos conviven comentarios favorables y desfavorables.</p></article>
+        <article><span>04</span><h3>Surtido y frescos aparecen principalmente en positivo</h3><p>Surtido y variedad, frutas y verduras y panadería se asocian principalmente con menciones favorables dentro de la muestra.</p></article>
       </div>
+    </section>
+
+    <section id="methodology" class="section-block methodology">
+      <div class="section-heading"><div><span class="eyebrow">Data integrity</span><h2>Metodología</h2></div></div>
+      <p><b>Rating y volumen:</b> total visible en las fichas públicas de Google. <b>Sentiment:</b> muestra codificada de 55 reseñas, 5 por sucursal. Los porcentajes de los donuts corresponden únicamente a esa muestra y no deben leerse como distribución de las 8,018 calificaciones totales.</p>
     </section>
   </main>
 
-  <footer class="footer shell"><img src="../assets/morelos-logo.png" alt="Morelos Supermercados" /><span>Google Reviews Listening · 11 agosto 2026</span><a href="../">Volver al reporte principal</a></footer>
-  <script src="app.js?v=20260811-1823" defer></script>
+  <footer><div class="shell"><img src="../assets/morelos-logo.png" alt="Morelos Supermercados" /><span>Google Reviews Listening · 11 agosto 2026</span></div></footer>
+  <script src="app.js?v=20260811-3"></script>
 </body>
 </html>
