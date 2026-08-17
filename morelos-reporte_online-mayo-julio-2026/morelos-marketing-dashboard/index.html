@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b5a37" />
+  <title>Marketing Overview | Supermercados Morelos</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Supermercados Morelos">
+      <img src="./assets/morelos-logo.png" alt="Supermercados Morelos" />
+    </a>
+    <nav class="top-nav" aria-label="Secciones">
+      <a href="#overview">Overview</a>
+      <a href="#performance">Performance</a>
+      <a href="#social">Social Media</a>
+      <a href="#analytics">Analytics</a>
+      <a href="#listening">Listening</a>
+      <a href="#offline">Offline</a>
+      <a class="nav-pill" href="#overview">Reporte principal</a>
+    </nav>
+  </header>
+
+  <main id="top" class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">MARKETING PERFORMANCE · WDM DESDE JUNIO 2026</p>
+        <h1>Marketing Overview</h1>
+        <p class="hero-copy">Lectura consolidada de paid media, social y comportamiento digital. Los módulos sin fuente se mantienen listos para integrar ventas, listening y offline.</p>
+      </div>
+      <div class="hero-badge">
+        <span>COBERTURA ACTUAL</span>
+        <strong>May–Jul 2026</strong>
+        <small>WDM inicia 01 Jun 2026</small>
+      </div>
+    </section>
+
+    <section id="coverage-banner" class="coverage-banner" aria-live="polite"></section>
+
+    <section class="filters-panel" aria-label="Filtros globales">
+      <div class="filter-group period-group">
+        <label>Periodo</label>
+        <div class="segmented" id="period-mode">
+          <button type="button" data-mode="week">Semana</button>
+          <button type="button" data-mode="month">Mes</button>
+          <button type="button" data-mode="months" class="active">Meses</button>
+        </div>
+        <div id="period-controls" class="period-controls"></div>
+      </div>
+      <div class="filter-group">
+        <label for="campaign-filter">Campaña</label>
+        <select id="campaign-filter"></select>
+      </div>
+      <div class="filter-group">
+        <label for="channel-filter">Canal</label>
+        <select id="channel-filter">
+          <option value="all">Todos</option>
+          <option value="Meta">Meta</option>
+          <option value="Google">Google</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="audience-filter">Audiencia</label>
+        <select id="audience-filter" disabled>
+          <option>Sin dimensión en fuente</option>
+        </select>
+      </div>
+      <button id="reset-filters" class="reset-btn" type="button">Restablecer</button>
+    </section>
+
+    <section id="overview" class="report-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">01 · INVERSIÓN Y VENTA</p><h2>Overview</h2></div>
+        <p class="section-note">La venta permanece como input preparado hasta integrar la fuente transaccional.</p>
+      </div>
+      <div class="kpi-grid kpi-grid-4">
+        <article class="kpi-card"><span>Inversión del periodo</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">Paid media disponible</small></article>
+        <article class="kpi-card placeholder-card"><span>Venta total del periodo</span><strong>—</strong><small>Fuente aún no integrada</small></article>
+        <article class="kpi-card"><span>Campañas totales</span><strong id="kpi-campaigns">—</strong><small>Campañas con inversión visible</small></article>
+        <article class="kpi-card placeholder-card"><span>Ventas relacionadas</span><strong>—</strong><small>Atribución pendiente</small></article>
+      </div>
+      <div class="overview-grid">
+        <article class="panel panel-large">
+          <div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Inversión vs. venta</h3></div><span class="status-chip muted">Ventas sin fuente</span></div>
+          <div id="investment-time-chart" class="chart-box"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split de campañas / audiencias</h3></div><span class="status-chip">Paid</span></div>
+          <div id="campaign-split" class="rank-list"></div>
+          <p class="micro-note">Audiencias: input reservado; el export actual no incluye dimensión de audiencia.</p>
+        </article>
+      </div>
+      <article class="panel full-panel">
+        <div class="panel-head"><div><span class="panel-kicker">Capital allocation</span><h3>Inversión por canal</h3></div></div>
+        <div id="channel-investment" class="channel-bars"></div>
+      </article>
+    </section>
+
+    <section id="performance" class="report-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">02.1 · PERFORMANCE</p><h2>Paid Media</h2></div>
+        <p class="section-note">Meta está agregado para todo el export; Google tiene inversión semanal. El dashboard evita imputar fechas que no existen.</p>
+      </div>
+      <div class="kpi-grid kpi-grid-5">
+        <article class="kpi-card"><span>Plataformas</span><strong class="text-value">Meta / Google</strong><small>TikTok preparado, sin fuente</small></article>
+        <article class="kpi-card"><span>Inversión</span><strong id="perf-spend">—</strong><small id="perf-spend-note">Cobertura según filtro</small></article>
+        <article class="kpi-card placeholder-card"><span>Reach</span><strong>—</strong><small>No aditivo en export actual</small></article>
+        <article class="kpi-card"><span>Clicks</span><strong id="perf-clicks">—</strong><small>Link clicks de Meta</small></article>
+        <article class="kpi-card placeholder-card"><span>Conversiones</span><strong>—</strong><small>Resultados mezclan objetivos</small></article>
+      </div>
+      <article class="panel full-panel">
+        <div class="panel-head"><div><span class="panel-kicker">Comparativo</span><h3>Performance por plataforma</h3></div><div class="metric-tabs" id="performance-tabs"><button class="active" data-metric="spend">Inversión</button><button data-metric="impressions">Impresiones</button><button data-metric="clicks">Clicks</button></div></div>
+        <div id="platform-performance" class="platform-grid"></div>
+      </article>
+      <article class="panel full-panel">
+        <div class="panel-head"><div><span class="panel-kicker">Campañas</span><h3>Performance por campaña macro</h3></div></div>
+        <div id="campaign-cards" class="campaign-card-grid"></div>
+      </article>
+    </section>
+
+    <section id="social" class="report-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">02.2 · SOCIAL MEDIA</p><h2>Organic + Boosted</h2></div>
+        <p class="section-note">Boosted se consolida. En Facebook sí existe split orgánico/boosted; Instagram llega combinado en el export recibido.</p>
+      </div>
+      <div class="kpi-grid kpi-grid-5">
+        <article class="kpi-card"><span>Plataformas</span><strong class="text-value">Instagram / Facebook</strong><small>YouTube preparado, sin fuente</small></article>
+        <article class="kpi-card"><span>Nuevos seguidores</span><strong id="social-follows">—</strong><small>Follows obtenidos en el periodo</small></article>
+        <article class="kpi-card"><span>Views</span><strong id="social-views">—</strong><small>Lifetime de contenido publicado</small></article>
+        <article class="kpi-card"><span>ER</span><strong id="social-er">—</strong><small>Interacciones / reach de posts</small></article>
+        <article class="kpi-card"><span>Interacciones</span><strong id="social-interactions">—</strong><small>Likes, comments, shares y saves</small></article>
+      </div>
+      <article class="panel full-panel">
+        <div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Social Media</h3></div><div class="metric-tabs" id="social-tabs"><button class="active" data-metric="follows">Follows</button><button data-metric="views">Views</button><button data-metric="interactions">Interacciones</button></div></div>
+        <div id="social-chart" class="chart-box"></div>
+      </article>
+      <div class="social-grid">
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Amplificación</span><h3>Boosted consolidado</h3></div></div><div id="boosted-summary"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Contenido</span><h3>Top content</h3></div></div><div id="top-content" class="top-content-list"></div></article>
+      </div>
+    </section>
+
+    <section id="analytics" class="report-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">03 · ANALYTICS</p><h2>Digital Behavior</h2></div>
+        <p class="section-note">GA4 sí tiene series diarias para usuarios activos, views, engagement y eventos.</p>
+      </div>
+      <div class="kpi-grid kpi-grid-4 analytics-kpis">
+        <article class="kpi-card"><span>Usuarios activos</span><strong id="ga-users">—</strong><small>Promedio diario</small></article>
+        <article class="kpi-card placeholder-card"><span>Sesiones</span><strong>—</strong><small>Solo agregado May–Jul</small></article>
+        <article class="kpi-card placeholder-card"><span>Fuentes de tráfico</span><strong>—</strong><small>Solo agregado May–Jul</small></article>
+        <article class="kpi-card"><span>Páginas vistas</span><strong id="ga-views">—</strong><small>Views GA4 en el periodo</small></article>
+        <article class="kpi-card"><span>Eventos / acciones</span><strong id="ga-events">—</strong><small>Event count</small></article>
+        <article class="kpi-card placeholder-card"><span>Conversiones</span><strong>—</strong><small>Sin breakdown diario confiable</small></article>
+        <article class="kpi-card placeholder-card"><span>Ventas</span><strong>—</strong><small>Fuente no integrada</small></article>
+      </div>
+      <article class="panel full-panel">
+        <div class="panel-head"><div><span class="panel-kicker">Tráfico y comportamiento</span><h3>Actividad digital</h3></div><div class="metric-tabs" id="analytics-tabs"><button class="active" data-metric="active_users">Usuarios activos</button><button data-metric="views">Views</button><button data-metric="event_count">Eventos</button></div></div>
+        <div id="analytics-chart" class="chart-box"></div>
+      </article>
+      <div class="analytics-grid">
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Acquisition</span><h3>Fuentes de tráfico</h3></div><span class="status-chip muted">May–Jul agregado</span></div><div id="traffic-sources" class="rank-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Engagement</span><h3>Páginas principales</h3></div><span class="status-chip muted">May–Jul agregado</span></div><div id="top-pages" class="rank-list"></div></article>
+      </div>
+    </section>
+
+    <section id="listening" class="report-section">
+      <div class="section-heading"><div><p class="eyebrow">04 · LISTENING</p><h2>Listening</h2></div><p class="section-note">Módulo listo; fuente aún no integrada.</p></div>
+      <div class="placeholder-module-grid">
+        <article class="panel placeholder-panel"><span class="panel-kicker">Sentiment</span><h3>Positivo — &nbsp; Neutral — &nbsp; Negativo —</h3><div class="ghost-lines"><i></i><i></i><i></i></div></article>
+        <article class="panel placeholder-panel"><span class="panel-kicker">Comentarios</span><h3>—</h3><p>Volumen y ejemplos</p></article>
+        <article class="panel placeholder-panel"><span class="panel-kicker">Wordcloud</span><h3>[ placeholder ]</h3><p>Temas y términos frecuentes</p></article>
+      </div>
+    </section>
+
+    <section id="offline" class="report-section">
+      <div class="section-heading"><div><p class="eyebrow">05 · OFFLINE</p><h2>Offline Media</h2></div><p class="section-note">Todos los inputs se conservan para la futura integración de radio y TV.</p></div>
+      <div class="kpi-grid kpi-grid-3">
+        <article class="kpi-card placeholder-card"><span>Inversión offline</span><strong>—</strong><small>Sin fuente</small></article>
+        <article class="kpi-card placeholder-card"><span>Radio · estaciones / programas</span><strong>—</strong><small>Radio</small></article>
+        <article class="kpi-card placeholder-card"><span>TV · canales / programas</span><strong>—</strong><small>TV</small></article>
+        <article class="kpi-card placeholder-card"><span>CPS</span><strong>—</strong><small>Sin fuente</small></article>
+        <article class="kpi-card placeholder-card"><span>Reach</span><strong>—</strong><small>Sin fuente</small></article>
+        <article class="kpi-card placeholder-card"><span>Frecuencia</span><strong>—</strong><small>Sin fuente</small></article>
+      </div>
+      <article class="panel full-panel placeholder-panel"><div class="panel-head"><div><span class="panel-kicker">Split de medios offline</span><h3>Radio vs. TV</h3></div></div><div class="ghost-chart"><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+    </section>
+
+    <section class="insights-section">
+      <div class="section-heading"><div><p class="eyebrow">LECTURA DESCRIPTIVA</p><h2>Insights observados</h2></div><p class="section-note">Generados solo a partir de señales disponibles; no se asume causalidad ni ventas.</p></div>
+      <div id="insights-grid" class="insights-grid"></div>
+    </section>
+
+    <section class="methodology">
+      <p class="eyebrow">DATA INTEGRITY</p>
+      <h2>Metodología y cobertura</h2>
+      <div class="method-grid">
+        <p><strong>Agency ownership.</strong> WDM se considera responsable a partir del 1 de junio de 2026. Sensis permanece identificado como owner independiente en Paid Media.</p>
+        <p><strong>Meta Ads.</strong> El CSV está agregado del 1 mayo al 31 julio. El dashboard no reparte inversión por semana o mes cuando la fuente no trae ese grain.</p>
+        <p><strong>Social.</strong> Views e interacciones de posts son métricas Lifetime asociadas a contenido publicado dentro del periodo seleccionado; no equivalen a actividad ocurrida exclusivamente en ese periodo.</p>
+        <p><strong>Reach.</strong> No se suma como KPI global porque no es aditivo entre ads, posts o días. Se conserva como dato de contenido para calcular ratios descriptivos.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><img src="./assets/morelos-logo.png" alt="" /><span>Marketing Overview · WDM · dashboard de trabajo</span></footer>
+  <script src="./js/app.js" defer></script>
+</body>
+</html>

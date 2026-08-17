@@ -1,0 +1,27 @@
+{
+  "campaign_groups": [
+    "Mundial / Fútbol",
+    "Marinados",
+    "Helados",
+    "Comunidad",
+    "Taco Tuesday",
+    "Ofertón",
+    "AON / Store",
+    "Pollo / Carnitas / Chicharrón",
+    "Temporadas",
+    "Boosted / Amplificación",
+    "Otros"
+  ],
+  "rules": [
+    {"group":"Mundial / Fútbol","keywords":["mundial","futbol","fútbol","soccer","sellos"]},
+    {"group":"Marinados","keywords":["marinad"]},
+    {"group":"Helados","keywords":["ice cream","helado","helados"]},
+    {"group":"Comunidad","keywords":["comunidad","community","followers","seguidores","giving back"]},
+    {"group":"Taco Tuesday","keywords":["taco tuesday"]},
+    {"group":"Ofertón","keywords":["oferton","ofertón"]},
+    {"group":"AON / Store","keywords":["store visit","store visits","aon"]},
+    {"group":"Pollo / Carnitas / Chicharrón","keywords":["pollo","chicharron","chicharrón","carnitas"]},
+    {"group":"Temporadas","keywords":["dia de las madres","día de las madres","memorial day","dia del nino","día del niño","cuaresma"]},
+    {"group":"Boosted / Amplificación","keywords":["boost posts","boosted"]}
+  ]
+}
