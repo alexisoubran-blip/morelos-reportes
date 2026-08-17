@@ -123,11 +123,19 @@
 
     <section id="social" class="report-section">
       <div class="section-heading">
-        <div><p class="eyebrow">02.2 · SOCIAL MEDIA</p><h2>Organic + Boosted</h2></div>
-        <p class="section-note">Boosted se consolida. En Facebook sí existe split orgánico/boosted; Instagram llega combinado en el export recibido.</p>
+        <div><p class="eyebrow">02.2 · SOCIAL MEDIA</p><h2>Social Media</h2></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-width:680px">
+          <p class="section-note">Organic + Boosted consolidado. Facebook sí permite separar amplificación; Instagram llega combinado en el export recibido.</p>
+          <div class="metric-tabs" id="social-platform-tabs" aria-label="Filtrar Social Media por plataforma">
+            <button class="active" data-platform="all">Todas</button>
+            <button data-platform="Facebook">Facebook</button>
+            <button data-platform="Instagram">Instagram</button>
+            <button data-platform="TikTok">TikTok</button>
+          </div>
+        </div>
       </div>
       <div class="kpi-grid kpi-grid-5">
-        <article class="kpi-card"><span>Plataformas</span><strong class="text-value">Instagram / Facebook</strong><small>YouTube preparado, sin fuente</small></article>
+        <article class="kpi-card"><span>Plataforma</span><strong id="social-platforms" class="text-value">Facebook + Instagram</strong><small id="social-platforms-note">TikTok preparado, sin fuente</small></article>
         <article class="kpi-card"><span>Nuevos seguidores</span><strong id="social-follows">—</strong><small>Follows obtenidos en el periodo</small></article>
         <article class="kpi-card"><span>Views</span><strong id="social-views">—</strong><small>Lifetime de contenido publicado</small></article>
         <article class="kpi-card"><span>ER</span><strong id="social-er">—</strong><small>Interacciones / reach de posts</small></article>
