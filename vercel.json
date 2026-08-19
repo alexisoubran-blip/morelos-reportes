@@ -5,11 +5,24 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/google-reviews",
+      "destination": "/google-reviews-v2/index.html"
+    },
+    {
       "source": "/data/comments/:path*",
       "destination": "/google-reviews/data/comments/:path*"
     }
   ],
   "headers": [
+    {
+      "source": "/google-reviews",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
     {
       "source": "/data/(.*)",
       "headers": [
