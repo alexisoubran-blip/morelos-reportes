@@ -22,6 +22,10 @@
   ],
   "rewrites": [
     {
+      "source": "/google-reviews",
+      "destination": "/google-reviews-v5/index.html"
+    },
+    {
       "source": "/data/comments/:path*",
       "destination": "/google-reviews/data/comments/:path*"
     }
@@ -38,6 +42,15 @@
     },
     {
       "source": "/google-reviews/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/google-reviews-v5/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
