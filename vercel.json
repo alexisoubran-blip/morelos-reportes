@@ -3,6 +3,12 @@
   "outputDirectory": "morelos-reporte_online-mayo-julio-2026",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/data/comments/:path*",
+      "destination": "/google-reviews/data/comments/:path*"
+    }
+  ],
   "headers": [
     {
       "source": "/data/(.*)",
