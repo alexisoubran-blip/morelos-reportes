@@ -8,13 +8,19 @@
       "source": "/google-reviews/",
       "destination": "/google-reviews",
       "permanent": false
+    },
+    {
+      "source": "/google-reviews-v2",
+      "destination": "/google-reviews",
+      "permanent": false
+    },
+    {
+      "source": "/google-reviews-v3",
+      "destination": "/google-reviews",
+      "permanent": false
     }
   ],
   "rewrites": [
-    {
-      "source": "/google-reviews",
-      "destination": "/google-reviews-v3/index.html"
-    },
     {
       "source": "/data/comments/:path*",
       "destination": "/google-reviews/data/comments/:path*"
