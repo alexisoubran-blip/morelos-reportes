@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/google-reviews",
-      "destination": "/google-reviews-v2/index.html"
+      "destination": "/google-reviews-v3/index.html"
     },
     {
       "source": "/data/comments/:path*",
