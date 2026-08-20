@@ -64,14 +64,11 @@
   }
 
   function allMonths(){
-    const out=[]; let d=parseDate(DATA.metadata.export_start); const end=parseDate(DATA.metadata.export_end);
-    d=new Date(d.getFullYear(),d.getMonth(),1,12);
-    while(d<=end){out.push(monthKey(d));d=new Date(d.getFullYear(),d.getMonth()+1,1,12)}
-    return out;
+    return Object.keys(SOI.months).sort();
   }
 
   function allWeeks(){
-    const out=[]; let d=monday(parseDate(DATA.metadata.export_start)); const end=parseDate(DATA.metadata.export_end);
+    const out=[]; let d=monday(parseDate(DATA.metadata.agency_start)); const end=parseDate(DATA.metadata.export_end);
     while(d<=end){out.push(iso(d));d=addDays(d,7)}
     return out;
   }
