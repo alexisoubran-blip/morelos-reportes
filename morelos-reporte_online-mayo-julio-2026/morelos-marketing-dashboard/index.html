@@ -29,7 +29,7 @@
       <div>
         <p class="eyebrow">MARKETING PERFORMANCE · WDM DESDE JUNIO 2026</p>
         <h1>Marketing Overview</h1>
-        <p class="hero-copy">Lectura consolidada de paid media, social y comportamiento digital. Los módulos sin fuente se mantienen listos para integrar ventas, listening y offline.</p>
+        <p class="hero-copy">Lectura consolidada de paid media, social, comportamiento digital y Google Reviews. Los módulos sin fuente se mantienen listos para integrar ventas y offline.</p>
       </div>
       <div class="hero-badge">
         <span>COBERTURA ACTUAL</span>
@@ -176,12 +176,43 @@
     </section>
 
     <section id="listening" class="report-section">
-      <div class="section-heading"><div><p class="eyebrow">04 · LISTENING</p><h2>Listening</h2></div><p class="section-note">Módulo listo; fuente aún no integrada.</p></div>
-      <div class="placeholder-module-grid">
-        <article class="panel placeholder-panel"><span class="panel-kicker">Sentiment</span><h3>Positivo — &nbsp; Neutral — &nbsp; Negativo —</h3><div class="ghost-lines"><i></i><i></i><i></i></div></article>
-        <article class="panel placeholder-panel"><span class="panel-kicker">Comentarios</span><h3>—</h3><p>Volumen y ejemplos</p></article>
-        <article class="panel placeholder-panel"><span class="panel-kicker">Wordcloud</span><h3>[ placeholder ]</h3><p>Temas y términos frecuentes</p></article>
+      <div class="section-heading">
+        <div><p class="eyebrow">04 · LISTENING</p><h2>Google Reviews</h2></div>
+        <p class="section-note">Resumen ejecutivo del listening. El análisis completo permite filtrar por mercado, rating y nivel de reseñas negativas.</p>
       </div>
+      <div class="placeholder-module-grid">
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-kicker">Sentiment</span><h3>3,862 reviews con estrella</h3></div><span class="status-chip">Google</span></div>
+          <div style="display:grid;gap:8px;margin-top:12px">
+            <div class="rank-row"><span class="rank-label">Positivo</span><div class="rank-track"><div class="rank-fill" style="width:83.9%"></div></div><span class="rank-value">83.9%</span></div>
+            <div class="rank-row"><span class="rank-label">Neutral</span><div class="rank-track"><div class="rank-fill" style="width:6.9%;background:#d8a82c"></div></div><span class="rank-value">6.9%</span></div>
+            <div class="rank-row"><span class="rank-label">Negativo</span><div class="rank-track"><div class="rank-fill" style="width:9.2%;background:#cc5146"></div></div><span class="rank-value">9.2%</span></div>
+          </div>
+          <p class="micro-note">Admiral se incorpora aparte: 4.0★ / 24 públicas; 17 comentarios con sentiment textual estimado.</p>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-kicker">Comentarios</span><h3>1,778 con texto</h3></div></div>
+          <p style="font-size:12px;color:#6f776f;margin:5px 0 12px">1,761 comentarios del corpus recuperado + 17 comentarios recientes de Admiral.</p>
+          <div class="rank-list">
+            <div class="rank-row"><span class="rank-label">Comida preparada</span><div class="rank-track"><div class="rank-fill" style="width:100%"></div></div><span class="rank-value">411</span></div>
+            <div class="rank-row"><span class="rank-label">Servicio y trato</span><div class="rank-track"><div class="rank-fill" style="width:97%"></div></div><span class="rank-value">399</span></div>
+            <div class="rank-row"><span class="rank-label">Surtido</span><div class="rank-track"><div class="rank-fill" style="width:82%"></div></div><span class="rank-value">337</span></div>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-kicker">Nube de sentiment</span><h3>Conceptos dominantes</h3></div></div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0 20px">
+            <strong style="font-size:22px;color:#075d3b">Comida preparada</strong>
+            <strong style="font-size:19px;color:#075d3b">Servicio</strong>
+            <strong style="font-size:17px;color:#075d3b">Surtido</strong>
+            <strong style="font-size:15px;color:#075d3b">Carnicería</strong>
+            <strong style="font-size:14px;color:#075d3b">Frescos</strong>
+            <strong style="font-size:13px;color:#cc5146">Cajas</strong>
+          </div>
+          <a href="/google-reviews" style="display:inline-flex;align-items:center;border:1px solid #bfd9c9;border-radius:999px;padding:9px 13px;color:#075d3b;text-decoration:none;font-size:10px;font-weight:800">Ver análisis completo de Google Reviews ↗</a>
+        </article>
+      </div>
+      <p class="micro-note">Google Reviews usa una fuente y filtros propios; no responde a los filtros de paid media de la parte superior. Corte de listening: 19 agosto 2026.</p>
     </section>
 
     <section id="offline" class="report-section">
@@ -210,6 +241,7 @@
         <p><strong>Meta Ads.</strong> El CSV está agregado del 1 mayo al 31 julio. El dashboard no reparte inversión por semana o mes cuando la fuente no trae ese grain.</p>
         <p><strong>Social.</strong> Views e interacciones de posts son métricas Lifetime asociadas a contenido publicado dentro del periodo seleccionado; no equivalen a actividad ocurrida exclusivamente en ese periodo.</p>
         <p><strong>Reach.</strong> No se suma como KPI global porque no es aditivo entre ads, posts o días. Se conserva como dato de contenido para calcular ratios descriptivos.</p>
+        <p><strong>Google Reviews.</strong> El módulo de Listening resume 3,862 reviews con estrella individual en 10 sucursales y 17 comentarios recientes de Admiral. El detalle completo conserva su propia metodología y filtros.</p>
       </div>
     </section>
   </main>
