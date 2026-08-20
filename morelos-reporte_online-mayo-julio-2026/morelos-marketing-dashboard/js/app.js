@@ -6,7 +6,9 @@
     Facebook: '#1877F2',
     Instagram: '#E1306C',
     TikTok: '#111111',
-    Google: '#0d7b4b'
+    Google: '#0d7b4b',
+    'YouTube / CTV': '#FF0033',
+    Spotify: '#1DB954'
   };
 
   const state = {
@@ -24,6 +26,7 @@
   };
 
   let DATA = null;
+  let SOI = null;
   const $ = (id) => document.getElementById(id);
   const money = (v) => v == null ? '—' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);
   const moneyExact = (v) => v == null ? '—' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(v);
@@ -99,15 +102,15 @@
   }
 
   function filteredMeta(range){
-    const scope=metaScope(range); if(!scope.usable || state.channel==='Google') return [];
+    const scope=metaScope(range); if(!scope.usable || !['all','Meta'].includes(state.channel)) return [];
     return DATA.paid.meta_campaigns.filter(r =>
       (scope.agency==='all' || r.agency===scope.agency) &&
-      (state.campaign==='all' || r.campaign_group===state.campaign)
+      (state.campaign==='all' || businessGroup(r.campaign_group)===state.campaign)
     );
   }
 
   function filteredGoogle(range){
-    if(state.channel==='Meta' || state.campaign!=='all') return [];
+    if(!['all','Google'].includes(state.channel) || state.campaign!=='all') return [];
     return DATA.paid.google_weekly.filter(r=>inRange(parseDate(r.week_start),range));
   }
 
@@ -116,15 +119,68 @@
     const metaSpend=meta.reduce((s,r)=>s+r.spend,0), googleSpend=google.reduce((s,r)=>s+r.spend,0);
     const metaClicks=meta.reduce((s,r)=>s+r.link_clicks,0), metaImpressions=meta.reduce((s,r)=>s+r.impressions,0);
     const coverage=[];
-    if(state.channel!=='Google') coverage.push(scope.usable?'Meta agregado disponible':'Meta temporal no disponible');
-    if(state.channel!=='Meta') coverage.push(state.campaign==='all'?'Google semanal disponible':'Google excluido: export sin campaña');
+    if(['all','Meta'].includes(state.channel)) coverage.push(scope.usable?'Meta agregado disponible':'Meta temporal no disponible');
+    if(['all','Google'].includes(state.channel)) coverage.push(state.campaign==='all'?'Google semanal disponible':'Google excluido: export sin campaña');
+    if(!['all','Meta','Google'].includes(state.channel)) coverage.push(`${state.channel}: el cierre real está en SOI; no hay métricas de plataforma.`);
     return {meta,google,metaSpend,googleSpend,spend:metaSpend+googleSpend,clicks:metaClicks,impressions:metaImpressions,scope,coverage};
+  }
+
+  function businessGroup(group=''){
+    if(group==='Mundial / Fútbol') return 'Mundial / Sellos / Futbolito';
+    if(group==='AON / Store') return 'AON / Store visits';
+    if(group==='Ofertón') return 'Lead ads / Ofertón';
+    if(group==='Taco Tuesday') return 'Taco Tuesday';
+    return 'Productos / Boost';
+  }
+
+  function aggregateNullable(values){
+    const known=values.filter(v=>v!=null);
+    return known.length ? values.reduce((sum,value)=>sum+(value||0),0) : null;
+  }
+
+  function soiMonthKeys(range){
+    if(state.mode==='week') return [];
+    const keys=[];
+    let cursor=new Date(range.start.getFullYear(),range.start.getMonth(),1,12);
+    const end=new Date(range.end.getFullYear(),range.end.getMonth(),1,12);
+    while(cursor<=end){keys.push(monthKey(cursor));cursor=new Date(cursor.getFullYear(),cursor.getMonth()+1,1,12)}
+    return keys.every(key=>SOI.months[key]) ? keys : [];
+  }
+
+  function soiSummary(range){
+    const keys=soiMonthKeys(range);
+    if(!keys.length){
+      return {usable:false,reason:'SOI real disponible únicamente por mes para junio y julio de 2026.',blocks:[],channels:{},actual:null,campaigns:null};
+    }
+    const months=keys.map(key=>SOI.months[key]);
+    const allBlocks=SOI.campaign_groups.map(name=>({
+      name,
+      actual:aggregateNullable(months.map(month=>month.blocks.find(block=>block.name===name)?.actual??null))
+    }));
+    const channels=Object.fromEntries(SOI.channels.map(name=>[
+      name,
+      aggregateNullable(months.map(month=>month.channels_actual[name]??null))
+    ]));
+    const blocks=state.campaign==='all' ? allBlocks : allBlocks.filter(block=>block.name===state.campaign);
+    let actual;
+    if(state.channel!=='all') actual=channels[state.channel]??null;
+    else if(state.campaign!=='all') actual=blocks[0]?.actual??null;
+    else actual=months.reduce((sum,month)=>sum+month.actual,0);
+    const campaigns=state.channel==='all' ? blocks.filter(block=>block.actual>0).length : null;
+    return {
+      usable:true,
+      reason:`Cierre SOI conciliado · ${keys.map(monthLabel).join(' + ')}`,
+      blocks:state.channel==='all'?blocks:[],
+      channels,
+      actual,
+      campaigns
+    };
   }
 
   function filteredContent(range){
     return DATA.social.content.filter(r=>
       inRange(parseDate(r.date),range) &&
-      (state.campaign==='all'||r.campaign_group===state.campaign) &&
+      (state.campaign==='all'||businessGroup(r.campaign_group)===state.campaign) &&
       (state.socialPlatform==='all'||r.platform===state.socialPlatform)
     );
   }
@@ -150,13 +206,13 @@
     $('coverage-banner').innerHTML=notes.join(' &nbsp;·&nbsp; ');
   }
 
-  function renderOverview(range, paid){
-    setText('kpi-spend',money(paid.spend));
-    setText('kpi-spend-note',paid.coverage.join(' · '));
-    setText('kpi-campaigns',paid.meta.length ? integer(paid.meta.filter(x=>x.spend>0).length) : '—');
+  function renderOverview(soi){
+    setText('kpi-spend',moneyExact(soi.actual));
+    setText('kpi-spend-note',soi.reason);
+    setText('kpi-campaigns',soi.campaigns==null?'—':integer(soi.campaigns));
 
-    renderCampaignSplit(paid);
-    renderChannelInvestment(paid);
+    renderCampaignSplit(soi);
+    renderChannelInvestment(soi);
   }
 
   function renderInvestmentTime(range, paid){
@@ -170,27 +226,32 @@
   function groupMeta(meta){
     const map=new Map();
     meta.forEach(r=>{
-      const x=map.get(r.campaign_group)||{group:r.campaign_group,spend:0,impressions:0,clicks:0,campaigns:0};
-      x.spend+=r.spend;x.impressions+=r.impressions;x.clicks+=r.link_clicks;x.campaigns+=r.spend>0?1:0;map.set(r.campaign_group,x);
+      const group=businessGroup(r.campaign_group);
+      const x=map.get(group)||{group,spend:0,impressions:0,clicks:0,campaigns:0};
+      x.spend+=r.spend;x.impressions+=r.impressions;x.clicks+=r.link_clicks;x.campaigns+=r.spend>0?1:0;map.set(group,x);
     });
     return [...map.values()].sort((a,b)=>b.spend-a.spend);
   }
 
-  function renderCampaignSplit(paid){
-    const rows=groupMeta(paid.meta).filter(x=>x.spend>0).slice(0,7);
-    if(!rows.length){$('campaign-split').innerHTML=empty('Meta no tiene temporalidad suficiente para este corte o el filtro no tiene registros.');return}
-    const max=Math.max(...rows.map(r=>r.spend),1);
-    $('campaign-split').innerHTML=rows.map(r=>`<div class="rank-row"><div class="rank-label">${esc(r.group)}</div><div class="rank-track"><div class="rank-fill" title="${esc(r.group)} · ${moneyExact(r.spend)}" style="width:${r.spend/max*100}%;background:${PLATFORM_COLORS.Meta}"></div></div><div class="rank-value">${money(r.spend)}</div></div>`).join('');
+  function renderCampaignSplit(soi){
+    if(!soi.usable){$('campaign-split').innerHTML=empty(soi.reason);return}
+    if(state.channel!=='all'){$('campaign-split').innerHTML=empty('El cierre SOI no incluye el cruce canal × campaña.');return}
+    const rows=soi.blocks;
+    if(!rows.length){$('campaign-split').innerHTML=empty('Sin inversión registrada para este filtro.');return}
+    const max=Math.max(...rows.map(row=>row.actual||0),1);
+    const items=rows.map(row=>`<div class="rank-row"><div class="rank-label">${esc(row.name)}</div><div class="rank-track"><div class="rank-fill" title="${esc(row.name)} · ${moneyExact(row.actual)}" style="width:${row.actual==null?0:row.actual/max*100}%;background:${PLATFORM_COLORS.Meta}"></div></div><div class="rank-value">${moneyExact(row.actual)}</div></div>`).join('');
+    $('campaign-split').innerHTML=`${items}<div class="rank-row total-row"><div class="rank-label">TOTAL</div><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--green)"></div></div><div class="rank-value">${moneyExact(soi.actual)}</div></div>`;
   }
 
-  function renderChannelInvestment(paid){
-    const total=Math.max(paid.spend,1);
-    const channels=[
-      {name:'Meta',value:paid.metaSpend,note:paid.scope.usable?'Total disponible para el corte':'Sin grain temporal suficiente'},
-      {name:'Google',value:paid.googleSpend,note:state.campaign==='all'?'Cost semanal':'Sin campaign mapping'},
-      {name:'TikTok',value:null,note:'Input preparado · sin fuente'}
-    ];
-    $('channel-investment').innerHTML=channels.map(c=>`<div class="channel-card"><div class="channel-name"><span>${c.name}</span><span>${c.value==null?'—':pct(c.value/total,0)}</span></div><strong>${c.value==null?'—':money(c.value)}</strong><small>${esc(c.note)}</small><div class="channel-progress"><i title="${c.value==null?esc(c.name+' · sin fuente'):esc(c.name+' · '+moneyExact(c.value))}" style="width:${c.value==null?0:c.value/total*100}%;background:${PLATFORM_COLORS[c.name]||'#0d7b4b'}"></i></div></div>`).join('');
+  function renderChannelInvestment(soi){
+    if(!soi.usable){$('channel-investment').innerHTML=empty(soi.reason);return}
+    if(state.campaign!=='all'){$('channel-investment').innerHTML=empty('El cierre SOI no incluye el cruce campaña × canal.');return}
+    const total=Math.max(soi.actual||0,1);
+    const names=state.channel==='all'?SOI.channels:SOI.channels.filter(name=>name===state.channel);
+    $('channel-investment').innerHTML=names.map(name=>{
+      const value=soi.channels[name];
+      return `<div class="channel-card"><div class="channel-name"><span>${esc(name)}</span><span>${value==null?'—':pct(value/total,1)}</span></div><strong>${moneyExact(value)}</strong><small>${value==null?'Sin inversión registrada':'Cierre real conciliado'}</small><div class="channel-progress"><i title="${value==null?esc(name+' · sin inversión registrada'):esc(name+' · '+moneyExact(value))}" style="width:${value==null?0:value/total*100}%;background:${PLATFORM_COLORS[name]||'#0d7b4b'}"></i></div></div>`;
+    }).join('');
   }
 
   function renderPerformance(paid){
@@ -208,8 +269,8 @@
     const label=metric==='spend'?'Inversión':metric==='impressions'?'Impresiones':'Link clicks';
     const fmt=metric==='spend'?money:compact;
     const cards=[
-      {name:'Meta',value:paid.scope.usable&&state.channel!=='Google'?metaValue:null,note:paid.scope.usable?'Fuente: Meta Ads':'Export agregado May–Jul'},
-      {name:'Google',value:state.channel!=='Meta'&&state.campaign==='all'?googleValue:null,note:metric==='spend'?'Fuente: Google Ads semanal':'El export solo contiene Cost'},
+      {name:'Meta',value:paid.scope.usable&&['all','Meta'].includes(state.channel)?metaValue:null,note:paid.scope.usable?'Fuente: Meta Ads':'Export agregado May–Jul'},
+      {name:'Google',value:['all','Google'].includes(state.channel)&&state.campaign==='all'?googleValue:null,note:metric==='spend'?'Fuente: Google Ads semanal':'El export solo contiene Cost'},
       {name:'TikTok',value:null,note:'Input preparado · sin fuente'}
     ];
     $('platform-performance').innerHTML=cards.map(c=>{
@@ -340,15 +401,16 @@
     $('top-pages').innerHTML=rows.map(r=>`<div class="rank-row"><div class="rank-label" title="${esc(r.page)}">${esc(r.page)}</div><div class="rank-track"><div class="rank-fill" title="${esc(r.page)} · ${exact(r.views)} views" style="width:${r.views/max*100}%"></div></div><div class="rank-value">${compact(r.views)}</div></div>`).join('');
   }
 
-  function renderInsights(paid,social,analytics){
+  function renderInsights(soi,paid,social,analytics){
     const groups=groupMeta(paid.meta).filter(x=>x.spend>0); const top=groups[0];
     const cards=[];
-    if(paid.spend>0) cards.push({title:'Inversión visible en el corte',body:`Las fuentes disponibles suman ${money(paid.spend)}. ${paid.scope.usable?'Meta entra como total válido para este rango.':'Meta queda fuera por falta de temporalidad.'}`});
+    if(soi.actual!=null) cards.push({title:'Inversión real conciliada',body:`El cierre SOI registra ${moneyExact(soi.actual)} en el periodo seleccionado.`});
+    if(soi.actual!=null&&paid.spend>0) cards.push({title:'Señal de plataforma separada',body:`Meta + Google visibles suman ${moneyExact(paid.spend)}; no sustituyen el cierre SOI ni se mezclan con él.`});
     if(top) cards.push({title:`${top.group} concentra la mayor inversión Meta`,body:`Representa ${pct(top.spend/Math.max(paid.metaSpend,1))} del spend Meta visible en el filtro (${money(top.spend)}).`});
     if(social.views>0) cards.push({title:`Social${state.socialPlatform==='all'?'':` · ${state.socialPlatform}`} mantiene una base de lectura por contenido`,body:`El contenido publicado en el periodo acumula ${compact(social.views)} views Lifetime y ${compact(social.interactions)} interacciones.`});
     if(social.followCount>0 && state.campaign==='all') cards.push({title:'Crecimiento social medible por fecha',body:`${state.socialPlatform==='all'?'Facebook + Instagram':state.socialPlatform} registra ${integer(social.followCount)} nuevos follows dentro del periodo seleccionado.`});
     if(analytics.views>0) cards.push({title:'GA4 sí soporta lectura temporal',body:`El periodo registra ${compact(analytics.views)} views y ${compact(analytics.events)} eventos con grain diario.`});
-    cards.push({title:'Ventas y offline siguen fuera del modelo',body:'Los módulos permanecen visibles como inputs preparados, pero no se calculan KPIs sin una fuente válida.'});
+    cards.push({title:'Ventas y offline siguen fuera del modelo',body:'No se calculan KPIs sin una fuente válida.'});
     $('insights-grid').innerHTML=cards.slice(0,6).map((c,i)=>`<article class="insight-card"><b>${String(i+1).padStart(2,'0')}</b><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p></article>`).join('');
   }
 
@@ -394,8 +456,8 @@
   }
 
   function renderAll(){
-    const range=getRange(), paid=paidSummary(range);
-    renderPeriodControls(); renderCoverage(range,paid); renderOverview(range,paid); renderPerformance(paid); const social=renderSocial(range); const analytics=renderAnalytics(range); renderInsights(paid,social,analytics);
+    const range=getRange(), paid=paidSummary(range), soi=soiSummary(range);
+    renderPeriodControls(); renderCoverage(range,paid); renderOverview(soi); renderPerformance(paid); const social=renderSocial(range); const analytics=renderAnalytics(range); renderInsights(soi,paid,social,analytics);
   }
 
   function bindTabs(containerId,key){
@@ -407,8 +469,13 @@
 
   async function init(){
     try{
-      const res=await fetch('./data/dashboard-data.json',{cache:'no-store'}); DATA=await res.json();
-      $('campaign-filter').innerHTML=`<option value="all">Todas</option>`+DATA.taxonomy.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');
+      const [dataRes,soiRes]=await Promise.all([
+        fetch('./data/dashboard-data.json',{cache:'no-store'}),
+        fetch('./config/soi-investment.json',{cache:'no-store'})
+      ]);
+      if(!dataRes.ok||!soiRes.ok) throw new Error('No se pudieron cargar las fuentes del dashboard.');
+      [DATA,SOI]=await Promise.all([dataRes.json(),soiRes.json()]);
+      $('campaign-filter').innerHTML=`<option value="all">Todas</option>`+SOI.campaign_groups.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');
       document.querySelectorAll('#period-mode button').forEach(b=>b.addEventListener('click',()=>{state.mode=b.dataset.mode;renderAll()}));
       $('campaign-filter').addEventListener('change',e=>{state.campaign=e.target.value;renderAll()});
       $('channel-filter').addEventListener('change',e=>{state.channel=e.target.value;renderAll()});
@@ -423,7 +490,7 @@
       bindTabs('performance-tabs','performanceMetric'); bindTabs('social-tabs','socialMetric'); bindTabs('analytics-tabs','analyticsMetric');
       renderAll();
     } catch(err){
-      console.error(err); document.body.innerHTML=`<main class="page-shell"><div class="coverage-banner"><strong>No se pudo cargar dashboard-data.json.</strong> Sirve esta carpeta con un servidor local o despliega en Vercel.</div></main>`;
+      console.error(err); document.body.innerHTML=`<main class="page-shell"><div class="coverage-banner"><strong>No se pudieron cargar las fuentes del dashboard.</strong> Sirve esta carpeta con un servidor local o despliega en Vercel.</div></main>`;
     }
   }
   init();

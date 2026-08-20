@@ -10,3 +10,7 @@
 .kpi-grid-2{grid-template-columns:repeat(2,1fr)}
 .overview-grid-single{grid-template-columns:1fr}
 @media(max-width:520px){.kpi-grid-2{grid-template-columns:1fr}}
+.rank-row.total-row{border-top:1px solid var(--line);padding-top:9px;margin-top:2px}
+.rank-row.total-row .rank-label,.rank-row.total-row .rank-value{font-weight:850}
+.channel-bars{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+@media(max-width:760px){.channel-bars{grid-template-columns:1fr}}

@@ -60,6 +60,9 @@
           <option value="all">Todos</option>
           <option value="Meta">Meta</option>
           <option value="Google">Google</option>
+          <option value="TikTok">TikTok</option>
+          <option value="YouTube / CTV">YouTube / CTV</option>
+          <option value="Spotify">Spotify</option>
         </select>
       </div>
       <button id="reset-filters" class="reset-btn" type="button">Restablecer</button>
@@ -70,18 +73,18 @@
         <div><p class="eyebrow">01 · INVERSIÓN Y VENTA</p><h2>Overview</h2></div>
       </div>
       <div class="kpi-grid kpi-grid-2">
-        <article class="kpi-card"><span>Inversión del periodo</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">Paid media disponible</small></article>
-        <article class="kpi-card"><span>Campañas totales</span><strong id="kpi-campaigns">—</strong><small>Campañas con inversión visible</small></article>
+        <article class="kpi-card"><span>Inversión real del periodo</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">Cierre SOI conciliado</small></article>
+        <article class="kpi-card"><span>Campañas totales</span><strong id="kpi-campaigns">—</strong><small>Bloques con inversión real</small></article>
       </div>
       <div class="overview-grid overview-grid-single">
         <article class="panel">
-          <div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split de campañas / audiencias</h3></div><span class="status-chip">Paid</span></div>
+          <div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split de inversión por campaña</h3></div><span class="status-chip">SOI</span></div>
           <div id="campaign-split" class="rank-list"></div>
-          <p class="micro-note">Audiencias: input reservado; el export actual no incluye dimensión de audiencia.</p>
+          <p class="micro-note">Fuente: cierre real conciliado de junio y julio.</p>
         </article>
       </div>
       <article class="panel full-panel">
-        <div class="panel-head"><div><span class="panel-kicker">Capital allocation</span><h3>Inversión por canal</h3></div></div>
+        <div class="panel-head"><div><span class="panel-kicker">Capital allocation</span><h3>Inversión real por canal</h3></div><span class="status-chip">SOI</span></div>
         <div id="channel-investment" class="channel-bars"></div>
       </article>
     </section>
