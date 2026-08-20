@@ -4,10 +4,11 @@ Static HTML/CSS/JS dashboard prepared for GitHub → Vercel.
 
 ## What is wired now
 
+- **Overview:** SOI Digital business reconciliation for June and July 2026 (budget, actual, business blocks, and available channel close).
 - **Paid Media:** Meta Ads + Google Ads.
-- **Social:** Facebook + Instagram follows/content.
-- **Analytics:** GA4 daily Active Users, Views, Events and engagement series.
-- **Placeholders preserved:** Sales, Listening, Offline, conversions where the source is not reliable yet.
+- **Social:** Facebook + Instagram follows/content, Facebook boosted detail, and organic/boosted/combined labels.
+- **Analytics:** site traffic only; GA4 daily Active Users, Views, Events and engagement series.
+- **Placeholders preserved:** Sales, Offline, conversions, and boost spend where the source is not reliable yet.
 - **Agency rule:** WDM starts **2026-06-01**; Sensis remains a separate owner.
 
 ## Important data constraints
@@ -19,16 +20,19 @@ Static HTML/CSS/JS dashboard prepared for GitHub → Vercel.
 3. Facebook/Instagram content metrics are **Lifetime metrics for content published during the selected period**, not activity generated exclusively during the period.
 4. Facebook Reels is not added on top of Facebook Posts to avoid double counting.
 5. Reach is not exposed as a global additive KPI.
+6. Overview campaign counts use five SOI business blocks. Technical Meta campaigns and individual boosts do not increase the executive campaign count.
+7. Sessions, traffic sources, and top pages are only shown for the full May–Jul range because those files were received as aggregate totals.
+8. Total Marketing remains blank until offline investment is integrated; Digital investment is not relabeled as total Marketing.
 
 ## Run locally
 
-From this folder:
+From the parent `morelos-reporte_online-mayo-julio-2026` folder:
 
 ```bash
 python -m http.server 8080
 ```
 
-Open `http://localhost:8080`.
+Open `http://localhost:8080/morelos-marketing-dashboard/`.
 
 ## Deploy to Vercel
 
@@ -83,4 +87,4 @@ Edit `config/taxonomy.json` to change the macro campaign rules. Current groups i
 - Boosted / Amplificación
 - Otros
 
-This taxonomy is deliberately separate from the frontend so campaign naming can evolve without redesigning the dashboard.
+The technical taxonomy remains separate from the frontend so campaign naming can evolve without redesigning the dashboard. Overview and the global campaign filter use the five business groups in `config/soi-reference.json`.

@@ -7,3 +7,32 @@
 @media(max-width:1100px){.top-nav{gap:12px}.top-nav a:nth-child(n+5):not(.nav-pill){display:none}.filters-panel{grid-template-columns:1.5fr 1fr 1fr}.filters-panel .filter-group:nth-of-type(4){display:none}.reset-btn{grid-column:3}.kpi-grid-5{grid-template-columns:repeat(3,1fr)}.campaign-card-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.site-header{height:64px;padding:0 14px}.brand img{width:110px}.top-nav a:not(.nav-pill){display:none}.page-shell{padding:24px 12px 0}.hero{grid-template-columns:1fr}.hero-badge{display:none}.filters-panel{position:relative;top:auto;grid-template-columns:1fr}.period-group{grid-template-columns:1fr}.segmented{margin-bottom:7px}.reset-btn{grid-column:auto}.section-heading{align-items:start;flex-direction:column}.section-note{text-align:left}.kpi-grid-4,.kpi-grid-5,.kpi-grid-3,.overview-grid,.social-grid,.analytics-grid,.placeholder-module-grid,.insights-grid,.method-grid,.platform-grid,.campaign-card-grid{grid-template-columns:1fr 1fr}.overview-grid .panel-large{grid-column:1/-1}.channel-bars{grid-template-columns:1fr}.campaign-card-grid{grid-template-columns:1fr}.rank-row{grid-template-columns:1.2fr 2fr auto}}
 @media(max-width:520px){.kpi-grid-4,.kpi-grid-5,.kpi-grid-3,.overview-grid,.social-grid,.analytics-grid,.placeholder-module-grid,.insights-grid,.method-grid,.platform-grid{grid-template-columns:1fr}.period-controls{flex-direction:column}.period-controls select{height:40px}.kpi-card{min-height:96px}.hero h1{font-size:43px}.section-heading h2{font-size:27px}}
+
+/* Client feedback · Overview, Social and Analytics */
+.filters-panel{grid-template-columns:2.2fr 1.1fr 1fr auto}
+.overview-kpi-group{margin-top:14px}
+.overview-kpi-heading{display:flex;justify-content:space-between;gap:20px;align-items:center;margin:0 3px 7px;color:var(--green);font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.overview-kpi-heading small{color:var(--muted);font-size:9px;letter-spacing:0;text-transform:none}
+.compact-kpis .kpi-card{min-height:94px;padding:14px}
+.compact-kpis .kpi-card strong{font-size:24px;margin:11px 0 7px}
+.channel-bars{grid-template-columns:repeat(5,1fr)}
+.platform-grid{grid-template-columns:repeat(4,1fr)}
+.boosted-box{grid-template-columns:repeat(3,1fr)}
+.table-wrap{overflow-x:auto}
+.reconciliation-table{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
+.reconciliation-table th,.reconciliation-table td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.reconciliation-table th:first-child,.reconciliation-table td:first-child{text-align:left;white-space:normal;min-width:210px}
+.reconciliation-table thead th{background:var(--green);color:#fff;font-size:9px;text-transform:uppercase;letter-spacing:.05em}
+.reconciliation-table tbody tr:last-child td{font-weight:850;background:#edf4ef;border-bottom:0}
+.variance-negative{color:var(--red);font-weight:800}.variance-positive{color:var(--green-2);font-weight:800}
+.boosted-detail-list{display:grid;gap:7px;margin-top:12px}
+.boosted-detail-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:10px}
+.boosted-detail-row strong{display:block}.boosted-detail-row small{color:var(--muted)}
+.content-type{display:inline-flex;margin:4px 5px 0 0;padding:3px 6px;border-radius:999px;background:#e7f2ea;color:var(--green);font-size:8px;font-weight:850;text-transform:uppercase}
+.content-type.boosted{background:#eaf1ff;color:#1258a8}.content-type.combined{background:#f8e9f0;color:#9b2457}
+.content-link{display:inline-flex;color:var(--green);font-size:9px;font-weight:800;text-decoration:none;margin-top:4px}.content-link:hover{text-decoration:underline}
+.measurement-callout{margin:10px 0 0;padding:11px 13px;border-left:3px solid var(--green);background:#f8fbf8;color:var(--muted);font-size:10px}
+.measurement-callout strong{color:var(--ink)}
+@media(max-width:1100px){.filters-panel{grid-template-columns:1.5fr 1fr 1fr}.reset-btn{grid-column:3}.channel-bars,.platform-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.filters-panel{grid-template-columns:1fr}.reset-btn{grid-column:auto}.compact-kpis{grid-template-columns:repeat(2,1fr)}.channel-bars{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.compact-kpis,.channel-bars,.platform-grid,.boosted-box{grid-template-columns:1fr}.overview-kpi-heading{align-items:flex-start;flex-direction:column;gap:2px}}

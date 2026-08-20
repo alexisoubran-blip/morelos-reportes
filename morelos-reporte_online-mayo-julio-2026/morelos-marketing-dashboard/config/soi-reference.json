@@ -1,0 +1,67 @@
+{
+  "source": "SOI Digital | Junio-Julio 2026",
+  "currency": "USD",
+  "campaign_groups": [
+    "AON / Store visits",
+    "Lead ads / Ofertón",
+    "Taco Tuesday",
+    "Productos / Boost",
+    "Mundial / Sellos / Futbolito"
+  ],
+  "months": {
+    "2026-06": {
+      "budget": 12000.0,
+      "actual": 7015.11,
+      "blocks": [
+        {"name": "AON / Store visits", "budget": 3000.0, "actual": 0.0},
+        {"name": "Lead ads / Ofertón", "budget": 3300.0, "actual": 849.71},
+        {"name": "Taco Tuesday", "budget": 2400.0, "actual": 586.34},
+        {"name": "Productos / Boost", "budget": 3300.0, "actual": 1412.63},
+        {"name": "Mundial / Sellos / Futbolito", "budget": 0.0, "actual": 4166.43}
+      ],
+      "channels_planned": {
+        "Meta": 4800.0,
+        "Google": 3600.0,
+        "TikTok": 2160.0,
+        "YouTube / CTV": 1440.0
+      },
+      "channels_actual": {
+        "Meta": 6025.83,
+        "Google": null,
+        "TikTok": null,
+        "YouTube / CTV": 989.28
+      }
+    },
+    "2026-07": {
+      "budget": 14000.0,
+      "actual": 11808.10,
+      "blocks": [
+        {"name": "AON / Store visits", "budget": 3000.0, "actual": 2366.99},
+        {"name": "Lead ads / Ofertón", "budget": 3300.0, "actual": 2578.65},
+        {"name": "Taco Tuesday", "budget": 2400.0, "actual": 1495.75},
+        {"name": "Productos / Boost", "budget": 3300.0, "actual": 3324.55},
+        {"name": "Mundial / Sellos / Futbolito", "budget": 2000.0, "actual": 2042.16}
+      ],
+      "channels_planned": {
+        "Meta": 5500.0,
+        "Google": 4000.0,
+        "TikTok": 2660.0,
+        "YouTube / CTV": 1690.0,
+        "Spotify": 150.0
+      },
+      "channels_actual": {
+        "Meta": null,
+        "Google": null,
+        "TikTok": null,
+        "YouTube / CTV": null,
+        "Spotify": null
+      }
+    }
+  },
+  "notes": [
+    "El real por bloque es la fuente de control para Overview y debe reconciliar con el total mensual.",
+    "Productos / Boost integra la amplificación de publicaciones; los boosts no cuentan como campañas ejecutivas adicionales.",
+    "El cierre por canal solo está disponible para junio en la referencia recibida.",
+    "Offline, venta y ventas relacionadas permanecen pendientes de fuente."
+  ]
+}

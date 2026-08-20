@@ -60,12 +60,8 @@
           <option value="all">Todos</option>
           <option value="Meta">Meta</option>
           <option value="Google">Google</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label for="audience-filter">Audiencia</label>
-        <select id="audience-filter" disabled>
-          <option>Sin dimensión en fuente</option>
+          <option value="YouTube / CTV">YouTube / CTV</option>
+          <option value="TikTok">TikTok</option>
         </select>
       </div>
       <button id="reset-filters" class="reset-btn" type="button">Restablecer</button>
@@ -77,25 +73,49 @@
         <p class="section-note">La venta permanece como input preparado hasta integrar la fuente transaccional.</p>
       </div>
       <div class="kpi-grid kpi-grid-4">
-        <article class="kpi-card"><span>Inversión del periodo</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">Paid media disponible</small></article>
+        <article class="kpi-card placeholder-card"><span>Inversión total Marketing</span><strong id="kpi-marketing-total">—</strong><small>Medios online + offline · offline pendiente</small></article>
         <article class="kpi-card placeholder-card"><span>Venta total del periodo</span><strong>—</strong><small>Fuente aún no integrada</small></article>
-        <article class="kpi-card"><span>Campañas totales</span><strong id="kpi-campaigns">—</strong><small>Campañas con inversión visible</small></article>
-        <article class="kpi-card placeholder-card"><span>Ventas relacionadas</span><strong>—</strong><small>Atribución pendiente</small></article>
+        <article class="kpi-card"><span>Campañas totales</span><strong id="kpi-campaigns">—</strong><small>Bloques de negocio con inversión real</small></article>
+        <article class="kpi-card placeholder-card"><span>Ventas relacionadas</span><strong>—</strong><small># campañas con atribución · pendiente</small></article>
+      </div>
+      <div class="overview-kpi-group">
+        <div class="overview-kpi-heading"><span>Medios Broadcasting / OFF</span><small>Fuente pendiente</small></div>
+        <div class="kpi-grid kpi-grid-5 compact-kpis">
+          <article class="kpi-card placeholder-card"><span>Inversión total OFF</span><strong>—</strong><small>Solo medios offline</small></article>
+          <article class="kpi-card placeholder-card"><span>TV</span><strong>—</strong><small>Fuente pendiente</small></article>
+          <article class="kpi-card placeholder-card"><span>Radio</span><strong>—</strong><small>Fuente pendiente</small></article>
+          <article class="kpi-card placeholder-card"><span>Streaming</span><strong>—</strong><small>Fuente pendiente</small></article>
+          <article class="kpi-card placeholder-card"><span>Prensa</span><strong>—</strong><small>Fuente pendiente</small></article>
+        </div>
+      </div>
+      <div class="overview-kpi-group">
+        <div class="overview-kpi-heading"><span>Medios Digitales</span><small>Inversión real conciliada con SOI</small></div>
+        <div class="kpi-grid kpi-grid-5 compact-kpis">
+          <article class="kpi-card"><span>Inversión total Digital</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">SOI disponible</small></article>
+          <article class="kpi-card"><span>Meta</span><strong id="kpi-digital-meta">—</strong><small>Cierre por canal</small></article>
+          <article class="kpi-card"><span>Google</span><strong id="kpi-digital-google">—</strong><small>Cierre por canal</small></article>
+          <article class="kpi-card"><span>YouTube / CTV</span><strong id="kpi-digital-youtube">—</strong><small>Cierre por canal</small></article>
+          <article class="kpi-card"><span>TikTok</span><strong id="kpi-digital-tiktok">—</strong><small>Cierre por canal</small></article>
+        </div>
       </div>
       <div class="overview-grid">
         <article class="panel panel-large">
-          <div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Inversión vs. venta</h3></div><span class="status-chip muted">Ventas sin fuente</span></div>
+          <div class="panel-head"><div><span class="panel-kicker">Reconciliación</span><h3>Presupuesto vs. inversión real</h3></div><span class="status-chip">SOI</span></div>
           <div id="investment-time-chart" class="chart-box"></div>
         </article>
         <article class="panel">
-          <div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split de campañas / audiencias</h3></div><span class="status-chip">Paid</span></div>
+          <div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split por bloque de campaña</h3></div><span class="status-chip">Real</span></div>
           <div id="campaign-split" class="rank-list"></div>
-          <p class="micro-note">Audiencias: input reservado; el export actual no incluye dimensión de audiencia.</p>
+          <p class="micro-note">Productos / Boost integra la amplificación; los boosts no se cuentan como campañas adicionales.</p>
         </article>
       </div>
       <article class="panel full-panel">
         <div class="panel-head"><div><span class="panel-kicker">Capital allocation</span><h3>Inversión por canal</h3></div></div>
         <div id="channel-investment" class="channel-bars"></div>
+      </article>
+      <article class="panel full-panel">
+        <div class="panel-head"><div><span class="panel-kicker">Control</span><h3>Presupuesto vs. real por bloque</h3></div><span id="soi-reconciliation-status" class="status-chip">Conciliado</span></div>
+        <div id="soi-reconciliation" class="table-wrap"></div>
       </article>
     </section>
 
@@ -139,39 +159,39 @@
         <article class="kpi-card"><span>Nuevos seguidores</span><strong id="social-follows">—</strong><small>Follows obtenidos en el periodo</small></article>
         <article class="kpi-card"><span>Views</span><strong id="social-views">—</strong><small>Lifetime de contenido publicado</small></article>
         <article class="kpi-card"><span>ER</span><strong id="social-er">—</strong><small>Interacciones / reach de posts</small></article>
-        <article class="kpi-card"><span>Interacciones</span><strong id="social-interactions">—</strong><small>Likes, comments, shares y saves</small></article>
+        <article class="kpi-card"><span>Interacciones</span><strong id="social-interactions">—</strong><small>FB: reactions + comments + shares · IG: likes + comments + shares + saves</small></article>
       </div>
       <article class="panel full-panel">
         <div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Social Media</h3></div><div class="metric-tabs" id="social-tabs"><button class="active" data-metric="follows">Follows</button><button data-metric="views">Views</button><button data-metric="interactions">Interacciones</button></div></div>
         <div id="social-chart" class="chart-box"></div>
       </article>
       <div class="social-grid">
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Amplificación</span><h3>Boosted consolidado</h3></div></div><div id="boosted-summary"></div></article>
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Contenido</span><h3>Top content</h3></div></div><div id="top-content" class="top-content-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Amplificación</span><h3>Boosted consolidado</h3></div></div><div id="boosted-summary"></div><div id="boosted-detail" class="boosted-detail-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Contenido</span><h3>Top content</h3></div><span class="status-chip muted">Sin imagen hasta aprobación</span></div><div id="top-content" class="top-content-list"></div></article>
       </div>
+      <p class="measurement-callout"><strong>Lectura:</strong> Facebook permite identificar publicaciones amplificadas. Instagram llega combinado en el export; no se inventa un split orgánico/pagado ni inversión de boost sin fuente.</p>
     </section>
 
     <section id="analytics" class="report-section">
       <div class="section-heading">
-        <div><p class="eyebrow">03 · ANALYTICS</p><h2>Digital Behavior</h2></div>
-        <p class="section-note">GA4 sí tiene series diarias para usuarios activos, views, engagement y eventos.</p>
+        <div><p class="eyebrow">03 · ANALYTICS</p><h2>Website Traffic</h2></div>
+        <p class="section-note">Alcance acotado a tráfico y comportamiento del sitio. Ventas no se muestran sin fuente transaccional.</p>
       </div>
-      <div class="kpi-grid kpi-grid-4 analytics-kpis">
+      <div class="kpi-grid kpi-grid-3 analytics-kpis">
         <article class="kpi-card"><span>Usuarios activos</span><strong id="ga-users">—</strong><small>Promedio diario</small></article>
-        <article class="kpi-card placeholder-card"><span>Sesiones</span><strong>—</strong><small>Solo agregado May–Jul</small></article>
-        <article class="kpi-card placeholder-card"><span>Fuentes de tráfico</span><strong>—</strong><small>Solo agregado May–Jul</small></article>
+        <article class="kpi-card"><span>Sesiones</span><strong id="ga-sessions">—</strong><small>Disponible solo para May–Jul completo</small></article>
+        <article class="kpi-card"><span>Fuentes de tráfico</span><strong id="ga-sources">—</strong><small>Disponible solo para May–Jul completo</small></article>
         <article class="kpi-card"><span>Páginas vistas</span><strong id="ga-views">—</strong><small>Views GA4 en el periodo</small></article>
         <article class="kpi-card"><span>Eventos / acciones</span><strong id="ga-events">—</strong><small>Event count</small></article>
         <article class="kpi-card placeholder-card"><span>Conversiones</span><strong>—</strong><small>Sin breakdown diario confiable</small></article>
-        <article class="kpi-card placeholder-card"><span>Ventas</span><strong>—</strong><small>Fuente no integrada</small></article>
       </div>
       <article class="panel full-panel">
         <div class="panel-head"><div><span class="panel-kicker">Tráfico y comportamiento</span><h3>Actividad digital</h3></div><div class="metric-tabs" id="analytics-tabs"><button class="active" data-metric="active_users">Usuarios activos</button><button data-metric="views">Views</button><button data-metric="event_count">Eventos</button></div></div>
         <div id="analytics-chart" class="chart-box"></div>
       </article>
       <div class="analytics-grid">
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Acquisition</span><h3>Fuentes de tráfico</h3></div><span class="status-chip muted">May–Jul agregado</span></div><div id="traffic-sources" class="rank-list"></div></article>
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Engagement</span><h3>Páginas principales</h3></div><span class="status-chip muted">May–Jul agregado</span></div><div id="top-pages" class="rank-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Acquisition</span><h3>Fuentes de tráfico</h3></div><span id="traffic-period" class="status-chip muted">May–Jul agregado</span></div><div id="traffic-sources" class="rank-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Engagement</span><h3>Páginas principales</h3></div><span id="pages-period" class="status-chip muted">May–Jul agregado</span></div><div id="top-pages" class="rank-list"></div></article>
       </div>
     </section>
 
@@ -237,10 +257,13 @@
       <p class="eyebrow">DATA INTEGRITY</p>
       <h2>Metodología y cobertura</h2>
       <div class="method-grid">
+        <p><strong>Overview / SOI.</strong> Presupuesto, inversión real y campañas totales provienen de la conciliación de negocio SOI. Los boosts se integran en Productos / Boost y no inflan el conteo ejecutivo.</p>
+        <p><strong>Total Marketing.</strong> Se mantiene sin cálculo hasta recibir inversión offline; la inversión digital no se presenta como si fuera el total de Marketing.</p>
         <p><strong>Agency ownership.</strong> WDM se considera responsable a partir del 1 de junio de 2026. Sensis permanece identificado como owner independiente en Paid Media.</p>
         <p><strong>Meta Ads.</strong> El CSV está agregado del 1 mayo al 31 julio. El dashboard no reparte inversión por semana o mes cuando la fuente no trae ese grain.</p>
         <p><strong>Social.</strong> Views e interacciones de posts son métricas Lifetime asociadas a contenido publicado dentro del periodo seleccionado; no equivalen a actividad ocurrida exclusivamente en ese periodo.</p>
         <p><strong>Reach.</strong> No se suma como KPI global porque no es aditivo entre ads, posts o días. Se conserva como dato de contenido para calcular ratios descriptivos.</p>
+        <p><strong>Website Traffic.</strong> Usuarios, views y eventos responden al periodo. Sesiones, fuentes y páginas solo se muestran para May–Jul completo porque la fuente llegó agregada.</p>
         <p><strong>Google Reviews.</strong> El módulo de Listening resume 3,862 reviews con estrella individual en 10 sucursales y 17 comentarios recientes de Admiral. El detalle completo conserva su propia metodología y filtros.</p>
       </div>
     </section>
