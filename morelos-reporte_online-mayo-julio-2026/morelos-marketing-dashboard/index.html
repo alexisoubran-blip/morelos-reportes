@@ -68,19 +68,12 @@
     <section id="overview" class="report-section">
       <div class="section-heading">
         <div><p class="eyebrow">01 · INVERSIÓN Y VENTA</p><h2>Overview</h2></div>
-        <p class="section-note">La venta permanece como input preparado hasta integrar la fuente transaccional.</p>
       </div>
-      <div class="kpi-grid kpi-grid-4">
+      <div class="kpi-grid kpi-grid-2">
         <article class="kpi-card"><span>Inversión del periodo</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">Paid media disponible</small></article>
-        <article class="kpi-card placeholder-card"><span>Venta total del periodo</span><strong>—</strong><small>Fuente aún no integrada</small></article>
         <article class="kpi-card"><span>Campañas totales</span><strong id="kpi-campaigns">—</strong><small>Campañas con inversión visible</small></article>
-        <article class="kpi-card placeholder-card"><span>Ventas relacionadas</span><strong>—</strong><small>Atribución pendiente</small></article>
       </div>
-      <div class="overview-grid">
-        <article class="panel panel-large">
-          <div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Inversión vs. venta</h3></div><span class="status-chip muted">Ventas sin fuente</span></div>
-          <div id="investment-time-chart" class="chart-box"></div>
-        </article>
+      <div class="overview-grid overview-grid-single">
         <article class="panel">
           <div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split de campañas / audiencias</h3></div><span class="status-chip">Paid</span></div>
           <div id="campaign-split" class="rank-list"></div>
@@ -98,12 +91,11 @@
         <div><p class="eyebrow">02.1 · PERFORMANCE</p><h2>Paid Media</h2></div>
         <p class="section-note">Meta está agregado para todo el export; Google tiene inversión semanal. El dashboard evita imputar fechas que no existen.</p>
       </div>
-      <div class="kpi-grid kpi-grid-5">
+      <div class="kpi-grid kpi-grid-4">
         <article class="kpi-card"><span>Plataformas</span><strong class="text-value">Meta / Google</strong><small>TikTok preparado, sin fuente</small></article>
         <article class="kpi-card"><span>Inversión</span><strong id="perf-spend">—</strong><small id="perf-spend-note">Cobertura según filtro</small></article>
         <article class="kpi-card placeholder-card"><span>Reach</span><strong>—</strong><small>No aditivo en export actual</small></article>
         <article class="kpi-card"><span>Clicks</span><strong id="perf-clicks">—</strong><small>Link clicks de Meta</small></article>
-        <article class="kpi-card placeholder-card"><span>Conversiones</span><strong>—</strong><small>Resultados mezclan objetivos</small></article>
       </div>
       <article class="panel full-panel">
         <div class="panel-head"><div><span class="panel-kicker">Comparativo</span><h3>Performance por plataforma</h3></div><div class="metric-tabs" id="performance-tabs"><button class="active" data-metric="spend">Inversión</button><button data-metric="impressions">Impresiones</button><button data-metric="clicks">Clicks</button></div></div>
@@ -150,14 +142,10 @@
         <div><p class="eyebrow">03 · ANALYTICS</p><h2>Digital Behavior</h2></div>
         <p class="section-note">GA4 sí tiene series diarias para usuarios activos, views, engagement y eventos.</p>
       </div>
-      <div class="kpi-grid kpi-grid-4 analytics-kpis">
+      <div class="kpi-grid kpi-grid-3 analytics-kpis">
         <article class="kpi-card"><span>Usuarios activos</span><strong id="ga-users">—</strong><small>Promedio diario</small></article>
-        <article class="kpi-card placeholder-card"><span>Sesiones</span><strong>—</strong><small>Solo agregado May–Jul</small></article>
-        <article class="kpi-card placeholder-card"><span>Fuentes de tráfico</span><strong>—</strong><small>Solo agregado May–Jul</small></article>
         <article class="kpi-card"><span>Páginas vistas</span><strong id="ga-views">—</strong><small>Views GA4 en el periodo</small></article>
         <article class="kpi-card"><span>Eventos / acciones</span><strong id="ga-events">—</strong><small>Event count</small></article>
-        <article class="kpi-card placeholder-card"><span>Conversiones</span><strong>—</strong><small>Sin breakdown diario confiable</small></article>
-        <article class="kpi-card placeholder-card"><span>Ventas</span><strong>—</strong><small>Fuente no integrada</small></article>
       </div>
       <article class="panel full-panel">
         <div class="panel-head"><div><span class="panel-kicker">Tráfico y comportamiento</span><h3>Actividad digital</h3></div><div class="metric-tabs" id="analytics-tabs"><button class="active" data-metric="active_users">Usuarios activos</button><button data-metric="views">Views</button><button data-metric="event_count">Eventos</button></div></div>

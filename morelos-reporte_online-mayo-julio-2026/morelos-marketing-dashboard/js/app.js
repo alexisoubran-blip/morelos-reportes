@@ -155,7 +155,6 @@
     setText('kpi-spend-note',paid.coverage.join(' · '));
     setText('kpi-campaigns',paid.meta.length ? integer(paid.meta.filter(x=>x.spend>0).length) : '—');
 
-    renderInvestmentTime(range, paid);
     renderCampaignSplit(paid);
     renderChannelInvestment(paid);
   }
