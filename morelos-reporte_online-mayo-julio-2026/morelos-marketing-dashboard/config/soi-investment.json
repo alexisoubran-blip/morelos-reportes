@@ -1,5 +1,5 @@
 {
-  "source": "SOI Digital | Junio–Julio 2026",
+  "source": "Morelos Marketing Data Hub | 03_PAID_MEDIA | Junio–Julio 2026",
   "currency": "USD",
   "campaign_groups": [
     "AON / Store visits",
@@ -17,16 +17,16 @@
   ],
   "months": {
     "2026-06": {
-      "actual": 7015.11,
+      "actual": 7124.19,
       "blocks": [
-        { "name": "AON / Store visits", "actual": null },
-        { "name": "Lead ads / Ofertón", "actual": 849.71 },
-        { "name": "Taco Tuesday", "actual": 586.34 },
-        { "name": "Productos / Boost", "actual": 1412.63 },
-        { "name": "Mundial / Sellos / Futbolito", "actual": 4166.43 }
+        {"name": "AON / Store visits", "actual": 0.0},
+        {"name": "Lead ads / Ofertón", "actual": 888.04},
+        {"name": "Taco Tuesday", "actual": 531.13},
+        {"name": "Productos / Boost", "actual": 1740.52},
+        {"name": "Mundial / Sellos / Futbolito", "actual": 3964.5}
       ],
       "channels_actual": {
-        "Meta": 6025.83,
+        "Meta": 6134.91,
         "Google": null,
         "TikTok": null,
         "YouTube / CTV": 989.28,
@@ -34,16 +34,16 @@
       }
     },
     "2026-07": {
-      "actual": 11808.10,
+      "actual": 11699.02,
       "blocks": [
-        { "name": "AON / Store visits", "actual": 2366.99 },
-        { "name": "Lead ads / Ofertón", "actual": 2578.65 },
-        { "name": "Taco Tuesday", "actual": 1495.75 },
-        { "name": "Productos / Boost", "actual": 3324.55 },
-        { "name": "Mundial / Sellos / Futbolito", "actual": 2042.16 }
+        {"name": "AON / Store visits", "actual": 2318.59},
+        {"name": "Lead ads / Ofertón", "actual": 2588.72},
+        {"name": "Taco Tuesday", "actual": 1495.75},
+        {"name": "Productos / Boost", "actual": 3253.8},
+        {"name": "Mundial / Sellos / Futbolito", "actual": 2042.16}
       ],
       "channels_actual": {
-        "Meta": 10128.83,
+        "Meta": 10019.75,
         "Google": 948.56,
         "TikTok": null,
         "YouTube / CTV": 730.71,
