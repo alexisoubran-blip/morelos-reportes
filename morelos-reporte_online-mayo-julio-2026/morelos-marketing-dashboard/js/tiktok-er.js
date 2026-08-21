@@ -29,6 +29,14 @@
     return document.querySelector('#social-platform-tabs button.active')?.dataset.platform||'all';
   }
 
+  function updateMethodologyCopy(){
+    document.querySelectorAll('.method-grid p').forEach(p=>{
+      if((p.textContent||'').includes('TikTok ER.')){
+        p.innerHTML='<strong>Social ER.</strong> Fórmula canónica para Facebook, Instagram, TikTok y total: (Likes + Comments + Shares + Saves) / Views. El total usa el mismo Views_Rollup deduplicado que se muestra en el KPI de Views.';
+      }
+    });
+  }
+
   function updateSocialER(){
     const erEl=$('social-er');
     if(!erEl||!rows.length)return;
@@ -66,6 +74,7 @@
       const hydrate=data=>(data.rows||[]).map(a=>Object.fromEntries((data.schema||[]).map((f,i)=>[f,a[i]])));
       rows=[...hydrate(d1),...hydrate(d2)];
       updateSocialER();
+      updateMethodologyCopy();
     }catch(err){
       console.error('No se pudo calcular el Social ER estandarizado',err);
     }
@@ -73,6 +82,7 @@
 
   document.addEventListener('DOMContentLoaded',()=>{
     load();
+    updateMethodologyCopy();
     document.addEventListener('click',e=>{
       if(e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters'))setTimeout(updateSocialER,0);
     });
