@@ -51,7 +51,7 @@
     </section>
 
     <section id="performance" class="report-section">
-      <div class="section-heading"><div><p class="eyebrow">02.1 · PERFORMANCE</p><h2>Paid Media</h2></div><p class="section-note">Reach se conserva en el Data Hub, pero no se suma como KPI global por no ser aditivo entre campañas y periodos.</p></div>
+      <div class="section-heading"><div><p class="eyebrow">02.1 · PERFORMANCE</p><h2>Paid Media</h2></div><p class="section-note">Reach se conserva en el Data Hub, pero no se suma como KPI global por no ser aditivo entre campañas y periodos. TikTok Ads queda preparado aunque todavía no tenga inversión.</p></div>
       <div class="kpi-grid kpi-grid-4">
         <article class="kpi-card"><span>Plataformas</span><strong id="perf-platforms" class="text-value">—</strong><small>Con datos en 03_PAID_MEDIA</small></article>
         <article class="kpi-card"><span>Inversión</span><strong id="perf-spend">—</strong><small>Amount spent</small></article>
@@ -65,7 +65,7 @@
     <section id="social" class="report-section">
       <div class="section-heading">
         <div><p class="eyebrow">02.2 · SOCIAL MEDIA</p><h2>Social Media</h2></div>
-        <div class="social-head-actions"><p class="section-note">Posts y métricas provienen de 05_SOCIAL_CONTENT; followers de 04_SOCIAL_ACCOUNTS. Views combinadas usan Views_Rollup para evitar duplicar crossposts.</p><div class="metric-tabs" id="social-platform-tabs" aria-label="Filtrar Social Media por plataforma"></div></div>
+        <div class="social-head-actions"><p class="section-note">Posts y métricas provienen de 05_SOCIAL_CONTENT; followers de 04_SOCIAL_ACCOUNTS. Views combinadas usan Views_Rollup para evitar duplicar crossposts. TikTok Organic queda preparado hasta cargar su histórico.</p><div class="metric-tabs" id="social-platform-tabs" aria-label="Filtrar Social Media por plataforma"></div></div>
       </div>
       <div class="kpi-grid kpi-grid-8 social-kpis">
         <article class="kpi-card"><span>Nuevos seguidores</span><strong id="social-follows">—</strong><small>No atribuible por campaña</small></article>
@@ -82,14 +82,14 @@
     </section>
 
     <section id="analytics" class="report-section">
-      <div class="section-heading"><div><p class="eyebrow">03 · ANALYTICS</p><h2>Digital Behavior</h2></div><p class="section-note">Daily Users sí tiene fecha diaria. Channels y Pages están agregados para Jun–Jul en el Sheet y no se reparten artificialmente.</p></div>
+      <div class="section-heading"><div><p class="eyebrow">03 · ANALYTICS</p><h2>Digital Behavior</h2></div><p class="section-note">Daily Users ya responde por fecha. Fuentes de tráfico y páginas principales quedarán filtrables por mes en cuanto el Data Hub tenga esos dos exports con dimensión Month; el archivo actual solo contiene el agregado Jun–Jul.</p></div>
       <div class="kpi-grid kpi-grid-3 analytics-kpis">
         <article class="kpi-card"><span>Usuarios activos</span><strong id="ga-users">—</strong><small>Promedio diario</small></article>
         <article class="kpi-card"><span>Páginas vistas</span><strong id="ga-views">—</strong><small>07_GA4_PAGES</small></article>
         <article class="kpi-card"><span>Eventos / acciones</span><strong id="ga-events">—</strong><small>06_GA4 · Period Channel</small></article>
       </div>
       <article class="panel full-panel"><div class="panel-head"><div><span class="panel-kicker">Tráfico y comportamiento</span><h3>Actividad digital</h3></div><div class="metric-tabs" id="analytics-tabs"><button class="active" data-metric="active_users">Usuarios activos</button><button data-metric="views">Views</button><button data-metric="event_count">Eventos</button></div></div><div id="analytics-chart" class="chart-box"></div></article>
-      <div class="analytics-grid"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Acquisition</span><h3>Fuentes de tráfico</h3></div><span class="status-chip muted">Jun–Jul agregado</span></div><div id="traffic-sources" class="rank-list"></div></article><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Engagement</span><h3>Páginas principales</h3></div><span class="status-chip muted">Jun–Jul agregado</span></div><div id="top-pages" class="rank-list"></div></article></div>
+      <div class="analytics-grid"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Acquisition</span><h3>Fuentes de tráfico</h3></div><span class="status-chip muted">Jun–Jul agregado · fuente actual</span></div><div id="traffic-sources" class="rank-list"></div></article><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Engagement</span><h3>Páginas principales</h3></div><span class="status-chip muted">Jun–Jul agregado · fuente actual</span></div><div id="top-pages" class="rank-list"></div></article></div>
     </section>
 
     <section id="listening" class="report-section">
@@ -106,11 +106,12 @@
 
     <section class="methodology">
       <p class="eyebrow">DATA INTEGRITY</p><h2>Metodología y cobertura</h2>
-      <div class="method-grid"><p><strong>Single source of truth.</strong> Paid, Social y Analytics se renderizan desde una exportación del Morelos Marketing Data Hub.</p><p><strong>Campaign_Tag.</strong> El filtro global usa el campo canónico del Sheet; no se infiere una campaña nueva en frontend.</p><p><strong>Reach.</strong> No se muestra como KPI agregado porque no es aditivo entre campañas, posts o periodos.</p><p><strong>Social Views.</strong> Al combinar Facebook + Instagram se usa Views_Rollup para evitar duplicar crossposts que Business Suite reporta con el mismo total.</p><p><strong>GA4.</strong> Sources y Pages están agregados Jun–Jul. Solo Daily Users soporta filtros temporales más granulares con la fuente actual.</p><p><strong>Sin fuente = sin cifra.</strong> Reviews y Offline permanecen vacíos hasta que sus tabs del Data Hub contengan registros.</p></div>
+      <div class="method-grid"><p><strong>Single source of truth.</strong> Paid, Social y Analytics se renderizan desde una exportación del Morelos Marketing Data Hub.</p><p><strong>Campaign_Tag.</strong> El filtro global usa el campo canónico del Sheet; no se infiere una campaña nueva en frontend.</p><p><strong>Reach.</strong> No se muestra como KPI agregado porque no es aditivo entre campañas, posts o periodos.</p><p><strong>Social Views.</strong> Al combinar Facebook + Instagram se usa Views_Rollup para evitar duplicar crossposts que Business Suite reporta con el mismo total.</p><p><strong>GA4.</strong> Daily Users tiene grain diario. Channels y Pages necesitan Month para responder correctamente al filtro mensual; no se imputa el agregado Jun–Jul.</p><p><strong>Future-ready.</strong> TikTok Ads y TikTok Organic permanecen visibles como espacios preparados y se poblarán desde el Data Hub cuando lleguen datos.</p></div>
     </section>
   </main>
 
   <footer class="site-footer"><img src="./assets/morelos-logo.png" alt="" /><span>Marketing Overview · Morelos Data Hub · dashboard de trabajo</span></footer>
   <script src="./js/app-v2.js" defer></script>
+  <script src="./js/future-readiness.js" defer></script>
 </body>
 </html>
