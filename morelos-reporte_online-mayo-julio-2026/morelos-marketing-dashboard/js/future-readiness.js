@@ -44,17 +44,29 @@
     const select = document.getElementById('channel-filter');
     if (!wrap || !select) return;
     const selected = select.value || 'all';
-    wrap.querySelectorAll('.future-platform').forEach(el => el.remove());
+    const futureCards = () => [...wrap.querySelectorAll('.future-platform')];
+    const realText = () => [...wrap.children].filter(el=>!el.classList.contains('future-platform')).map(el=>el.textContent||'').join(' ');
+
     if (selected === 'all') {
-      const currentText = wrap.textContent || '';
+      const text = realText();
       EXPECTED_PAID.forEach(([name, color]) => {
-        if (!currentText.includes(name)) wrap.insertAdjacentHTML('beforeend', mutedPlatformCard(name, color));
+        const existing = futureCards().find(el=>el.dataset.futurePlatform===name);
+        if (text.includes(name)) { if (existing) existing.remove(); return; }
+        if (!existing) wrap.insertAdjacentHTML('beforeend', mutedPlatformCard(name, color));
       });
       return;
     }
+
     const expected = EXPECTED_PAID.find(([name]) => name === selected);
     if (!expected) return;
-    if (wrap.querySelector('.empty-state') || !wrap.textContent.trim()) wrap.innerHTML = mutedPlatformCard(expected[0], expected[1]);
+    const hasReal = realText().includes(expected[0]) && !wrap.querySelector('.empty-state');
+    const existing = futureCards().find(el=>el.dataset.futurePlatform===expected[0]);
+    futureCards().filter(el=>el.dataset.futurePlatform!==expected[0]).forEach(el=>el.remove());
+    if (hasReal) { if (existing) existing.remove(); return; }
+    if (!existing) {
+      const emptyState=wrap.querySelector('.empty-state'); if(emptyState) emptyState.remove();
+      wrap.insertAdjacentHTML('beforeend', mutedPlatformCard(expected[0], expected[1]));
+    }
   }
 
   function ensureSocialTikTokTab() {
