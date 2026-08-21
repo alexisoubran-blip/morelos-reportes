@@ -105,9 +105,19 @@
     pairs.forEach(({section}) => observer.observe(section));
   }
 
+  function loadOfflinePremium(){
+    if (document.getElementById('offline-premium-script')) return;
+    const script = document.createElement('script');
+    script.id = 'offline-premium-script';
+    script.src = './js/offline-premium.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     patchAll();
     setupDesktopNav();
+    loadOfflinePremium();
     const main = document.querySelector('main');
     if (main) new MutationObserver(queuePatch).observe(main,{childList:true,subtree:true});
     document.addEventListener('change', e => { if (e.target.closest?.('#filters-panel,#campaign-filter,#channel-filter,#period-controls')) setTimeout(queuePatch,20); });
