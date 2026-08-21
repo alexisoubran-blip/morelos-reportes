@@ -91,3 +91,11 @@
     if (period) new MutationObserver(() => setTimeout(updateER, 40)).observe(period, { childList: true, subtree: true });
   });
 })();
+
+(() => {
+  if (document.querySelector('script[data-final-polish]')) return;
+  const script = document.createElement('script');
+  script.src = './js/final-polish.js';
+  script.dataset.finalPolish = 'true';
+  document.head.appendChild(script);
+})();
