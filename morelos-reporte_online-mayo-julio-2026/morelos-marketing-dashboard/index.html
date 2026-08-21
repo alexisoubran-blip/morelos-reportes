@@ -65,7 +65,7 @@
     <section id="social" class="report-section">
       <div class="section-heading">
         <div><p class="eyebrow">02.2 · SOCIAL MEDIA</p><h2>Social Media</h2></div>
-        <div class="social-head-actions"><p class="section-note">Posts y métricas provienen de 05_SOCIAL_CONTENT; followers de 04_SOCIAL_ACCOUNTS. Views combinadas usan Views_Rollup para evitar duplicar crossposts. TikTok Organic queda preparado hasta cargar su histórico.</p><div class="metric-tabs" id="social-platform-tabs" aria-label="Filtrar Social Media por plataforma"></div></div>
+        <div class="social-head-actions"><p class="section-note">Posts y métricas provienen de 05_SOCIAL_CONTENT; followers y audience de 04_SOCIAL_ACCOUNTS. Views combinadas usan Views_Rollup para evitar duplicar crossposts. TikTok Organic usa su export nativo de videos + audience.</p><div class="metric-tabs" id="social-platform-tabs" aria-label="Filtrar Social Media por plataforma"></div></div>
       </div>
       <div class="kpi-grid kpi-grid-8 social-kpis">
         <article class="kpi-card"><span>Nuevos seguidores</span><strong id="social-follows">—</strong><small>No atribuible por campaña</small></article>
@@ -75,7 +75,7 @@
         <article class="kpi-card"><span>Comments</span><strong id="social-comments">—</strong><small>Total en posts filtrados</small></article>
         <article class="kpi-card"><span>Shares</span><strong id="social-shares">—</strong><small>Total en posts filtrados</small></article>
         <article class="kpi-card"><span>Saves</span><strong id="social-saves">—</strong><small>Total en posts filtrados</small></article>
-        <article class="kpi-card"><span>ER</span><strong id="social-er">—</strong><small>Interacciones / suma de reach por post</small></article>
+        <article class="kpi-card"><span>ER</span><strong id="social-er">—</strong><small>FB/IG: interacciones / reach · TikTok: engaged audience / reached audience</small></article>
       </div>
       <article class="panel full-panel"><div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Social Media</h3></div><div class="metric-tabs" id="social-tabs"><button class="active" data-metric="follows">Follows</button><button data-metric="views">Views</button><button data-metric="interactions">Interacciones</button></div></div><div id="social-chart" class="chart-box"></div></article>
       <div class="social-grid"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Pilares</span><h3>Mix de contenido</h3></div></div><div id="content-mix" class="rank-list"></div></article><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Contenido</span><h3>Top content</h3></div></div><div id="top-content" class="top-content-list"></div></article></div>
@@ -106,12 +106,13 @@
 
     <section class="methodology">
       <p class="eyebrow">DATA INTEGRITY</p><h2>Metodología y cobertura</h2>
-      <div class="method-grid"><p><strong>Single source of truth.</strong> Paid, Social y Analytics se renderizan desde una exportación del Morelos Marketing Data Hub.</p><p><strong>Campaign_Tag.</strong> El filtro global usa el campo canónico del Sheet; no se infiere una campaña nueva en frontend.</p><p><strong>Reach.</strong> No se muestra como KPI agregado porque no es aditivo entre campañas, posts o periodos.</p><p><strong>Social Views.</strong> Al combinar Facebook + Instagram se usa Views_Rollup para evitar duplicar crossposts que Business Suite reporta con el mismo total.</p><p><strong>GA4.</strong> Daily Users tiene grain diario. Channels y Pages necesitan Month para responder correctamente al filtro mensual; no se imputa el agregado Jun–Jul.</p><p><strong>Future-ready.</strong> TikTok Ads y TikTok Organic permanecen visibles como espacios preparados y se poblarán desde el Data Hub cuando lleguen datos.</p></div>
+      <div class="method-grid"><p><strong>Single source of truth.</strong> Paid, Social y Analytics se renderizan desde una exportación del Morelos Marketing Data Hub.</p><p><strong>Campaign_Tag.</strong> El filtro global usa el campo canónico del Sheet; no se infiere una campaña nueva en frontend.</p><p><strong>Reach.</strong> No se muestra como KPI agregado porque no es aditivo entre campañas, posts o periodos.</p><p><strong>Social Views.</strong> Al combinar Facebook + Instagram se usa Views_Rollup para evitar duplicar crossposts que Business Suite reporta con el mismo total.</p><p><strong>TikTok ER.</strong> Se usa el indicador nativo de audiencia: Engaged audience / Reached audience. No se mezcla con un ER por views.</p><p><strong>GA4.</strong> Daily Users tiene grain diario. Channels y Pages necesitan Month para responder correctamente al filtro mensual; no se imputa el agregado Jun–Jul.</p><p><strong>Future-ready.</strong> TikTok Ads permanece preparado para meses futuros; TikTok Organic ya está conectado al Data Hub.</p></div>
     </section>
   </main>
 
   <footer class="site-footer"><img src="./assets/morelos-logo.png" alt="" /><span>Marketing Overview · Morelos Data Hub · dashboard de trabajo</span></footer>
   <script src="./js/app-v2.js" defer></script>
   <script src="./js/future-readiness.js" defer></script>
+  <script src="./js/tiktok-er.js" defer></script>
 </body>
 </html>
