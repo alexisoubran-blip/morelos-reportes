@@ -7,35 +7,24 @@
   <base href="/morelos-marketing-dashboard/" />
   <title>Marketing Overview | Supermercados Morelos</title>
   <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./css/v2.css" />
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="Supermercados Morelos">
-      <img src="./assets/morelos-logo.png" alt="Supermercados Morelos" />
-    </a>
+    <a class="brand" href="#top" aria-label="Supermercados Morelos"><img src="./assets/morelos-logo.png" alt="Supermercados Morelos" /></a>
     <nav class="top-nav" aria-label="Secciones">
-      <a href="#overview">Overview</a>
-      <a href="#performance">Performance</a>
-      <a href="#social">Social Media</a>
-      <a href="#analytics">Analytics</a>
-      <a href="#listening">Listening</a>
-      <a href="#offline">Offline</a>
-      <a class="nav-pill" href="#overview">Reporte principal</a>
+      <a href="#overview">Overview</a><a href="#performance">Performance</a><a href="#social">Social Media</a><a href="#analytics">Analytics</a><a href="#listening">Listening</a><a href="#offline">Offline</a><a class="nav-pill" href="#overview">Reporte principal</a>
     </nav>
   </header>
 
   <main id="top" class="page-shell">
     <section class="hero">
       <div>
-        <p class="eyebrow">MARKETING PERFORMANCE · WDM DESDE JUNIO 2026</p>
+        <p class="eyebrow">MARKETING PERFORMANCE · DATA HUB</p>
         <h1>Marketing Overview</h1>
-        <p class="hero-copy">Lectura consolidada de paid media, social, comportamiento digital y Google Reviews. Los módulos sin fuente se mantienen listos para integrar ventas y offline.</p>
+        <p class="hero-copy">Paid media, social y comportamiento digital alimentados exclusivamente por el Morelos Marketing Data Hub. Los módulos sin datos en el Sheet se muestran sin cifras heredadas.</p>
       </div>
-      <div class="hero-badge">
-        <span>COBERTURA ACTUAL</span>
-        <strong>Jun–Jul 2026</strong>
-        <small>WDM inicia 01 Jun 2026</small>
-      </div>
+      <div class="hero-badge"><span>COBERTURA ACTUAL</span><strong>Jun–Jul 2026</strong><small>Fuente única: Data Hub</small></div>
     </section>
 
     <section id="coverage-banner" class="coverage-banner" aria-live="polite"></section>
@@ -43,195 +32,85 @@
     <section class="filters-panel" aria-label="Filtros globales">
       <div class="filter-group period-group">
         <label>Periodo</label>
-        <div class="segmented" id="period-mode">
-          <button type="button" data-mode="week">Semana</button>
-          <button type="button" data-mode="month">Mes</button>
-          <button type="button" data-mode="months" class="active">Meses</button>
-        </div>
+        <div class="segmented" id="period-mode"><button type="button" data-mode="week">Semana</button><button type="button" data-mode="month">Mes</button><button type="button" data-mode="months" class="active">Meses</button></div>
         <div id="period-controls" class="period-controls"></div>
       </div>
-      <div class="filter-group">
-        <label for="campaign-filter">Campaña</label>
-        <select id="campaign-filter"></select>
-      </div>
-      <div class="filter-group">
-        <label for="channel-filter">Canal</label>
-        <select id="channel-filter">
-          <option value="all">Todos</option>
-          <option value="Meta">Meta</option>
-          <option value="Google">Google</option>
-          <option value="TikTok">TikTok</option>
-          <option value="YouTube / CTV">YouTube / CTV</option>
-          <option value="Spotify">Spotify</option>
-        </select>
-      </div>
+      <div class="filter-group"><label for="campaign-filter">Campaña</label><select id="campaign-filter"></select></div>
+      <div class="filter-group"><label for="channel-filter">Canal</label><select id="channel-filter"></select></div>
       <button id="reset-filters" class="reset-btn" type="button">Restablecer</button>
     </section>
 
     <section id="overview" class="report-section">
-      <div class="section-heading">
-        <div><p class="eyebrow">01 · INVERSIÓN Y VENTA</p><h2>Overview</h2></div>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow">01 · INVERSIÓN</p><h2>Overview</h2></div></div>
       <div class="kpi-grid kpi-grid-2">
-        <article class="kpi-card"><span>Inversión real del periodo</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">Cierre SOI conciliado</small></article>
-        <article class="kpi-card"><span>Campañas totales</span><strong id="kpi-campaigns">—</strong><small>Bloques con inversión real</small></article>
+        <article class="kpi-card"><span>Inversión real del periodo</span><strong id="kpi-spend">—</strong><small id="kpi-spend-note">03_PAID_MEDIA</small></article>
+        <article class="kpi-card"><span>Campaign Tags con inversión</span><strong id="kpi-campaigns">—</strong><small>Tags presentes bajo el filtro actual</small></article>
       </div>
-      <div class="overview-grid overview-grid-single">
-        <article class="panel">
-          <div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split de inversión por campaña</h3></div><span class="status-chip">SOI</span></div>
-          <div id="campaign-split" class="rank-list"></div>
-          <p class="micro-note">Fuente: cierre real conciliado de junio y julio.</p>
-        </article>
-      </div>
-      <article class="panel full-panel">
-        <div class="panel-head"><div><span class="panel-kicker">Capital allocation</span><h3>Inversión real por canal</h3></div><span class="status-chip">SOI</span></div>
-        <div id="channel-investment" class="channel-bars"></div>
-      </article>
+      <div class="overview-grid overview-grid-single"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Distribución</span><h3>Split de inversión por Campaign_Tag</h3></div><span class="status-chip">Sheet</span></div><div id="campaign-split" class="rank-list"></div></article></div>
+      <article class="panel full-panel"><div class="panel-head"><div><span class="panel-kicker">Capital allocation</span><h3>Inversión real por canal</h3></div><span class="status-chip">Sheet</span></div><div id="channel-investment" class="channel-bars"></div></article>
     </section>
 
     <section id="performance" class="report-section">
-      <div class="section-heading">
-        <div><p class="eyebrow">02.1 · PERFORMANCE</p><h2>Paid Media</h2></div>
-        <p class="section-note">Meta está agregado para todo el export; Google tiene inversión semanal. El dashboard evita imputar fechas que no existen.</p>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow">02.1 · PERFORMANCE</p><h2>Paid Media</h2></div><p class="section-note">Reach se conserva en el Data Hub, pero no se suma como KPI global por no ser aditivo entre campañas y periodos.</p></div>
       <div class="kpi-grid kpi-grid-4">
-        <article class="kpi-card"><span>Plataformas</span><strong class="text-value">Meta / Google</strong><small>TikTok preparado, sin fuente</small></article>
-        <article class="kpi-card"><span>Inversión</span><strong id="perf-spend">—</strong><small id="perf-spend-note">Cobertura según filtro</small></article>
-        <article class="kpi-card placeholder-card"><span>Reach</span><strong>—</strong><small>No aditivo en export actual</small></article>
-        <article class="kpi-card"><span>Clicks</span><strong id="perf-clicks">—</strong><small>Link clicks de Meta</small></article>
+        <article class="kpi-card"><span>Plataformas</span><strong id="perf-platforms" class="text-value">—</strong><small>Con datos en 03_PAID_MEDIA</small></article>
+        <article class="kpi-card"><span>Inversión</span><strong id="perf-spend">—</strong><small>Amount spent</small></article>
+        <article class="kpi-card"><span>Impressions</span><strong id="perf-impressions">—</strong><small>Métrica aditiva</small></article>
+        <article class="kpi-card"><span>Link Clicks</span><strong id="perf-clicks">—</strong><small>Clicks registrados en fuente</small></article>
       </div>
-      <article class="panel full-panel">
-        <div class="panel-head"><div><span class="panel-kicker">Comparativo</span><h3>Performance por plataforma</h3></div><div class="metric-tabs" id="performance-tabs"><button class="active" data-metric="spend">Inversión</button><button data-metric="impressions">Impresiones</button><button data-metric="clicks">Clicks</button></div></div>
-        <div id="platform-performance" class="platform-grid"></div>
-      </article>
-      <article class="panel full-panel">
-        <div class="panel-head"><div><span class="panel-kicker">Campañas</span><h3>Performance por campaña macro</h3></div></div>
-        <div id="campaign-cards" class="campaign-card-grid"></div>
-      </article>
+      <article class="panel full-panel"><div class="panel-head"><div><span class="panel-kicker">Comparativo</span><h3>Performance por plataforma</h3></div><div class="metric-tabs" id="performance-tabs"><button class="active" data-metric="spend">Inversión</button><button data-metric="impressions">Impresiones</button><button data-metric="clicks">Clicks</button></div></div><div id="platform-performance" class="platform-grid"></div></article>
+      <article class="panel full-panel"><div class="panel-head"><div><span class="panel-kicker">Campaign_Tag</span><h3>Performance por campaña</h3></div></div><div id="campaign-cards" class="campaign-card-grid"></div></article>
     </section>
 
     <section id="social" class="report-section">
       <div class="section-heading">
         <div><p class="eyebrow">02.2 · SOCIAL MEDIA</p><h2>Social Media</h2></div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-width:680px">
-          <p class="section-note">Organic + Boosted consolidado. Facebook sí permite separar amplificación; Instagram llega combinado en el export recibido.</p>
-          <div class="metric-tabs" id="social-platform-tabs" aria-label="Filtrar Social Media por plataforma">
-            <button class="active" data-platform="all">Todas</button>
-            <button data-platform="Facebook">Facebook</button>
-            <button data-platform="Instagram">Instagram</button>
-            <button data-platform="TikTok">TikTok</button>
-          </div>
-        </div>
+        <div class="social-head-actions"><p class="section-note">Posts y métricas provienen de 05_SOCIAL_CONTENT; followers de 04_SOCIAL_ACCOUNTS. Views combinadas usan Views_Rollup para evitar duplicar crossposts.</p><div class="metric-tabs" id="social-platform-tabs" aria-label="Filtrar Social Media por plataforma"></div></div>
       </div>
-      <div class="kpi-grid kpi-grid-5">
-        <article class="kpi-card"><span>Plataforma</span><strong id="social-platforms" class="text-value">Facebook + Instagram</strong><small id="social-platforms-note">TikTok preparado, sin fuente</small></article>
-        <article class="kpi-card"><span>Nuevos seguidores</span><strong id="social-follows">—</strong><small>Follows obtenidos en el periodo</small></article>
-        <article class="kpi-card"><span>Views</span><strong id="social-views">—</strong><small>Lifetime de contenido publicado</small></article>
-        <article class="kpi-card"><span>ER</span><strong id="social-er">—</strong><small>Interacciones / reach de posts</small></article>
-        <article class="kpi-card"><span>Interacciones</span><strong id="social-interactions">—</strong><small>Likes, comments, shares y saves</small></article>
+      <div class="kpi-grid kpi-grid-8 social-kpis">
+        <article class="kpi-card"><span>Nuevos seguidores</span><strong id="social-follows">—</strong><small>No atribuible por campaña</small></article>
+        <article class="kpi-card"><span>Views</span><strong id="social-views">—</strong><small>Rollup deduplicado al combinar redes</small></article>
+        <article class="kpi-card"><span>Posteos</span><strong id="social-posts">—</strong><small>Publicaciones por plataforma</small></article>
+        <article class="kpi-card"><span>Likes</span><strong id="social-likes">—</strong><small>Total en posts filtrados</small></article>
+        <article class="kpi-card"><span>Comments</span><strong id="social-comments">—</strong><small>Total en posts filtrados</small></article>
+        <article class="kpi-card"><span>Shares</span><strong id="social-shares">—</strong><small>Total en posts filtrados</small></article>
+        <article class="kpi-card"><span>Saves</span><strong id="social-saves">—</strong><small>Total en posts filtrados</small></article>
+        <article class="kpi-card"><span>ER</span><strong id="social-er">—</strong><small>Interacciones / suma de reach por post</small></article>
       </div>
-      <article class="panel full-panel">
-        <div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Social Media</h3></div><div class="metric-tabs" id="social-tabs"><button class="active" data-metric="follows">Follows</button><button data-metric="views">Views</button><button data-metric="interactions">Interacciones</button></div></div>
-        <div id="social-chart" class="chart-box"></div>
-      </article>
-      <div class="social-grid">
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Amplificación</span><h3>Boosted consolidado</h3></div></div><div id="boosted-summary"></div></article>
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Contenido</span><h3>Top content</h3></div></div><div id="top-content" class="top-content-list"></div></article>
-      </div>
+      <article class="panel full-panel"><div class="panel-head"><div><span class="panel-kicker">Evolución</span><h3>Social Media</h3></div><div class="metric-tabs" id="social-tabs"><button class="active" data-metric="follows">Follows</button><button data-metric="views">Views</button><button data-metric="interactions">Interacciones</button></div></div><div id="social-chart" class="chart-box"></div></article>
+      <div class="social-grid"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Pilares</span><h3>Mix de contenido</h3></div></div><div id="content-mix" class="rank-list"></div></article><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Contenido</span><h3>Top content</h3></div></div><div id="top-content" class="top-content-list"></div></article></div>
     </section>
 
     <section id="analytics" class="report-section">
-      <div class="section-heading">
-        <div><p class="eyebrow">03 · ANALYTICS</p><h2>Digital Behavior</h2></div>
-        <p class="section-note">GA4 sí tiene series diarias para usuarios activos, views, engagement y eventos.</p>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow">03 · ANALYTICS</p><h2>Digital Behavior</h2></div><p class="section-note">Daily Users sí tiene fecha diaria. Channels y Pages están agregados para Jun–Jul en el Sheet y no se reparten artificialmente.</p></div>
       <div class="kpi-grid kpi-grid-3 analytics-kpis">
         <article class="kpi-card"><span>Usuarios activos</span><strong id="ga-users">—</strong><small>Promedio diario</small></article>
-        <article class="kpi-card"><span>Páginas vistas</span><strong id="ga-views">—</strong><small>Views GA4 en el periodo</small></article>
-        <article class="kpi-card"><span>Eventos / acciones</span><strong id="ga-events">—</strong><small>Event count</small></article>
+        <article class="kpi-card"><span>Páginas vistas</span><strong id="ga-views">—</strong><small>07_GA4_PAGES</small></article>
+        <article class="kpi-card"><span>Eventos / acciones</span><strong id="ga-events">—</strong><small>06_GA4 · Period Channel</small></article>
       </div>
-      <article class="panel full-panel">
-        <div class="panel-head"><div><span class="panel-kicker">Tráfico y comportamiento</span><h3>Actividad digital</h3></div><div class="metric-tabs" id="analytics-tabs"><button class="active" data-metric="active_users">Usuarios activos</button><button data-metric="views">Views</button><button data-metric="event_count">Eventos</button></div></div>
-        <div id="analytics-chart" class="chart-box"></div>
-      </article>
-      <div class="analytics-grid">
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Acquisition</span><h3>Fuentes de tráfico</h3></div><span class="status-chip muted">May–Jul agregado</span></div><div id="traffic-sources" class="rank-list"></div></article>
-        <article class="panel"><div class="panel-head"><div><span class="panel-kicker">Engagement</span><h3>Páginas principales</h3></div><span class="status-chip muted">May–Jul agregado</span></div><div id="top-pages" class="rank-list"></div></article>
-      </div>
+      <article class="panel full-panel"><div class="panel-head"><div><span class="panel-kicker">Tráfico y comportamiento</span><h3>Actividad digital</h3></div><div class="metric-tabs" id="analytics-tabs"><button class="active" data-metric="active_users">Usuarios activos</button><button data-metric="views">Views</button><button data-metric="event_count">Eventos</button></div></div><div id="analytics-chart" class="chart-box"></div></article>
+      <div class="analytics-grid"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Acquisition</span><h3>Fuentes de tráfico</h3></div><span class="status-chip muted">Jun–Jul agregado</span></div><div id="traffic-sources" class="rank-list"></div></article><article class="panel"><div class="panel-head"><div><span class="panel-kicker">Engagement</span><h3>Páginas principales</h3></div><span class="status-chip muted">Jun–Jul agregado</span></div><div id="top-pages" class="rank-list"></div></article></div>
     </section>
 
     <section id="listening" class="report-section">
-      <div class="section-heading">
-        <div><p class="eyebrow">04 · LISTENING</p><h2>Google Reviews</h2></div>
-        <p class="section-note">Resumen ejecutivo del listening. El análisis completo permite filtrar por mercado, rating y nivel de reseñas negativas.</p>
-      </div>
-      <div class="placeholder-module-grid">
-        <article class="panel">
-          <div class="panel-head"><div><span class="panel-kicker">Sentiment</span><h3>3,862 reviews con estrella</h3></div><span class="status-chip">Google</span></div>
-          <div style="display:grid;gap:8px;margin-top:12px">
-            <div class="rank-row"><span class="rank-label">Positivo</span><div class="rank-track"><div class="rank-fill" style="width:83.9%"></div></div><span class="rank-value">83.9%</span></div>
-            <div class="rank-row"><span class="rank-label">Neutral</span><div class="rank-track"><div class="rank-fill" style="width:6.9%;background:#d8a82c"></div></div><span class="rank-value">6.9%</span></div>
-            <div class="rank-row"><span class="rank-label">Negativo</span><div class="rank-track"><div class="rank-fill" style="width:9.2%;background:#cc5146"></div></div><span class="rank-value">9.2%</span></div>
-          </div>
-          <p class="micro-note">Admiral se incorpora aparte: 4.0★ / 24 públicas; 17 comentarios con sentiment textual estimado.</p>
-        </article>
-        <article class="panel">
-          <div class="panel-head"><div><span class="panel-kicker">Comentarios</span><h3>1,778 con texto</h3></div></div>
-          <p style="font-size:12px;color:#6f776f;margin:5px 0 12px">1,761 comentarios del corpus recuperado + 17 comentarios recientes de Admiral.</p>
-          <div class="rank-list">
-            <div class="rank-row"><span class="rank-label">Comida preparada</span><div class="rank-track"><div class="rank-fill" style="width:100%"></div></div><span class="rank-value">411</span></div>
-            <div class="rank-row"><span class="rank-label">Servicio y trato</span><div class="rank-track"><div class="rank-fill" style="width:97%"></div></div><span class="rank-value">399</span></div>
-            <div class="rank-row"><span class="rank-label">Surtido</span><div class="rank-track"><div class="rank-fill" style="width:82%"></div></div><span class="rank-value">337</span></div>
-          </div>
-        </article>
-        <article class="panel">
-          <div class="panel-head"><div><span class="panel-kicker">Nube de sentiment</span><h3>Conceptos dominantes</h3></div></div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0 20px">
-            <strong style="font-size:22px;color:#075d3b">Comida preparada</strong>
-            <strong style="font-size:19px;color:#075d3b">Servicio</strong>
-            <strong style="font-size:17px;color:#075d3b">Surtido</strong>
-            <strong style="font-size:15px;color:#075d3b">Carnicería</strong>
-            <strong style="font-size:14px;color:#075d3b">Frescos</strong>
-            <strong style="font-size:13px;color:#cc5146">Cajas</strong>
-          </div>
-          <a href="/google-reviews" style="display:inline-flex;align-items:center;border:1px solid #bfd9c9;border-radius:999px;padding:9px 13px;color:#075d3b;text-decoration:none;font-size:10px;font-weight:800">Ver análisis completo de Google Reviews ↗</a>
-        </article>
-      </div>
-      <p class="micro-note">Google Reviews usa una fuente y filtros propios; no responde a los filtros de paid media de la parte superior. Corte de listening: 19 agosto 2026.</p>
+      <div class="section-heading"><div><p class="eyebrow">04 · LISTENING</p><h2>Google Reviews</h2></div><p class="section-note">El Data Hub todavía no contiene registros en 08_REVIEWS.</p></div>
+      <article class="panel placeholder-panel"><div class="panel-head"><div><span class="panel-kicker">Data Hub</span><h3>Sin fuente cargada en el Sheet</h3></div><span class="status-chip muted">Pendiente</span></div><div class="empty-state">Se retiraron los números hardcoded de Reviews. Cuando 08_REVIEWS tenga datos, este módulo se alimentará desde la misma fuente que el resto del reporte.</div></article>
     </section>
 
     <section id="offline" class="report-section">
-      <div class="section-heading"><div><p class="eyebrow">05 · OFFLINE</p><h2>Offline Media</h2></div><p class="section-note">Todos los inputs se conservan para la futura integración de radio y TV.</p></div>
-      <div class="kpi-grid kpi-grid-3">
-        <article class="kpi-card placeholder-card"><span>Inversión offline</span><strong>—</strong><small>Sin fuente</small></article>
-        <article class="kpi-card placeholder-card"><span>Radio · estaciones / programas</span><strong>—</strong><small>Radio</small></article>
-        <article class="kpi-card placeholder-card"><span>TV · canales / programas</span><strong>—</strong><small>TV</small></article>
-        <article class="kpi-card placeholder-card"><span>CPS</span><strong>—</strong><small>Sin fuente</small></article>
-        <article class="kpi-card placeholder-card"><span>Reach</span><strong>—</strong><small>Sin fuente</small></article>
-        <article class="kpi-card placeholder-card"><span>Frecuencia</span><strong>—</strong><small>Sin fuente</small></article>
-      </div>
-      <article class="panel full-panel placeholder-panel"><div class="panel-head"><div><span class="panel-kicker">Split de medios offline</span><h3>Radio vs. TV</h3></div></div><div class="ghost-chart"><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+      <div class="section-heading"><div><p class="eyebrow">05 · OFFLINE</p><h2>Offline Media</h2></div><p class="section-note">09_OFFLINE_MEDIA no contiene registros todavía.</p></div>
+      <div class="kpi-grid kpi-grid-3"><article class="kpi-card placeholder-card"><span>Inversión offline</span><strong>—</strong><small>Sin fuente</small></article><article class="kpi-card placeholder-card"><span>Radio</span><strong>—</strong><small>Sin fuente</small></article><article class="kpi-card placeholder-card"><span>TV</span><strong>—</strong><small>Sin fuente</small></article></div>
     </section>
 
-    <section class="insights-section">
-      <div class="section-heading"><div><p class="eyebrow">LECTURA DESCRIPTIVA</p><h2>Insights observados</h2></div><p class="section-note">Generados solo a partir de señales disponibles; no se asume causalidad ni ventas.</p></div>
-      <div id="insights-grid" class="insights-grid"></div>
-    </section>
+    <section class="insights-section"><div class="section-heading"><div><p class="eyebrow">LECTURA DESCRIPTIVA</p><h2>Insights observados</h2></div><p class="section-note">Se generan solo con señales disponibles bajo el filtro actual.</p></div><div id="insights-grid" class="insights-grid"></div></section>
 
     <section class="methodology">
-      <p class="eyebrow">DATA INTEGRITY</p>
-      <h2>Metodología y cobertura</h2>
-      <div class="method-grid">
-        <p><strong>Agency ownership.</strong> WDM se considera responsable a partir del 1 de junio de 2026. Sensis permanece identificado como owner independiente en Paid Media.</p>
-        <p><strong>Meta Ads.</strong> El CSV está agregado del 1 mayo al 31 julio. El dashboard no reparte inversión por semana o mes cuando la fuente no trae ese grain.</p>
-        <p><strong>Social.</strong> Views e interacciones de posts son métricas Lifetime asociadas a contenido publicado dentro del periodo seleccionado; no equivalen a actividad ocurrida exclusivamente en ese periodo.</p>
-        <p><strong>Reach.</strong> No se suma como KPI global porque no es aditivo entre ads, posts o días. Se conserva como dato de contenido para calcular ratios descriptivos.</p>
-        <p><strong>Google Reviews.</strong> El módulo de Listening resume 3,862 reviews con estrella individual en 10 sucursales y 17 comentarios recientes de Admiral. El detalle completo conserva su propia metodología y filtros.</p>
-      </div>
+      <p class="eyebrow">DATA INTEGRITY</p><h2>Metodología y cobertura</h2>
+      <div class="method-grid"><p><strong>Single source of truth.</strong> Paid, Social y Analytics se renderizan desde una exportación del Morelos Marketing Data Hub.</p><p><strong>Campaign_Tag.</strong> El filtro global usa el campo canónico del Sheet; no se infiere una campaña nueva en frontend.</p><p><strong>Reach.</strong> No se muestra como KPI agregado porque no es aditivo entre campañas, posts o periodos.</p><p><strong>Social Views.</strong> Al combinar Facebook + Instagram se usa Views_Rollup para evitar duplicar crossposts que Business Suite reporta con el mismo total.</p><p><strong>GA4.</strong> Sources y Pages están agregados Jun–Jul. Solo Daily Users soporta filtros temporales más granulares con la fuente actual.</p><p><strong>Sin fuente = sin cifra.</strong> Reviews y Offline permanecen vacíos hasta que sus tabs del Data Hub contengan registros.</p></div>
     </section>
   </main>
 
-  <footer class="site-footer"><img src="./assets/morelos-logo.png" alt="" /><span>Marketing Overview · WDM · dashboard de trabajo</span></footer>
-  <script src="./js/app.js" defer></script>
+  <footer class="site-footer"><img src="./assets/morelos-logo.png" alt="" /><span>Marketing Overview · Morelos Data Hub · dashboard de trabajo</span></footer>
+  <script src="./js/app-v2.js" defer></script>
 </body>
 </html>
