@@ -4,7 +4,6 @@
   let rows = [];
   const $ = id => document.getElementById(id);
   const parseDate = s => new Date(`${s}T12:00:00`);
-  const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   const pct = v => Number.isFinite(v) ? `${(v*100).toFixed(2)}%` : '—';
   const integer = v => new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Number(v)||0);
 
@@ -30,59 +29,59 @@
     return document.querySelector('#social-platform-tabs button.active')?.dataset.platform||'all';
   }
 
-  function updateTikTokER(){
+  function updateSocialER(){
     const erEl=$('social-er');
-    if(!erEl)return;
+    if(!erEl||!rows.length)return;
     const note=erEl.closest('.kpi-card')?.querySelector('small');
-    const platform=activePlatform();
-
-    if(platform!=='TikTok'){
-      if(note)note.textContent=platform==='all'
-        ? 'Interacciones / suma de reach por post · TikTok usa Audience ER en su tab'
-        : 'Interacciones / suma de reach por post';
-      return;
-    }
-
-    if(($('campaign-filter')?.value||'all')!=='all'){
-      erEl.textContent='—';
-      if(note)note.textContent='TikTok Audience ER no es atribuible por Campaign_Tag';
-      return;
-    }
-
     const range=activeRange();
-    const filtered=rows.filter(r=>r.platform==='TikTok'&&parseDate(r.date)>=range.start&&parseDate(r.date)<=range.end);
-    const reach=filtered.reduce((s,r)=>s+(Number(r.reach)||0),0);
-    const engaged=filtered.reduce((s,r)=>s+(Number(r.engaged_audience)||0),0);
-    erEl.textContent=reach?pct(engaged/reach):'—';
-    if(note)note.textContent=reach
-      ? `Engaged audience / Reached audience · ${integer(engaged)} / ${integer(reach)}`
-      : 'Sin Reached audience para este periodo';
-    erEl.title=reach?`TikTok Audience Engagement Rate = ${engaged} / ${reach} = ${pct(engaged/reach)}`:'';
+    const platform=activePlatform();
+    const campaign=$('campaign-filter')?.value||'all';
+
+    const filtered=rows.filter(r=>{
+      const d=parseDate(r.date);
+      return d>=range.start&&d<=range.end
+        &&(platform==='all'||r.platform===platform)
+        &&(campaign==='all'||r.campaign_tag===campaign);
+    });
+
+    const interactions=filtered.reduce((s,r)=>s+(Number(r.likes)||0)+(Number(r.comments)||0)+(Number(r.shares)||0)+(Number(r.saves)||0),0);
+    const views=filtered.reduce((s,r)=>s+(platform==='all'?(Number(r.views_rollup)||0):(Number(r.views)||0)),0);
+    const er=views?interactions/views:null;
+
+    erEl.textContent=er==null?'—':pct(er);
+    if(note)note.textContent=views
+      ? `Interacciones / views · ${integer(interactions)} / ${integer(views)}`
+      : 'Interacciones / views';
+    erEl.title=views?`ER = (Likes + Comments + Shares + Saves) / Views = ${interactions} / ${views} = ${pct(er)}`:'';
   }
 
   async function load(){
     try{
-      const res=await fetch('./data/followers-v2.json',{cache:'no-store'});
-      if(!res.ok)throw new Error('followers-v2 unavailable');
-      const data=await res.json();
-      rows=(data.rows||[]).map(a=>Object.fromEntries((data.schema||[]).map((f,i)=>[f,a[i]])));
-      updateTikTokER();
+      const [r1,r2]=await Promise.all([
+        fetch('./data/social-content-1.json',{cache:'no-store'}),
+        fetch('./data/social-content-2.json',{cache:'no-store'})
+      ]);
+      if(!r1.ok||!r2.ok)throw new Error('social content unavailable');
+      const [d1,d2]=await Promise.all([r1.json(),r2.json()]);
+      const hydrate=data=>(data.rows||[]).map(a=>Object.fromEntries((data.schema||[]).map((f,i)=>[f,a[i]])));
+      rows=[...hydrate(d1),...hydrate(d2)];
+      updateSocialER();
     }catch(err){
-      console.error('No se pudo calcular TikTok ER',err);
+      console.error('No se pudo calcular el Social ER estandarizado',err);
     }
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
     load();
     document.addEventListener('click',e=>{
-      if(e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters'))setTimeout(updateTikTokER,0);
+      if(e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters'))setTimeout(updateSocialER,0);
     });
     document.addEventListener('change',e=>{
-      if(e.target.closest?.('#period-controls,#campaign-filter'))setTimeout(updateTikTokER,0);
+      if(e.target.closest?.('#period-controls,#campaign-filter'))setTimeout(updateSocialER,0);
     });
     const tabs=$('social-platform-tabs');
-    if(tabs)new MutationObserver(()=>setTimeout(updateTikTokER,0)).observe(tabs,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+    if(tabs)new MutationObserver(()=>setTimeout(updateSocialER,0)).observe(tabs,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
     const period=$('period-controls');
-    if(period)new MutationObserver(()=>setTimeout(updateTikTokER,0)).observe(period,{childList:true,subtree:true});
+    if(period)new MutationObserver(()=>setTimeout(updateSocialER,0)).observe(period,{childList:true,subtree:true});
   });
 })();
