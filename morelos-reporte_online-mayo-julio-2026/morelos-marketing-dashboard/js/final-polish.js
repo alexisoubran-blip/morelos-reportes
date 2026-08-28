@@ -39,13 +39,15 @@
     if (paidPanel) {
       const h = paidPanel.querySelector('h3');
       const chip = paidPanel.querySelector('.status-chip');
-      if (h) h.textContent = 'Split de inversión Paid';
-      if (chip) chip.textContent = 'Paid';
+      if (h) h.textContent = 'Split de inversión Digital Media';
+      if (chip) chip.textContent = 'Digital';
     }
     const combined = document.getElementById('marketing-allocation-panel');
     if (combined) {
       const h = combined.querySelector('h3');
-      if (h) h.textContent = 'Paid + Offline';
+      const chip = combined.querySelector('.status-chip');
+      if (h) h.textContent = 'Digital + Offline';
+      if (chip) chip.textContent = 'Digital + Offline';
     }
     const redundant = document.getElementById('channel-investment')?.closest('.panel');
     if (redundant) redundant.classList.add('redundant-channel-panel');
