@@ -99,3 +99,11 @@
   script.dataset.finalPolish = 'true';
   document.head.appendChild(script);
 })();
+
+(() => {
+  if (document.querySelector('script[data-social-audit-ui]')) return;
+  const script = document.createElement('script');
+  script.src = './js/social-audit-ui.js';
+  script.dataset.socialAuditUi = 'true';
+  document.head.appendChild(script);
+})();
