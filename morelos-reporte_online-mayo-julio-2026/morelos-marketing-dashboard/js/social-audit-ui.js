@@ -2,6 +2,7 @@
   'use strict';
 
   let rows = [];
+  let booted = false;
   const $ = id => document.getElementById(id);
   const parseDate = s => new Date(`${s}T12:00:00`);
   const compact = v => {
@@ -57,7 +58,7 @@
     if (note) note.textContent = platform === 'all'
       ? `Crossposts deduplicados · ${compact(raw)} views reportadas por plataforma`
       : `Views reportadas por ${platform}`;
-    card.title = platform === 'all'
+    if (card) card.title = platform === 'all'
       ? `Views únicas para el rollup: ${integer(dedup)}. La suma bruta por plataforma es ${integer(raw)}; la diferencia corresponde principalmente a crossposts reportados en más de una red.`
       : `${integer(raw)} views reportadas por ${platform} bajo el filtro actual.`;
   }
@@ -78,7 +79,9 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function boot() {
+    if (booted) return;
+    booted = true;
     load();
     document.addEventListener('click', e => {
       if (e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters')) setTimeout(updateViewsContext, 60);
@@ -88,5 +91,8 @@
     });
     const tabs = $('social-platform-tabs');
     if (tabs) new MutationObserver(() => setTimeout(updateViewsContext, 50)).observe(tabs, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
-  });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+  else boot();
 })();
