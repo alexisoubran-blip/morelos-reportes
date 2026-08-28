@@ -63,6 +63,14 @@
       if(h&&h.textContent!=='Split de inversión Digital Media') h.textContent='Split de inversión Digital Media';
       if(chip&&chip.textContent!=='Digital') chip.textContent='Digital';
     }
+
+    const combined=$('marketing-allocation-panel');
+    if(combined){
+      const h=combined.querySelector('h3');
+      const chip=combined.querySelector('.status-chip');
+      if(h&&h.textContent!=='Digital + Offline') h.textContent='Digital + Offline';
+      if(chip&&chip.textContent!=='Digital + Offline') chip.textContent='Digital + Offline';
+    }
   }
 
   function renderOfflineOverviewSplit(){
