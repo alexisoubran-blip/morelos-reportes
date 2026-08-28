@@ -138,6 +138,7 @@
   }
 
   function patchAnalyticsEmptyState(){
+    if(window.__MORELOS_GA4_DAILY__) return;
     const traffic=$('traffic-sources')?.querySelector('.empty-state');
     const pages=$('top-pages')?.querySelector('.empty-state');
     const trafficText='Detalle mensual disponible al cargar Traffic Acquisition por fecha.';
@@ -191,4 +192,13 @@
     document.addEventListener('click',e=>{if(e.target.closest?.('#period-mode button,#reset-filters'))queue(100);});
     setTimeout(()=>queue(0),700);
   });
+})();
+
+(() => {
+  if (document.querySelector('script[data-ga4-daily]')) return;
+  const script=document.createElement('script');
+  script.src='./js/analytics-daily.js';
+  script.defer=true;
+  script.dataset.ga4Daily='true';
+  document.head.appendChild(script);
 })();
