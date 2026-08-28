@@ -35,6 +35,16 @@
     return document.querySelector('#social-platform-tabs button.active')?.dataset.platform || 'all';
   }
 
+  function patchStaticCopy() {
+    const sectionNote = document.querySelector('#social .section-note');
+    if (sectionNote) sectionNote.textContent = 'Posts y métricas provienen de 05_SOCIAL_CONTENT; followers de 04_SOCIAL_ACCOUNTS. Views y Engagement Rate usan la misma lógica aditiva en Facebook, Instagram y TikTok.';
+    document.querySelectorAll('.methodology .method-grid p').forEach(p => {
+      const text = p.textContent || '';
+      if (text.startsWith('Social Views.')) p.innerHTML = '<strong>Social Views.</strong> El total suma directamente las views reportadas por Facebook + Instagram + TikTok. La misma regla aplica por semana, mes, campaña y plataforma.';
+      if (text.startsWith('Social ER.')) p.innerHTML = '<strong>Social ER.</strong> Fórmula estandarizada: (Likes + Comments + Shares + Saves) / suma de Views reportadas por las plataformas bajo el mismo filtro.';
+    });
+  }
+
   function updateViewsContext() {
     const viewsEl = $('social-views');
     if (!viewsEl || !rows.length) return;
@@ -55,11 +65,12 @@
     viewsEl.textContent = compact(views);
     if (label) label.textContent = 'Views';
     if (note) note.textContent = platform === 'all'
-      ? 'Suma de views reportadas por Facebook + Instagram + TikTok'
+      ? 'Facebook + Instagram + TikTok'
       : `Views reportadas por ${platform}`;
     if (card) card.title = platform === 'all'
       ? `Total = suma directa de las views reportadas por cada plataforma bajo el filtro actual: ${integer(views)}.`
       : `${integer(views)} views reportadas por ${platform} bajo el filtro actual.`;
+    patchStaticCopy();
   }
 
   async function load() {
@@ -81,6 +92,7 @@
   function boot() {
     if (booted) return;
     booted = true;
+    patchStaticCopy();
     load();
     document.addEventListener('click', e => {
       if (e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters')) setTimeout(updateViewsContext, 80);
