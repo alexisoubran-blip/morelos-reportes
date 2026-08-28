@@ -49,7 +49,7 @@
       (Number(r.comments) || 0) +
       (Number(r.shares) || 0) +
       (Number(r.saves) || 0), 0);
-    const views = filtered.reduce((s, r) => s + Number(platform === 'all' ? (r.views_rollup || 0) : (r.views || 0)), 0);
+    const views = filtered.reduce((s, r) => s + (Number(r.views) || 0), 0);
     const er = views ? interactions / views : null;
 
     erEl.textContent = er == null ? '—' : pct(er);
@@ -71,7 +71,7 @@
       const [a, b] = await Promise.all([r1.json(), r2.json()]);
       const hydrate = (data) => (data.rows || []).map(row => Object.fromEntries((data.schema || []).map((f, i) => [f, row[i]])));
       rows = [...hydrate(a), ...hydrate(b)];
-      setTimeout(updateER, 80);
+      setTimeout(updateER, 100);
     } catch (err) {
       console.error('No se pudo calcular el ER social estandarizado', err);
     }
@@ -80,15 +80,15 @@
   document.addEventListener('DOMContentLoaded', () => {
     load();
     document.addEventListener('click', e => {
-      if (e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters')) setTimeout(updateER, 40);
+      if (e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters')) setTimeout(updateER, 100);
     });
     document.addEventListener('change', e => {
-      if (e.target.closest?.('#period-controls,#campaign-filter')) setTimeout(updateER, 40);
+      if (e.target.closest?.('#period-controls,#campaign-filter')) setTimeout(updateER, 100);
     });
     const tabs = $('social-platform-tabs');
-    if (tabs) new MutationObserver(() => setTimeout(updateER, 40)).observe(tabs, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+    if (tabs) new MutationObserver(() => setTimeout(updateER, 80)).observe(tabs, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     const period = $('period-controls');
-    if (period) new MutationObserver(() => setTimeout(updateER, 40)).observe(period, { childList: true, subtree: true });
+    if (period) new MutationObserver(() => setTimeout(updateER, 80)).observe(period, { childList: true, subtree: true });
   });
 })();
 
