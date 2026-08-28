@@ -51,16 +51,15 @@
         (campaign === 'all' || r.campaign_tag === campaign);
     });
 
-    const raw = filtered.reduce((s, r) => s + (Number(r.views) || 0), 0);
-    const dedup = filtered.reduce((s, r) => s + Number(platform === 'all' ? (r.views_rollup || 0) : (r.views || 0)), 0);
-
-    if (label) label.textContent = platform === 'all' ? 'Views deduplicadas' : 'Views';
+    const views = filtered.reduce((s, r) => s + (Number(r.views) || 0), 0);
+    viewsEl.textContent = compact(views);
+    if (label) label.textContent = 'Views';
     if (note) note.textContent = platform === 'all'
-      ? `Crossposts deduplicados · ${compact(raw)} views reportadas por plataforma`
+      ? 'Suma de views reportadas por Facebook + Instagram + TikTok'
       : `Views reportadas por ${platform}`;
     if (card) card.title = platform === 'all'
-      ? `Views únicas para el rollup: ${integer(dedup)}. La suma bruta por plataforma es ${integer(raw)}; la diferencia corresponde principalmente a crossposts reportados en más de una red.`
-      : `${integer(raw)} views reportadas por ${platform} bajo el filtro actual.`;
+      ? `Total = suma directa de las views reportadas por cada plataforma bajo el filtro actual: ${integer(views)}.`
+      : `${integer(views)} views reportadas por ${platform} bajo el filtro actual.`;
   }
 
   async function load() {
@@ -84,13 +83,13 @@
     booted = true;
     load();
     document.addEventListener('click', e => {
-      if (e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters')) setTimeout(updateViewsContext, 60);
+      if (e.target.closest?.('#social-platform-tabs button,#period-mode button,#reset-filters')) setTimeout(updateViewsContext, 80);
     });
     document.addEventListener('change', e => {
-      if (e.target.closest?.('#period-controls,#campaign-filter')) setTimeout(updateViewsContext, 60);
+      if (e.target.closest?.('#period-controls,#campaign-filter')) setTimeout(updateViewsContext, 80);
     });
     const tabs = $('social-platform-tabs');
-    if (tabs) new MutationObserver(() => setTimeout(updateViewsContext, 50)).observe(tabs, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+    if (tabs) new MutationObserver(() => setTimeout(updateViewsContext, 70)).observe(tabs, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
