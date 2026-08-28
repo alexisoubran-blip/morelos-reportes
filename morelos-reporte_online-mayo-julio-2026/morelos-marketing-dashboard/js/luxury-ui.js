@@ -10,8 +10,8 @@
     if (paidPanel){
       const h = paidPanel.querySelector('h3');
       const chip = paidPanel.querySelector('.status-chip');
-      if (h && h.textContent !== 'Split de inversión Paid') h.textContent = 'Split de inversión Paid';
-      if (chip && chip.textContent !== 'Paid') chip.textContent = 'Paid';
+      if (h && h.textContent !== 'Split de inversión Digital Media') h.textContent = 'Split de inversión Digital Media';
+      if (chip && chip.textContent !== 'Digital') chip.textContent = 'Digital';
     }
     const combined = $('marketing-allocation-panel');
     if (combined){
@@ -73,6 +73,7 @@
   function markPrimaryPanels(){
     $('campaign-split')?.closest('.panel')?.classList.add('lux-primary-panel');
     $('marketing-allocation-panel')?.classList.add('lux-primary-panel');
+    $('offline-allocation-panel')?.classList.add('lux-primary-panel');
     $('platform-performance')?.closest('.panel')?.classList.add('lux-platform-panel');
     $('social-chart')?.closest('.panel')?.classList.add('lux-chart-panel');
     $('analytics-chart')?.closest('.panel')?.classList.add('lux-chart-panel');
