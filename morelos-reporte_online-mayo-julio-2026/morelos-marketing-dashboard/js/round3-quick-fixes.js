@@ -146,12 +146,21 @@
     if(pages&&pages.textContent!==pagesText) pages.textContent=pagesText;
   }
 
+  function patchAnalyticsTabs(){
+    const tabs=$('analytics-tabs');
+    if(!tabs) return;
+    tabs.querySelectorAll('button[data-metric="views"],button[data-metric="event_count"]').forEach(btn=>btn.remove());
+    const active=tabs.querySelector('button[data-metric="active_users"]');
+    if(active&&!active.classList.contains('active')) active.classList.add('active');
+  }
+
   function patch(){
     queued=false;
     patchDigitalNaming();
     renderOfflineOverviewSplit();
     patchReviewStoreNames();
     patchAnalyticsEmptyState();
+    patchAnalyticsTabs();
   }
 
   function queue(delay=0){
