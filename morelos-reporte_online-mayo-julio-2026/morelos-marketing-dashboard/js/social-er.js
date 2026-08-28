@@ -93,7 +93,7 @@
 })();
 
 (() => {
-  if (document.querySelector('script[data-final-polish]')) return;
+  if (document.querySelector('script[src$="/final-polish.js"],script[src="./js/final-polish.js"]')) return;
   const script = document.createElement('script');
   script.src = './js/final-polish.js';
   script.dataset.finalPolish = 'true';
@@ -101,7 +101,7 @@
 })();
 
 (() => {
-  if (document.querySelector('script[data-social-audit-ui]')) return;
+  if (document.querySelector('script[src$="/social-audit-ui.js"],script[src="./js/social-audit-ui.js"]')) return;
   const script = document.createElement('script');
   script.src = './js/social-audit-ui.js';
   script.dataset.socialAuditUi = 'true';
