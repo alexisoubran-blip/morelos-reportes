@@ -70,6 +70,7 @@
       const res=await fetch('./data/analytics-filtered-v2.json',{cache:'no-store'});
       if(!res.ok)throw new Error('analytics-filtered-v2 unavailable');
       DATA=await res.json();
+      window.__MORELOS_GA4_DAILY__=true;
       queue(20);
       document.addEventListener('change',e=>{if(e.target.closest?.('#period-controls,#campaign-filter,#channel-filter'))queue(120)});
       document.addEventListener('click',e=>{if(e.target.closest?.('#period-mode button,#reset-filters'))queue(140)});
