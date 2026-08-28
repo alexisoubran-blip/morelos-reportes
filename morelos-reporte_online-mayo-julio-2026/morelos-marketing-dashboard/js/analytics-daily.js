@@ -74,8 +74,6 @@
       queue(20);
       document.addEventListener('change',e=>{if(e.target.closest?.('#period-controls,#campaign-filter,#channel-filter'))queue(120)});
       document.addEventListener('click',e=>{if(e.target.closest?.('#period-mode button,#reset-filters'))queue(140)});
-      const analytics=$('analytics');
-      if(analytics)new MutationObserver(()=>queue(40)).observe(analytics,{childList:true,subtree:true});
       setTimeout(()=>queue(0),700);
     }catch(err){console.error('No se pudo cargar GA4 diario para Analytics',err)}
   }
