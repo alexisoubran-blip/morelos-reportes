@@ -16,7 +16,9 @@
     const combined = $('marketing-allocation-panel');
     if (combined){
       const h = combined.querySelector('h3');
-      if (h && h.textContent !== 'Paid + Offline') h.textContent = 'Paid + Offline';
+      const chip = combined.querySelector('.status-chip');
+      if (h && h.textContent !== 'Digital + Offline') h.textContent = 'Digital + Offline';
+      if (chip && chip.textContent !== 'Digital + Offline') chip.textContent = 'Digital + Offline';
       combined.classList.add('combined-allocation');
     }
     const redundant = $('channel-investment')?.closest('.panel');
