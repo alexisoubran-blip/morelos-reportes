@@ -1,1 +1,114 @@
-{"branch":"Admiral","source":"Comments supplied by client from Google Maps contributor reviews on 2026-08-19","public_rating":4.0,"public_rating_count":24,"sentiment_textual_estimate":{"total_comments":17,"positive_n":10,"mixed_n":2,"negative_n":5,"positive_pct":0.5882352941176471,"mixed_pct":0.11764705882352941,"negative_pct":0.29411764705882354},"positive":[{"date":"2 months ago","reviewer":"yoselin cruz","text":"Clean, not very busy, good service, well stocked; notes the surrounding area as a drawback unrelated to the establishment.","url":"https://www.google.com/maps/contrib/102291598775117210695/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"3 months ago","reviewer":"Joshua S","text":"Awesome deli and meat options.","url":"https://www.google.com/maps/contrib/103353384511787095173/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"4 months ago","reviewer":"PRECILLA REXACH","text":"First visit: loved the store, describes it as very clean, well stocked and lively.","url":"https://www.google.com/maps/contrib/115334002790698769073/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"4 months ago","reviewer":"Christopher","text":"Highlights the produce selection in Tulsa and the scale of the butcher shop.","url":"https://www.google.com/maps/contrib/102735302035178234329/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"4 months ago","reviewer":"Kevin Rodríguez","text":"Everything fresh.","url":"https://www.google.com/maps/contrib/107179288821577770576/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"5 months ago","reviewer":"Believeme","text":"Praises the meat-market team as kind, patient and helpful despite a language barrier; says they would return.","url":"https://www.google.com/maps/contrib/100210179244758190245/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"5 months ago","reviewer":"Shanna Mandrell Mandrell","text":"Very positive about staff, variety of Mexican food, freshness and taste.","url":"https://www.google.com/maps/contrib/108570193354426982231/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"5 months ago","reviewer":"E L","text":"Fresh food and the tamales are amazing.","url":"https://www.google.com/maps/contrib/102027146560348511689/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"6 months ago","reviewer":"Perun 1","text":"Excellent fruit selection.","url":"https://www.google.com/maps/contrib/103306114588733588119/reviews?hl=en-GB","ratingLabel":"Textual positive"},{"date":"6 months ago","reviewer":"David vazquez","text":"Recommends beef with red chili and barbecue.","url":"https://www.google.com/maps/contrib/111222412356195989966/reviews?hl=en-GB","ratingLabel":"Textual positive"}],"mixed":[{"date":"4 months ago","reviewer":"Kay S","text":"Describes the supermarket as clean, though smaller than expected.","url":"https://www.google.com/maps/contrib/115485519863475768524/reviews?hl=en-GB","ratingLabel":"Textual mixed"},{"date":"6 months ago","reviewer":"Shady Lane","text":"Likes the store overall but reports a negative experience with one staff member at the hot-food counter.","url":"https://www.google.com/maps/contrib/116988278595529806623/reviews?hl=en-GB","ratingLabel":"Textual mixed"}],"negative":[{"date":"3 weeks ago","reviewer":"Rosario Solis","text":"Reports poor service and says the bathrooms are closed and require asking for a key.","url":"https://www.google.com/maps/contrib/111507818298456596241/reviews?hl=en-GB","ratingLabel":"Textual negative"},{"date":"a month ago","reviewer":"Christian Lira","text":"Says quality has dropped recently and reports repeated problems with fresh fruits and vegetables.","url":"https://www.google.com/maps/contrib/114630849335926075410/reviews?hl=en-GB","ratingLabel":"Textual negative"},{"date":"2 months ago","reviewer":"Brookee Miller","text":"Criticizes customer service in the meat department after waiting while another customer was helped first.","url":"https://www.google.com/maps/contrib/106952536729092493121/reviews?hl=en-GB","ratingLabel":"Textual negative"},{"date":"3 months ago","reviewer":"Robert Delk","text":"Leaves a negative review directed at store management after an issue involving access to the locked restroom.","url":"https://www.google.com/maps/contrib/107265068900301702749/reviews?hl=en-GB","ratingLabel":"Textual negative"},{"date":"4 months ago","reviewer":"Maria Carrizales","text":"First visit: describes rude service at the meat counter when asking how the queue worked.","url":"https://www.google.com/maps/contrib/100188905071509899647/reviews?hl=en-GB","ratingLabel":"Textual negative"}],"methodology_note":"The 4.0 public rating and 24 public rating count are separate Google aggregate metrics. Textual sentiment is estimated from the content of the 17 supplied comments because individual star ratings were not supplied."}
+{
+  "branch": "Admiral",
+  "positive": [
+    {
+      "date": "2026-06-06",
+      "stars": 4,
+      "reviewer": "yoselin cruz",
+      "text": "Limpio, poco transitado, buena atención, bien surtido, el único detalle es la zona con mucho indigente alrededor, pero es ajeno al establecimiento.",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tJNVEzcFBha05xVDJKdFFqbHJSMmRVVUdwVGEyYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOkI5Q3pPakNqT2JtQjlrR2dUUGpTa2c%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-04-27",
+      "stars": 5,
+      "reviewer": "Joshua S",
+      "text": "Awesome deli and meat options",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT201UVF6bExZblJJWW1oeVRHMDBNMHhEUTNBeGMyYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOm5QQzlLYnRIYmhyTG00M0xDQ3Axc2c%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-04-14",
+      "stars": 5,
+      "reviewer": "Christopher",
+      "text": "They have the best selection of produce in Tulsa, not to mention the butcher shop is bigger than any grocery store around.",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT20xYVdHOXVNa0pLTWtsYVRUWk9PRkJhVEZGemNYYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOm1aWG9uMkJKMklaTTZOOFBaTFFzcXc%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-04-13",
+      "stars": 4,
+      "reviewer": "Kay S",
+      "text": "The supermarket is clean, but smaller than I expected.",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2psemR6QnJOazVEZUV0VFNYRTRhV3A2UVcxclpVRRAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOjlzdzBrNk5DeEtTSXE4aWp6QW1rZUE%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-03-24",
+      "stars": 5,
+      "reviewer": "PRECILLA REXACH",
+      "text": "For the first time I’ve been in the store and I loved it. Everything very clean the shelves very stocked and the music wild that you can go and  dance there while you shopping. lol",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tOTU0xODRWREEzTkdwQmRsaE1TV2d6VUdaZlNuYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOkNMM184VDA3NGpBdlhMSWgzUGZfSnc%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-03-22",
+      "stars": 5,
+      "reviewer": "Kevin Rodríguez",
+      "text": "Todo fresco",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT205TlZVTkRWVVYzYm1aMFNHWjVjakpwWlV0a00zYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOm9NVUNDVUV3bmZ0SGZ5cjJpZUtkM3c%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-02-25",
+      "stars": 5,
+      "reviewer": "Believeme",
+      "text": "The guys in the meat market area are very kind and friendly. I don’t speak Spanish, but they were very patient and helped me choose what I needed. Great customer service! I will definitely visit again. Nice place",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xkVGRVTjJPR3R3ZDJWa2JHSTFUUzFyYTNGek1FRRAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOldTdUN2OGtwd2VkbGI1TS1ra3FzMEE%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-02-24",
+      "stars": 5,
+      "reviewer": "E L",
+      "text": "Fresh food and the tamales are amazing!",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xCU2MxcGZSR2RQVmpac2FWUm5WMjlSTW1KUFFYYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOlBSc1pfRGdPVjZsaVRnV29RMmJPQXc%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-02-22",
+      "stars": 5,
+      "reviewer": "Shanna Mandrell Mandrell",
+      "text": "I absolutely love this store!\nThe people are so nice and this store offers the largest variety of Mexican food, that is always fresh and delicious!\nThe place is so clean and the shelves are always stocked!\nThank you for a great shopping experience!",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25GaVRsOXdUV3B2UjB0cU1XOW1iV1pKVEdwWlEwRRAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOnFiTl9wTWpvR0tqMW9mbWZJTGpZQ0E%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-02-16",
+      "stars": 5,
+      "reviewer": "Shady Lane",
+      "text": "I like the store and all but one member of staff.\n\nMy second time at the hot food counter I'm looking at the food and order boars trying to see whats already made and whats not ready yet. Tamales are already out in the steel trays so when the lady pushes me to order I go ahead and say siete for tamales. She goes \"quesadilla\" I say \"tamales!\" She looks mad annoyed and starts unwrapping the plastic around the tamales like theyre dirty then takes them in the back to microwave.\n\nShe asks if I want condiments I say yes, I say guacamole and she grabs a spoon from the shelf dips it in the guacamole then hands me a codniment cup and a spoon covered all the way in guacamole. Im not wearing gloves so I'm not sure what to do with the excess guac, shes visinly mad the cups too full and wraps it in aluminum foil and shoves it into the refried beans.\n\nThe rest of the store is great but this lady is already pissed off and hates her job/customerz/being asked anything. Shes also short with other employees that ask her questions.\n\nGood store one very bad employee",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21ZME9GQndXa2RJYjNGQ2VFMUdjblJ4WXpocldrRRAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOmY0OFBwWkdIb3FCeE1GcnRxYzhrWkE%7C%7C?hl=en"
+    }
+  ],
+  "mixed": [
+    {
+      "date": "2026-08-22",
+      "stars": 3,
+      "reviewer": "Zuleima Dominguez",
+      "text": "Giving it a 3 star because they don’t have the Morelos snacks like the other stores 😐",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2s1TFpXNVVWRXcwYzJScFJITmlaRlJSUVVGS1JsRRAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOk5LZW5UVEw0c2RpRHNiZFRRQUFKRlE%7C%7C?hl=en"
+    }
+  ],
+  "negative": [
+    {
+      "date": "2026-08-28",
+      "stars": 1,
+      "reviewer": "Juan carlos Lara",
+      "text": "La verdad está mal la Morelos compré un pollo asado y el pollo no estaba bien cocinado me tocó botarlo",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25oclQwZDZaUzAzVkhCc1pEaFBiR2xmYVcxclJrRRAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOnhrT0d6ZS03VHBsZDhPbGlfaW1rRkE%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-06-29",
+      "stars": 2,
+      "reviewer": "Christian Lira",
+      "text": "I very much like the fact that is close to home, when they first open I was excited and everything was great, however here lately now the quality has drop. Most of fresh Fruits and vegetables are bad! Everytime I go it always the same old gone bad, same with some of the meats, I went to buy chicken and chicken was gone dry and looked is been sitting there for weeks. I’m definitely gonna have to change where I shop, even if I have to drive further. I don’t like it anymore",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT210NmQwTlFSbEp6VVhjNVNYcGZjMVZSTUd0Uk5XYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOmt6d0NQRlJzUXc5SXpfc1VRMGtRNWc%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-05-17",
+      "stars": 1,
+      "reviewer": "Robert Delk",
+      "text": "This is a bad review for the manager I went grocery shopping at this location on admiral  and wanted to use the bathroom 🚻  I went and found out  doors are locked  I went to ask for the key  when I went in there I was surprised to see a really  nasty toilet and there was no toilet  paper  I really am surprised because this is a new location and already being Goin down like that this is a really bad restroom",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pObVNXdDRXVFZVVVVKQ1YzQlRORXBoYlRacloyYxAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOjNmSWt4WTVUUUJCV3BTNEphbTZrZ2c%7C%7C?hl=en"
+    },
+    {
+      "date": "2026-04-05",
+      "stars": 1,
+      "reviewer": "Maria Carrizales",
+      "text": "Mi primera vez que fui y muy mal servicio donde pides la carne solo pregunte si tenia que agarrar numero porque no habia o como t atendian y una señora de las que atienden contesto muy mal si no estan agusto con su trabajo que se busquen otro porque estan trabajando para atender al cliente o enseñarles como atender muy mal servicio en esa area",
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21kcVNXeHJWSEZJYkVJdE1uWXpTRWc1V0ZSMk1GRRAB!2m1!1s0x0:0xf63f6430f6206ddf!3m1!1s2@1:CAIQACodChtycF9oOmdqSWxrVHFIbEItMnYzSEg5WFR2MFE%7C%7C?hl=en"
+    }
+  ]
+}

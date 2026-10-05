@@ -114,3 +114,15 @@ El script regenera:
     ├── build_data.py
     └── build_social_data.py
 ```
+
+## Actualizar Google Reviews
+
+Desde la raíz del repositorio:
+
+```bash
+python scripts/build_google_reviews.py /ruta/export-apify.json
+```
+
+Acepta varios exports y conserva la extracción más reciente para cada combinación de placeId y reviewId. Valida las 11 fichas conocidas y las estrellas individuales. Regenera summary.json, listening-mini.json y los 10 comentarios con texto más recientes por grupo de estrellas y sucursal (positivos, neutrales, negativos). El export original permanece fuera del repositorio y fuera de la web; summary.json guarda su nombre, SHA-256 y fecha de extracción.
+
+La ruta pública `/google-reviews` carga `/google-reviews-v5/index.html`. Al cambiar la base, actualiza el corte y las versiones de caché en index.html y app.js. Los temas se calculan con reglas bilingües visibles en el script; su polaridad usa las estrellas de toda la reseña. No comparar esos temas con cortes procesados con reglas distintas como si fueran una serie homogénea.
